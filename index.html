@@ -82,7 +82,13 @@
   .brand{display:flex; align-items:center; gap:12px; color:var(--star);}
   .brand svg{width:34px;height:34px;flex:none;}
   .brand-text{font-family:'Fraunces',serif; font-size:1.05rem; letter-spacing:.03em; line-height:1.1;}
-  .brand-text span{display:block; font-family:'IBM Plex Mono',monospace; font-size:.6rem; letter-spacing:.16em; color:var(--gold); margin-top:2px;}
+  
+  /* Single line styling for company name */
+  .brand-text span{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:.56rem; 
+    letter-spacing:.12em; color:var(--gold); margin-top:2px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
   .nav-links{display:flex; gap:28px; align-items:center;}
   .nav-links a{
     color:var(--dim); font-size:.86rem; font-weight:500; letter-spacing:.02em;
@@ -105,8 +111,7 @@
     font-size:0.7rem; font-weight:500; cursor:pointer; padding:2px 4px; transition:0.3s;
   }
   .lang-btn:hover { color:var(--star); }
-  .lang-btn.active { color:var(--gold-bright); font-weight:600; }
-
+  .lang-btn.active { color:var(--gold-bright); }
   .nav-cta{
     border:1px solid var(--gold); color:var(--gold-bright) !important; padding:9px 18px !important;
     font-size:.78rem !important; letter-spacing:.06em;
@@ -122,7 +127,6 @@
   }
   .mobile-panel.open{opacity:1; pointer-events:auto;}
   .mobile-panel a{color:var(--star); font-family:'Fraunces',serif; font-size:1.6rem;}
-  .mobile-panel .mobile-lang { margin-top:20px; }
 
   /* ---------- hero ---------- */
   .hero{
@@ -269,10 +273,10 @@
     background:radial-gradient(ellipse 90% 70% at 50% 110%, #1C2760 0%, var(--midnight) 60%, #070A1E 100%);
     color:var(--star);
   }
-  .contacto-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:70px; align-items:end;}
+  .contacto-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:start;}
   .contacto h2{font-size:clamp(2rem, 4vw, 3.1rem); font-weight:400; max-width:600px;}
   .contacto p.desc{margin-top:22px; color:var(--dim); font-size:1.06rem; line-height:1.7; max-width:520px;}
-  .contact-list{display:flex; flex-direction:column; gap:22px;}
+  .contact-list{display:flex; flex-direction:column; gap:22px; margin-top:34px;}
   .contact-row{
     display:flex; flex-direction:column; gap:4px; border-bottom:1px solid rgba(212,175,106,.2); padding-bottom:18px;
   }
@@ -367,7 +371,7 @@
   <div class="wrap hero-inner">
     <div class="eyebrow">
       <span class="line"></span>
-      <span class="label" id="hero-eyebrow">Consultores en Transformación Digital e Inteligencia Artificial</span>
+      <span class="label" id="hero-eyebrow">Consultores en Transformación Digital e IA</span>
     </div>
     <h1 class="hero-title" id="hero-title">Evolución operativa a través de la <em>Inteligencia&nbsp;Artificial</em> y la arquitectura de procesos.</h1>
     <p class="hero-sub" id="hero-sub">Diseñamos, optimizamos y automatizamos modelos operativos globales para que tu organización estandarice, mida y controle operaciones complejas con total gobernanza.</p>
@@ -432,15 +436,15 @@
         </g>
         <g class="const-node" data-node="1">
           <circle class="dot" cx="380" cy="70" r="6"></circle>
-          <text x="380" y="48" text-anchor="middle" id="node-txt-1">02 · DATOS</text>
+          <text x="380" y="48" text-anchor="middle" id="node-txt-1">02 · DADOS</text>
         </g>
         <g class="const-node" data-node="2">
           <circle class="dot" cx="110" cy="290" r="6"></circle>
-          <text x="110" y="316" text-anchor="middle" id="node-txt-2">03 · ADOPCIÓN</text>
+          <text x="110" y="316" text-anchor="middle" id="node-txt-2">03 · ADOÇÃO</text>
         </g>
         <g class="const-node" data-node="3">
           <circle class="dot" cx="380" cy="290" r="6"></circle>
-          <text x="380" y="316" text-anchor="middle" id="node-txt-3">04 · GOBERNANZA</text>
+          <text x="380" y="316" text-anchor="middle" id="node-txt-3">04 · GOVERNANÇA</text>
         </g>
         <circle cx="250" cy="180" r="3" fill="var(--gold)"/>
         <text x="250" y="205" text-anchor="middle" fill="var(--gold-bright)" style="font-size:10px; letter-spacing:.1em;">OBERON</text>
@@ -517,7 +521,7 @@
         </button>
         <div class="acc-body">
           <div class="acc-body-inner">
-            <p class="enfoque" id="srv-p-4">Blindamos la estructura de tu negocio fusionando el rigor de la metodología Lean 6 Sigma con sistemas modernos de monitoreo inteligente. Diseñamos modelos de gobernanza automatizados pensados para soportar el crecimiento acelerado, la expansion internacional y la delegación con total control, consistencia y transparencia.</p>
+            <p class="enfoque" id="srv-p-4">Blindamos la estructura de tu negocio fusionando el rigor de la metodología Lean 6 Sigma con sistemas modernos de monitoreo inteligente. Diseñamos models de gobernanza automatizados pensados para soportar el crecimiento acelerado, la expansion internacional y la delegación con total control, consistencia y transparencia.</p>
             <span class="sol-label" id="srv-sol-lbl-4">Soluciones clave</span>
             <ul id="srv-ul-4">
               </ul>
@@ -536,23 +540,26 @@
         <span class="label" style="color:var(--gold);" id="ct-label">04 — Empecemos</span>
         <h2 style="margin-top:16px;" id="ct-title">Diseñemos tu próximo modelo operativo avanzado.</h2>
         <p class="desc" id="ct-desc">Transforma la complejidad en autonomía. Permite que nuestros arquitectos de procesos e IA diseñen la infraestructura digital que llevará a tu empresa al siguiente nivel de competitividad global.</p>
-        <div class="contacto-actions">
-          <a href="tel:33-3015-3089" class="btn btn-gold" id="ct-btn-call">Llamar ahora →</a>
-          <a href="https://www.linkedin.com/company/oberontd" target="_blank" rel="noopener" class="btn btn-ghost" id="ct-btn-link">Ver LinkedIn</a>
+        
+        <div class="contacto-actions" style="margin-top: 32px;">
+          <a href="https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled" target="_blank" rel="noopener" class="btn btn-gold" id="ct-btn-bookings">Agenda tu sesión de assessment</a>
         </div>
       </div>
-      <div class="contact-list">
-        <div class="contact-row">
-          <span class="label" id="ct-lbl-phone">Teléfono</span>
-          <a href="tel:33-3015-3089">33-3015-3089</a>
-        </div>
-        <div class="contact-row">
-          <span class="label" id="ct-lbl-web">Sitio web</span>
-          <a href="https://www.oberontd.com" target="_blank" rel="noopener">www.oberontd.com</a>
-        </div>
-        <div class="contact-row">
-          <span class="label">LinkedIn</span>
-          <a href="https://www.linkedin.com/company/oberontd" target="_blank" rel="noopener" id="ct-txt-linkname">Oberon Consultores en Transformación Digital e Inteligencia Artificial</a>
+      
+      <div>
+        <div class="contact-list">
+          <div class="contact-row">
+            <span class="label" id="ct-lbl-phone">Teléfono</span>
+            <a href="tel:33-3015-3089">33-3015-3089</a>
+          </div>
+          <div class="contact-row">
+            <span class="label" id="ct-lbl-web">Sitio web</span>
+            <a href="https://www.oberontd.com" target="_blank" rel="noopener">www.oberontd.com</a>
+          </div>
+          <div class="contact-row">
+            <span class="label" id="ct-lbl-brandname">Compañía</span>
+            <a href="https://www.linkedin.com/company/oberontd" target="_blank" rel="noopener" id="ct-txt-linkname">Oberon Consultores en Transformación Digital e IA</a>
+          </div>
         </div>
       </div>
     </div>
@@ -572,7 +579,7 @@
     es: {
       brandSub: 'CONSULTORES EN TRANSFORMACIÓN DIGITAL E INTELIGENCIA ARTIFICIAL',
       navNosotros: 'Nosotros', met: 'Metodología', srv: 'Servicios', ct: 'Contáctanos',
-      heroEyebrow: 'Consultores en Transformación Digital e Inteligencia Artificial',
+      heroEyebrow: 'Consultores en Transformación Digital e IA',
       heroTitle: 'Evolución operativa a través de la <em>Inteligencia&nbsp;Artificial</em> y la arquitectura de procesos.',
       heroSub: 'Diseñamos, optimizamos y automatizamos modelos operativos globales para que tu organización estandarice, mida y controle operaciones complejas con total gobernanza.',
       heroBtnServices: 'Ver servicios →', heroBtnTalk: 'Agendar conversación', heroScroll: 'Desplázate',
@@ -584,7 +591,7 @@
       metLabel: '02 — Excelencia Operativa',
       metTitle: 'La evolución de un negocio no ocurre con el tiempo; se diseña.',
       metSub: 'Fusionamos el rigor metodológico de Lean 6 Sigma con la flexibilidad del desarrollo Low-Code/No-Code y el poder predictivo de la Inteligencia Artificial. El resultado: una infraestructura empresarial blindada, medible y lista para escalar.',
-      node0: '01 · PROCESOS', node1: '02 · DATOS', node2: '03 · ADOPCIÓN', node3: '04 · GOBERNANZA',
+      node0: '01 · PROCESOS', node1: '02 · DADOS', node2: '03 · ADOÇÃO', node3: '04 · GOVERNANÇA',
       srvLabel: '03 — Portafolio', srvTitle: 'Nuestros servicios estratégicos',
       srvH1: 'Hiperautomatización e Inteligencia Artificial Operativa',
       srvP1: 'Diseñamos e implementamos ecosistemas digitales autónomos de punta a punta. Conectamos herramientas de última generación, desarrollo low-code y agentes de Inteligencia Artificial para erradicar por completo la carga operativa manual, transformando tareas tradicionales en flujos de trabajo inteligentes de alta velocidad y auto-optimizables.',
@@ -595,6 +602,8 @@
       srvH4: 'Gobernanza Institucional y Modelos Escalables',
       srvP4: 'Blindamos la estructura de tu negocio fusionando el rigor de la metodología Lean 6 Sigma con sistemas modernos de monitoreo inteligente. Diseñamos modelos de gobernanza automatizados pensados para soportar el crecimiento acelerado, la expansion internacional y la delegación con total control, consistencia y transparencia.',
       solLbl: 'Soluciones clave',
+      ctLblBrand: 'Compañía',
+      ctBtnBookings: 'Agenda tu sesión de assessment',
       srvUl1: [
         'Reingeniería de flujos de trabajo integrando agentes y asistentes cognitivos (GenAI).',
         'Desarrollo de automatizaciones avanzadas y procesamiento inteligente de datos.',
@@ -620,7 +629,7 @@
       ctLabel: '04 — Empecemos', ctTitle: 'Diseñemos tu próximo modelo operativo avanzado.',
       ctDesc: 'Transforma la complejidad en autonomía. Permite que nuestros arquitectos de procesos e IA diseñen la infraestructura digital que llevará a tu empresa al siguiente nivel de competitividad global.',
       ctCall: 'Llamar ahora →', ctLink: 'Ver LinkedIn', ctPhone: 'Teléfono', ctWeb: 'Sitio web',
-      ctLinkName: 'Oberon Consultores en Transformación Digital e Inteligencia Artificial',
+      ctLinkName: 'Oberon Consultores en Transformación Digital e IA',
       footCopy: 'Oberon | Consultores en Transformación Digital e Inteligencia Artificial', footUp: 'Volver arriba ↑',
       pillars: [
         { title: 'Hiperautomatización y Rediseño de Procesos', text: 'Diseñamos arquitecturas digitales que erradican las tareas manuales, optimizando tus flujos de trabajo de punta a punta.' },
@@ -630,9 +639,9 @@
       ]
     },
     en: {
-      brandSub: 'DIGITAL TRANSFORMATION CONSULTANTS',
+      brandSub: 'DIGITAL TRANSFORMATION & ARTIFICIAL INTELLIGENCE CONSULTANTS',
       navNosotros: 'About Us', met: 'Methodology', srv: 'Services', ct: 'Contact Us',
-      heroEyebrow: 'Digital Transformation Consultants',
+      heroEyebrow: 'Digital Transformation & AI Consultants',
       heroTitle: 'Operational evolution driven by <em>Artificial&nbsp;Intelligence</em> and process architecture.',
       heroSub: 'We design, optimize, and automate global operating models, enabling high-impact organizations to standardize, measure, and control complex operations with total governance.',
       heroBtnServices: 'View Services →', heroBtnTalk: 'Schedule a Call', heroScroll: 'Scroll Down',
@@ -655,6 +664,8 @@
       srvH4: 'Institutional Governance & Scalable Models',
       srvP4: 'We safeguard your business structure by merging Lean 6 Sigma rigor with modern intelligent monitoring systems. We design automated governance models built to withstand rapid growth, international expansion, and delegation with absolute control and transparency.',
       solLbl: 'Key Solutions',
+      ctLblBrand: 'Company',
+      ctBtnBookings: 'Schedule your assessment session',
       srvUl1: [
         'Workflow re-engineering integrating cognitive agents and assistants (GenAI).',
         'Advanced automation development and intelligent data processing.',
@@ -680,8 +691,8 @@
       ctLabel: '04 — Get Started', ctTitle: 'Let\'s design your next advanced operating model.',
       ctDesc: 'Turn complexity into autonomy. Allow our process and AI architects to build the digital infrastructure that will propel your business to the next tier of global competitiveness.',
       ctCall: 'Call Now →', ctLink: 'View LinkedIn', ctPhone: 'Phone', ctWeb: 'Website',
-      ctLinkName: 'Oberon Digital Transformation Consultants',
-      footCopy: 'Oberon | Digital Transformation Consultants', footUp: 'Back to top ↑',
+      ctLinkName: 'Oberon Digital Transformation & AI Consultants',
+      footCopy: 'Oberon | Digital Transformation & Artificial Intelligence Consultants', footUp: 'Back to top ↑',
       pillars: [
         { title: 'Hyper-automation & Process Redesign', text: 'We design digital architectures that eradicate manual tasks, optimizing your workflows from end to end.' },
         { title: 'Advanced Analytics & Data Architecture', text: 'We structure your data from the ground up to deliver dynamic dashboards that enable complete real-time control.' },
@@ -690,19 +701,19 @@
       ]
     },
     pt: {
-      brandSub: 'CONSULTORES EM TRANSFORMAÇÃO DIGITAL',
+      brandSub: 'CONSULTORES EM TRANSFORMAÇÃO DIGITAL E INTELIGÊNCIA ARTIFICIAL',
       navNosotros: 'Nós', met: 'Metodologia', srv: 'Serviços', ct: 'Contato',
-      heroEyebrow: 'Consultores em Transformação Digital',
+      heroEyebrow: 'Consultores em Transformação Digital e IA',
       heroTitle: 'Evolução operacional por meio da <em>Inteligência&nbsp;Artificial</em> e arquitetura de processos.',
       heroSub: 'Projetamos, otimizamos e automatizamos modelos operacionais globais para que sua organização padronize, meça e controle operações complexas com governança total.',
       heroBtnServices: 'Ver Serviços →', heroBtnTalk: 'Agendar Conversa', heroScroll: 'Rolar Abaixo',
       nosotrosLabel: '01 — Identidade', nosotrosTitle: 'Quem Somos',
       tabSobre: 'Sobre Nós', tabMision: 'Missão', tabVision: 'Visão',
-      panelTxtSobre: 'Somos uma empresa de alta consultoria especializada em arquitetura, otimização e automação de modelos operacionais globais. Projetamos e implementamos soluções de alta eficiência que permitem a organizações de grande impacto padronizar, medir e controlar suas operações complexas, impulsionando sua governança e escalabilidade em ecossistemas interconectados.',
-      panelTxtMision: 'Acelerar a evolução digital das organizações por meio do redesenho estratégico de processos e da hiperautomação, eliminando fricções operacionais para maximizar a lucratividade, o controle e a agilidade dos negócios.',
+      panelTxtSobre: 'Somos uma empresa de alta consultoría especializada em arquitetura, otimização e automação de modelos operacionais globais. Projetamos e implementamos soluções de alta eficiência que permitem a organizações de grande impacto padronizar, medir e controlar suas operações complexas, impulsionando sua governança e escalabilidade em ecossistemas interconectados.',
+      panelTxtMision: 'Acelerar a evolução digital das organizações por meio do desenho estratégico de processos e da hiperautomação, eliminando fricções operacionais para maximizar a lucratividade, o controle e a agilidade dos negócios.',
       panelTxtVision: 'Consolidar a Oberon como uma consultoria de referência global em Transformação Digital e Project Management, reconhecida por conectar tecnologia com talento humano para criar modelos operacionais transfronteiriços, resilientes e preparados para o futuro.',
       metLabel: '02 — Excelência Operacional',
-      metTitle: 'A evolução de um negócio não acontece com o tempo; é projetada.',
+      metTitle: 'A evolução de un negócio não acontece com o tempo; é projetada.',
       metSub: 'Fundimos o rigor metodológico de Lean 6 Sigma com a flexibilidade do desenvolvimento Low-Code/No-Code e o poder preditivo da Inteligência Artificial. O resultado: uma infraestrutura empresarial blindada, mensurável e pronta para escalar.',
       node0: '01 · PROCESSOS', node1: '02 · DADOS', node2: '03 · ADOÇÃO', node3: '04 · GOVERNANÇA',
       srvLabel: '03 — Portfólio', srvTitle: 'Nossos Serviços Estratégicos',
@@ -710,11 +721,13 @@
       srvP1: 'Projetamos e implementamos ecossistemas digitais autônomos de ponta a ponta. Conectamos ferramentas de última geração, desenvolvimento low-code e agentes de Inteligência Artificial para erradicar totalmente as cargas operacionais manuais, transformando tarefas tradicionais em fluxos de trabalho inteligentes, ágeis e auto-otimizáveis.',
       srvH2: 'Engenharia de Dados e Análise Preditiva com IA',
       srvP2: 'Estruturamos a governança dos seus dados desde a raiz, desenvolvendo arquiteturas limpas e centralizadas impulsionadas por modelos de Inteligência Artificial. Convertemos dados dispersos em um ativo estratégico e interpretativo, entregando painéis executivos preditivos que antecipam tendências e apoiam decisões críticas de alta liderança.',
-      srvH3: 'Transformação Cultural e Adoção de IA',
+      srvH3: 'Transformación Cultural e Adoção de IA',
       srvP3: 'Garantimos o verdadeiro retorno sobre o investimento tecnológico mitigando a resistência cultural à automação. Acompanhamos sua organização na transição digital, capacitando e alinhando o talento humano para adotar a Inteligência Artificial como copiloto diário, assegurando uma evolução operacional sustentável e acelerada.',
       srvH4: 'Governança Institucional e Modelos Escalonáveis',
       srvP4: 'Blindamos a estrutura do seu negócio fundindo o rigor da metodologia Lean 6 Sigma com sistemas modernos de monitoramento inteligente. Projetamos modelos de governanza automatizados estruturados para suportar o crescimento acelerado, a expansão internacional e a delegação com total controle, consistência e transparência.',
       solLbl: 'Principais Soluções',
+      ctLblBrand: 'Empresa',
+      ctBtnBookings: 'Agende sua sessão de avaliação',
       srvUl1: [
         'Reengenharia de fluxos de trabalho integrando agentes e assistentes cognitivos (GenAI).',
         'Desenvolvimento de automações avançadas e processamento inteligente de dados.',
@@ -734,14 +747,14 @@
       ],
       srvUl4: [
         'Padronização estrutural e otimização de processos sob metodologias de melhoria contínua.',
-        'Modelos de governança corporativa impulsionados por auditorias operacionais e mitigação de riscos automatizados.',
+        'Modelos de governo corporativo impulsionados por auditorias operacionais e mitigação de riscos automatizados.',
         'Otimização avançada de Onboarding Operacional, gestão de PMO, SLAs e indicadores de serviço de ponta a ponta (End-to-End).'
       ],
       ctLabel: '04 — Comecemos', ctTitle: 'Projetemos seu próximo modelo operacional avançado.',
       ctDesc: 'Transforme a complexidade em autonomia. Permita que nossos arquitetos de processos e IA projetem a infraestrutura digital que levará sua empresa ao próximo nível de competitividade global.',
       ctCall: 'Ligar agora →', ctLink: 'Ver LinkedIn', ctPhone: 'Telefone', ctWeb: 'Sítio web',
-      ctLinkName: 'Oberon Consultores em Transformação Digital',
-      footCopy: 'Oberon | Consultores em Transformação Digital', footUp: 'Voltar ao topo ↑',
+      ctLinkName: 'Oberon Consultores em Transformação Digital e IA',
+      footCopy: 'Oberon | Consultores em Transformação Digital e Inteligência Artificial', footUp: 'Voltar ao topo ↑',
       pillars: [
         { title: 'Hiperautomação e Redesenho de Processos', text: 'Projetamos arquiteturas digitais que erradicam tarefas manuais, otimizando seus fluxos de trabalho de ponta a ponta.' },
         { title: 'Análise Avançada e Arquitetura de Dados', text: 'Estruturamos seus dados desde a raiz para entregar painéis dinâmicos que permitem controle total em tempo real.' },
@@ -827,11 +840,11 @@
     document.getElementById('ct-label').textContent = translations[lang].ctLabel;
     document.getElementById('ct-title').textContent = translations[lang].ctTitle;
     document.getElementById('ct-desc').textContent = translations[lang].ctDesc;
-    document.getElementById('ct-btn-call').textContent = translations[lang].ctCall;
-    document.getElementById('ct-btn-link').textContent = translations[lang].ctLink;
+    document.getElementById('ct-lbl-brandname').textContent = translations[lang].ctLblBrand;
     document.getElementById('ct-lbl-phone').textContent = translations[lang].ctPhone;
     document.getElementById('ct-lbl-web').textContent = translations[lang].ctWeb;
     document.getElementById('ct-txt-linkname').textContent = translations[lang].ctLinkName;
+    document.getElementById('ct-btn-bookings').textContent = translations[lang].ctBtnBookings;
     document.getElementById('foot-copy').textContent = translations[lang].footCopy;
     document.getElementById('foot-up').textContent = translations[lang].footUp;
 
@@ -962,6 +975,12 @@
     });
   }, { threshold: 0.15 });
   revealEls.forEach(el => io.observe(el));
+  
+  // Connect Hero Button directly to Bookings Section smoothly
+  document.getElementById('hero-btn-talk').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+  });
 </script>
 
 </body>
