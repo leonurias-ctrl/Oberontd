@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBERON | Consultores en Transformación Digital</title>
+<meta name="description" content="Evolución Operativa a través de la Inteligencia Artificial y la Arquitectura de Procesos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-a:#BFE0F6;
+    --sky-b:#D9EDFA;
+    --sky-c:#F3EDF3;
+    --midnight:#1B2350;
+    --midnight-2:#070A1E;
+    --ink:#1B2350;
+    --gold:#D4AF6A;
+    --gold-bright:#F0D5A0;
+    --ice:#BFE0F5;
+    --paper:#F7F4EC;
+    --paper-2:#EEE8DA;
+    --star:#F7F5EF;
+    --dim:rgba(247,245,239,.64);
+    --dim-2:rgba(247,245,239,.4);
+    --ink-dim:rgba(27,35,80,.68);
+    --ink-dim-2:rgba(27,35,80,.48);
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Manrope',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  .label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  section{position:relative;}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 32px;
+    transition:background .4s ease, padding .4s ease, border-color .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  .nav.scrolled{
+    background:rgba(11,17,48,.86);
+    backdrop-filter:blur(10px);
+    padding:14px 32px;
+    border-bottom:1px solid rgba(212,175,106,.18);
+  }
+  .brand{display:flex; align-items:center; gap:12px; color:var(--star);}
+  .brand svg{width:34px;height:34px;flex:none;}
+  .brand-text{font-family:'Fraunces',serif; font-size:1.05rem; letter-spacing:.03em; line-height:1.1;}
+  .brand-text span{display:block; font-family:'IBM Plex Mono',monospace; font-size:.6rem; letter-spacing:.16em; color:var(--gold); margin-top:2px;}
+  .nav-links{display:flex; gap:36px; align-items:center;}
+  .nav-links a{
+    color:var(--dim); font-size:.86rem; font-weight:500; letter-spacing:.02em;
+    position:relative; padding:4px 0;
+  }
+  .nav-links a:hover{color:var(--star);}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:-2px; width:0; height:1px; background:var(--gold);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    border:1px solid var(--gold); color:var(--gold-bright) !important; padding:9px 18px !important;
+    font-size:.78rem !important; letter-spacing:.06em;
+  }
+  .nav-cta:hover{background:var(--gold); color:var(--midnight) !important;}
+  .nav-cta::after{display:none;}
+  .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; z-index:110;}
+  .burger span{width:22px; height:2px; background:var(--star); display:block; transition:.3s;}
+  .mobile-panel{
+    position:fixed; inset:0; background:var(--midnight); z-index:105;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px;
+    opacity:0; pointer-events:none; transition:opacity .35s ease;
+  }
+  .mobile-panel.open{opacity:1; pointer-events:auto;}
+  .mobile-panel a{color:var(--star); font-family:'Fraunces',serif; font-size:1.6rem;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;
+    background:radial-gradient(ellipse 120% 80% at 50% -10%, #1C2760 0%, var(--midnight) 55%, #070A1E 100%);
+    color:var(--star);
+    display:flex; flex-direction:column; justify-content:center;
+    overflow:hidden;
+    padding:140px 0 100px;
+  }
+  .stars{position:absolute; inset:0; z-index:0;}
+  .stars span{
+    position:absolute; background:var(--star); border-radius:50%;
+    animation:twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle{ 0%,100%{opacity:.15;} 50%{opacity:1;} }
+
+  .hero-inner{position:relative; z-index:2;}
+  .hero-crescent{
+    position:absolute; right:-60px; top:-40px; width:420px; height:420px; opacity:.9;
+    z-index:1; pointer-events:none;
+  }
+  .eyebrow{
+    display:flex; align-items:center; gap:12px; color:var(--gold-bright); margin-bottom:26px;
+  }
+  .eyebrow .line{width:40px; height:1px; background:var(--gold);}
+  h1.hero-title{
+    font-size:clamp(2.4rem, 5.6vw, 4.6rem);
+    line-height:1.05;
+    max-width:820px;
+    font-weight:400;
+  }
+  h1.hero-title em{
+    font-style:italic; color:var(--gold-bright); font-weight:400;
+  }
+  .hero-sub{
+    margin-top:28px; max-width:560px; font-size:1.08rem; line-height:1.6; color:var(--dim);
+  }
+  .hero-actions{display:flex; gap:18px; margin-top:44px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase;
+    padding:15px 28px; border-radius:var(--radius); cursor:pointer; border:1px solid transparent;
+    display:inline-flex; align-items:center; gap:10px; transition:.3s ease;
+  }
+  .btn-gold{background:var(--gold); color:var(--midnight);}
+  .btn-gold:hover{background:var(--gold-bright); transform:translateY(-2px);}
+  .btn-ghost{border-color:rgba(247,245,239,.3); color:var(--star);}
+  .btn-ghost:hover{border-color:var(--gold); color:var(--gold-bright);}
+  .scroll-cue{
+    position:absolute; bottom:36px; left:32px; display:flex; align-items:center; gap:10px;
+    color:var(--dim-2); z-index:2;
+  }
+  .scroll-cue .dash{width:24px; height:1px; background:var(--dim-2); animation:dash 2s ease-in-out infinite;}
+  @keyframes dash{ 0%,100%{width:24px;} 50%{width:8px;} }
+
+  /* ---------- section headers ---------- */
+  .sec-head{margin-bottom:56px; max-width:640px;}
+  .sec-head .label{color:var(--gold); margin-bottom:14px; display:block;}
+  .sec-head h2{font-size:clamp(2rem, 3.6vw, 2.9rem); font-weight:400;}
+  .light .sec-head .label{color:#9C7A34;}
+
+  /* ---------- quienes somos ---------- */
+  .nosotros{padding:130px 0; background:var(--paper);}
+  .nosotros-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:70px; align-items:start;}
+  .nosotros-side{position:sticky; top:120px;}
+  .tabs{display:flex; flex-direction:column; gap:2px;}
+  .tab-btn{
+    text-align:left; background:none; border:none; cursor:pointer; padding:18px 0;
+    border-top:1px solid rgba(27,35,80,.12);
+    font-family:'Fraunces',serif; font-size:1.3rem; color:var(--ink-dim-2);
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    transition:color .3s ease;
+  }
+  .tab-btn:last-child{border-bottom:1px solid rgba(27,35,80,.12);}
+  .tab-btn .num{font-family:'IBM Plex Mono',monospace; font-size:.7rem; color:var(--ink-dim-2);}
+  .tab-btn.active{color:var(--ink);}
+  .tab-btn.active .num{color:#9C7A34;}
+  .tab-panel{display:none; font-size:1.08rem; line-height:1.75; color:var(--ink-dim);}
+  .tab-panel.active{display:block;}
+  .tab-panel .tag{
+    display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:.7rem; letter-spacing:.14em;
+    text-transform:uppercase; color:#9C7A34; margin-bottom:18px;
+  }
+
+  /* ---------- metodologia (constellation) ---------- */
+  .metodologia{
+    padding:130px 0; background:radial-gradient(ellipse 100% 60% at 50% 0%, #17204F 0%, var(--midnight) 60%);
+    color:var(--star);
+  }
+  .metodologia .sec-head .label{color:var(--gold-bright);}
+  .metodologia .sec-head p{color:var(--dim); margin-top:16px; line-height:1.7; font-size:1.05rem;}
+  .constellation-wrap{display:grid; grid-template-columns:1.2fr 1fr; gap:60px; align-items:center;}
+  .const-svg{width:100%; height:auto;}
+  .const-node{cursor:pointer;}
+  .const-node circle.dot{fill:var(--midnight); stroke:var(--gold); stroke-width:1.4; transition:.3s ease;}
+  .const-node.active circle.dot{fill:var(--gold); stroke:var(--gold-bright); r:9;}
+  .const-node text{fill:var(--dim); font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; transition:.3s ease;}
+  .const-node.active text{fill:var(--star);}
+  .const-line{stroke:rgba(212,175,106,.25); stroke-width:1; transition:.3s ease;}
+  .const-line.active{stroke:var(--gold); stroke-width:1.4;}
+  .const-panel{
+    background:rgba(247,245,239,.04); border:1px solid rgba(212,175,106,.22); padding:38px;
+    min-height:260px; border-radius:var(--radius);
+  }
+  .const-panel .num{font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:.78rem; letter-spacing:.1em;}
+  .const-panel h3{font-size:1.5rem; margin-top:14px; font-weight:400; color:var(--star);}
+  .const-panel p{margin-top:18px; color:var(--dim); line-height:1.75; font-size:1rem;}
+
+  /* ---------- servicios ---------- */
+  .servicios{padding:130px 0; background:var(--paper);}
+  .acc{border-top:1px solid rgba(27,35,80,.14);}
+  .acc-item{border-bottom:1px solid rgba(27,35,80,.14);}
+  .acc-head{
+    width:100%; background:none; border:none; cursor:pointer; text-align:left;
+    padding:32px 0; display:flex; align-items:baseline; gap:28px;
+  }
+  .acc-head .num{font-family:'IBM Plex Mono',monospace; font-size:.85rem; color:#9C7A34; flex:none; padding-top:6px;}
+  .acc-head-text{flex:1;}
+  .acc-head h3{font-size:clamp(1.25rem, 2.4vw, 1.7rem); font-weight:400; color:var(--ink);}
+  .acc-plus{
+    flex:none; width:30px; height:30px; border:1px solid rgba(27,35,80,.3); border-radius:50%;
+    position:relative; transition:.3s ease;
+  }
+  .acc-plus::before, .acc-plus::after{
+    content:''; position:absolute; background:var(--ink); transition:.3s ease;
+  }
+  .acc-plus::before{left:9px; right:9px; top:14px; height:1px;}
+  .acc-plus::after{top:9px; bottom:9px; left:14px; width:1px;}
+  .acc-item.open .acc-plus{transform:rotate(180deg); border-color:#9C7A34;}
+  .acc-item.open .acc-plus::after{opacity:0;}
+  .acc-body{max-height:0; overflow:hidden; transition:max-height .5s ease;}
+  .acc-body-inner{padding:0 0 40px 66px; max-width:760px;}
+  .acc-body-inner .enfoque{font-size:1.02rem; line-height:1.75; color:var(--ink-dim); margin-bottom:22px;}
+  .acc-body-inner .sol-label{font-family:'IBM Plex Mono',monospace; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:#9C7A34; margin-bottom:14px; display:block;}
+  .acc-body-inner ul{margin:0; padding:0; list-style:none;}
+  .acc-body-inner li{
+    position:relative; padding-left:20px; margin-bottom:12px; font-size:.98rem; line-height:1.6; color:var(--ink-dim);
+  }
+  .acc-body-inner li::before{content:'—'; position:absolute; left:0; color:var(--gold); font-family:'IBM Plex Mono',monospace;}
+
+  /* ---------- contacto ---------- */
+  .contacto{
+    padding:130px 0 90px;
+    background:radial-gradient(ellipse 90% 70% at 50% 110%, #1C2760 0%, var(--midnight) 60%, #070A1E 100%);
+    color:var(--star);
+  }
+  .contacto-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:70px; align-items:end;}
+  .contacto h2{font-size:clamp(2rem, 4vw, 3.1rem); font-weight:400; max-width:600px;}
+  .contacto p.desc{margin-top:22px; color:var(--dim); font-size:1.06rem; line-height:1.7; max-width:520px;}
+  .contact-list{display:flex; flex-direction:column; gap:22px;}
+  .contact-row{
+    display:flex; flex-direction:column; gap:4px; border-bottom:1px solid rgba(212,175,106,.2); padding-bottom:18px;
+  }
+  .contact-row .label{color:var(--gold);}
+  .contact-row a, .contact-row span{font-family:'Fraunces',serif; font-size:1.3rem; color:var(--star);}
+  .contact-row a:hover{color:var(--gold-bright);}
+  .contacto-actions{display:flex; gap:16px; margin-top:38px; flex-wrap:wrap;}
+
+  footer{
+    background:#070A1E; color:var(--dim-2); padding:34px 0; font-size:.8rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  }
+  footer a{color:var(--dim);}
+  footer a:hover{color:var(--gold-bright);}
+
+  @media (max-width:940px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+    .nosotros-grid, .constellation-wrap, .contacto-grid{grid-template-columns:1fr; gap:40px;}
+    .nosotros-side{position:static;}
+    .acc-body-inner{padding-left:0;}
+    .hero-crescent{width:260px; height:260px; right:-40px; top:-20px; opacity:.5;}
+    .contacto-grid{align-items:start;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 22px;}
+    .hero{padding-top:120px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="#inicio" class="brand">
+    <svg viewBox="0 0 40 40" fill="none">
+      <path d="M25 6C17 6 11 13 11 21c0 8.5 6.7 15.4 15.2 15.9C22.7 39 18 38 15 33.8c-3.6-5-3.4-12.4.6-17.2C19.4 12.4 24.6 10 30 10.8 28.6 8 26.9 6.7 25 6Z" fill="var(--gold)"/>
+      <circle cx="8" cy="24" r="1.6" fill="var(--star)"/>
+      <circle cx="14" cy="15" r="1.1" fill="var(--star)"/>
+      <circle cx="6" cy="16" r="1" fill="var(--star)"/>
+      <circle cx="18" cy="9" r="1.3" fill="var(--star)"/>
+      <circle cx="10" cy="30" r="1.2" fill="var(--star)"/>
+    </svg>
+    <div class="brand-text">OBERON<span>CONSULTORES EN TRANSFORMACIÓN DIGITAL</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#nosotros">Nosotros</a>
+    <a href="#metodologia">Metodología</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#contacto" class="nav-cta">Contáctanos</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#nosotros">Nosotros</a>
+  <a href="#metodologia">Metodología</a>
+  <a href="#servicios">Servicios</a>
+  <a href="#contacto">Contáctanos</a>
+</div>
+
+<section class="hero" id="inicio">
+  <div class="stars" id="starField"></div>
+  <svg class="hero-crescent" viewBox="0 0 200 200" fill="none">
+    <defs>
+      <linearGradient id="g1" x1="60" y1="20" x2="140" y2="160" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#F0D5A0"/>
+        <stop offset="1" stop-color="#D4AF6A"/>
+      </linearGradient>
+    </defs>
+    <path d="M120 20C88 20 62 46 62 78c0 34 26 61.6 60.8 63.6C108 152 87 149 73 133c-14.4-20-13.6-49.6 2.4-68.8C89.6 47.6 111 39 133 43c-5.6-11.2-8.5-16.8-13-23Z" fill="url(#g1)" opacity=".55"/>
+    <circle cx="40" cy="90" r="2.4" fill="var(--gold)"/>
+    <circle cx="60" cy="50" r="1.6" fill="var(--gold)"/>
+    <circle cx="24" cy="55" r="1.4" fill="var(--gold)"/>
+    <circle cx="70" cy="120" r="1.8" fill="var(--gold)"/>
+    <circle cx="35" cy="130" r="1.2" fill="var(--gold)"/>
+  </svg>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">
+      <span class="line"></span>
+      <span class="label">Consultores en Transformación Digital</span>
+    </div>
+    <h1 class="hero-title">Evolución operativa a través de la <em>Inteligencia&nbsp;Artificial</em> y la arquitectura de procesos.</h1>
+    <p class="hero-sub">Diseñamos, optimizamos y automatizamos modelos operativos globales para que tu organización estandarice, mida y controle operaciones complejas con total gobernanza.</p>
+    <div class="hero-actions">
+      <a href="#servicios" class="btn btn-gold">Ver servicios →</a>
+      <a href="#contacto" class="btn btn-ghost">Agendar conversación</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="dash"></span><span class="label">Desplázate</span></div>
+</section>
+
+<section class="nosotros light" id="nosotros">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label">01 — Identidad</span>
+      <h2>Quiénes somos</h2>
+    </div>
+    <div class="nosotros-grid reveal">
+      <div class="nosotros-side">
+        <div class="tabs" id="tabs">
+          <button class="tab-btn active" data-tab="sobre"><span>Sobre nosotros</span><span class="num">A</span></button>
+          <button class="tab-btn" data-tab="mision"><span>Misión</span><span class="num">B</span></button>
+          <button class="tab-btn" data-tab="vision"><span>Visión</span><span class="num">C</span></button>
+        </div>
+      </div>
+      <div class="nosotros-content">
+        <div class="tab-panel active" data-panel="sobre">
+          <span class="tag">Sobre nosotros</span>
+          <p>Somos una firma de alta consultoría especializada en la arquitectura, optimización y automatización de modelos operativos globales. Diseñamos e implementamos soluciones de alta eficiencia que permiten a organizaciones de alto impacto estandarizar, medir y controlar sus operaciones complejas, impulsando su gobernanza y escalabilidad en un entorno empresarial interconectado.</p>
+        </div>
+        <div class="tab-panel" data-panel="mision">
+          <span class="tag">Misión</span>
+          <p>Acelerar la evolución digital de las organizaciones a través del rediseño estratégico de procesos y la hiperautomatización, eliminando la fricción operativa para maximizar la rentabilidad, el control y la agilidad de los negocios.</p>
+        </div>
+        <div class="tab-panel" data-panel="vision">
+          <span class="tag">Visión</span>
+          <p>Consolidar a Oberon como una firma consultora de referencia global en Transformación Digital y Project Management, reconocida por conectar la tecnología con el talento humano para crear modelos operativos transfronterizos, resilientes y preparados para el futuro.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="metodologia" id="metodologia">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label">02 — Excelencia Operativa</span>
+      <h2>La evolución de un negocio no ocurre con el tiempo; se diseña.</h2>
+      <p>Fusionamos el rigor metodológico de <strong>Lean 6 Sigma</strong> con la flexibilidad del desarrollo <strong>Low-Code/No-Code</strong> y el poder predictivo de la <strong>Inteligencia Artificial</strong>. El resultado: una infraestructura empresarial blindada, medible y lista para escalar.</p>
+    </div>
+
+    <div class="constellation-wrap reveal">
+      <svg class="const-svg" viewBox="0 0 500 360" id="constSvg">
+        <line class="const-line" data-line="0" x1="250" y1="180" x2="110" y2="70"/>
+        <line class="const-line" data-line="1" x1="250" y1="180" x2="380" y2="70"/>
+        <line class="const-line" data-line="2" x1="250" y1="180" x2="110" y2="290"/>
+        <line class="const-line" data-line="3" x1="250" y1="180" x2="380" y2="290"/>
+
+        <g class="const-node" data-node="0">
+          <circle class="dot" cx="110" cy="70" r="6"></circle>
+          <text x="110" y="48" text-anchor="middle">01 · PROCESOS</text>
+        </g>
+        <g class="const-node" data-node="1">
+          <circle class="dot" cx="380" cy="70" r="6"></circle>
+          <text x="380" y="48" text-anchor="middle">02 · DATOS</text>
+        </g>
+        <g class="const-node" data-node="2">
+          <circle class="dot" cx="110" cy="290" r="6"></circle>
+          <text x="110" y="316" text-anchor="middle">03 · ADOPCIÓN</text>
+        </g>
+        <g class="const-node" data-node="3">
+          <circle class="dot" cx="380" cy="290" r="6"></circle>
+          <text x="380" y="316" text-anchor="middle">04 · GOBERNANZA</text>
+        </g>
+        <circle cx="250" cy="180" r="3" fill="var(--gold)"/>
+        <text x="250" y="205" text-anchor="middle" fill="var(--gold-bright)" style="font-size:10px; letter-spacing:.1em;">OBERON</text>
+      </svg>
+
+      <div class="const-panel" id="constPanel">
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="servicios light" id="servicios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label">03 — Portafolio</span>
+      <h2>Nuestros servicios estratégicos</h2>
+    </div>
+
+    <div class="acc reveal" id="accordion">
+
+      <div class="acc-item open">
+        <button class="acc-head">
+          <span class="num">01</span>
+          <span class="acc-head-text"><h3>Hiperautomatización e Inteligencia Artificial Operativa</h3></span>
+          <span class="acc-plus"></span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <p class="enfoque">Diseñamos e implementamos ecosistemas digitales autónomos de punta a punta. Conectamos herramientas de última generación, desarrollo low-code y agentes de Inteligencia Artificial para erradicar por completo la carga operativa manual, transformando tareas tradicionales en flujos de trabajo inteligentes de alta velocidad y auto-optimizables.</p>
+            <span class="sol-label">Soluciones clave</span>
+            <ul>
+              <li>Reingeniería de flujos de trabajo integrando agentes y asistentes cognitivos (GenAI).</li>
+              <li>Desarrollo de automatizaciones avanzadas y procesamiento inteligente de datos.</li>
+              <li>Conexión inteligente y automatización de ecosistemas ERP y plataformas de negocio.</li>
+              <li>Aceleración inteligente de ciclos financieros y optimización automatizada del Capital de Trabajo (Working Capital).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head">
+          <span class="num">02</span>
+          <span class="acc-head-text"><h3>Ingeniería de Datos y Analítica Predictiva con IA</h3></span>
+          <span class="acc-plus"></span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <p class="enfoque">Estructuramos el gobierno de tus datos desde la raíz, diseñando arquitecturas limpias y centralizadas impulsadas por modelos de Inteligencia Artificial. Convertimos datos dispersos en un activo estratégico e interpretativo, entregando tableros de control predictivos que anticipan tendencias y respaldan decisiones críticas de alta dirección.</p>
+            <span class="sol-label">Soluciones clave</span>
+            <ul>
+              <li>Diseño y centralización de bases de datos robustas preparadas para modelos de IA.</li>
+              <li>Modelado analítico, proyecciones automatizadas e indicadores clave (KPIs) en tiempo real.</li>
+              <li>Ecosistemas avanzados de Business Intelligence (Power BI / Dashboards predictivos / C-Level Dashboards).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head">
+          <span class="num">03</span>
+          <span class="acc-head-text"><h3>Transformación Cultural y Adopción de IA</h3></span>
+          <span class="acc-plus"></span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <p class="enfoque">Garantizamos el verdadero retorno de inversión tecnológica mitigando la resistencia cultural hacia la automatización. Acompañamos a tu organización en la transición digital, capacitando y alineando al talento humano para que adopte la Inteligencia Artificial como un co-piloto diario, asegurando una evolución operativa acelerada, natural y sostenible.</p>
+            <span class="sol-label">Soluciones clave</span>
+            <ul>
+              <li>Programas ejecutivos de cultura digital, alfabetización en datos e Inteligencia Artificial.</li>
+              <li>Estrategias de gestión del cambio para la transición hacia flujos de trabajo autónomos.</li>
+              <li>Talleres prácticos de adopción y uso estratégico de herramientas de IA aplicadas al negocio.</li>
+              <li>Desarrollo de células de innovación interna (No-Code/Low-Code) y autonomía operativa dinámica.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head">
+          <span class="num">04</span>
+          <span class="acc-head-text"><h3>Gobernanza Institucional y Modelos Escalables <span style="opacity:.55; font-size:.7em;">(Lean 6 Sigma + IA)</span></h3></span>
+          <span class="acc-plus"></span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <p class="enfoque">Blindamos la estructura de tu negocio fusionando el rigor de la metodología Lean 6 Sigma con sistemas modernos de monitoreo inteligente. Diseñamos modelos de gobernanza automatizados pensados para soportar el crecimiento acelerado, la expansion internacional y la delegación con total control, consistencia y transparencia.</p>
+            <span class="sol-label">Soluciones clave</span>
+            <ul>
+              <li>Estandarización estructural y optimización de procesos bajo metodologías de mejora continua.</li>
+              <li>Modelos de gobierno corporativo impulsados por auditorías operativas y mitigación de riesgos automatizados.</li>
+              <li>Optimización avanzada del Onboarding Operativo, gestión de PMO, SLAs e indicadores de servicio de extremo a extremo (End-to-End).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="contacto" id="contacto">
+  <div class="wrap">
+    <div class="contacto-grid reveal">
+      <div>
+        <span class="label" style="color:var(--gold);">04 — Empecemos</span>
+        <h2 style="margin-top:16px;">Diseñemos tu próximo modelo operativo avanzado.</h2>
+        <p class="desc">Transforma la complejidad en autonomía. Permite que nuestros arquitectos de procesos e IA diseñen la infraestructura digital que llevará a tu empresa al siguiente nivel de competitividad global.</p>
+        <div class="contacto-actions">
+          <a href="tel:33-2042-1367" class="btn btn-gold">Llamar ahora →</a>
+          <a href="https://www.linkedin.com/company/oberontd" target="_blank" rel="noopener" class="btn btn-ghost">Ver LinkedIn</a>
+        </div>
+      </div>
+      <div class="contact-list">
+        <div class="contact-row">
+          <span class="label">Teléfono</span>
+          <a href="tel:33-2042-1367">33-2042-1367</a>
+        </div>
+        <div class="contact-row">
+          <span class="label">Sitio web</span>
+          <a href="https://www.oberontd.com" target="_blank" rel="noopener">www.oberontd.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="label">LinkedIn</span>
+          <a href="https://www.linkedin.com/company/oberontd" target="_blank" rel="noopener">Oberon Consultores en Transformación Digital</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; width:100%;">
+    <span>© <span id="year"></span> Oberon | Consultores en Transformación Digital</span>
+    <span><a href="#inicio">Volver arriba ↑</a></span>
+  </div>
+</footer>
+
+<script>
+  // ---- year ----
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- nav scroll state ----
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // ---- mobile menu ----
+  const burger = document.getElementById('burger');
+  const mobilePanel = document.getElementById('mobilePanel');
+  burger.addEventListener('click', () => mobilePanel.classList.toggle('open'));
+  mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobilePanel.classList.remove('open')));
+
+  // ---- star field ----
+  const starField = document.getElementById('starField');
+  const starCount = window.innerWidth < 700 ? 60 : 120;
+  for (let i = 0; i < starCount; i++) {
+    const s = document.createElement('span');
+    const size = Math.random() * 2 + 0.6;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 4) + 's';
+    s.style.animationDuration = (3 + Math.random() * 3) + 's';
+    starField.appendChild(s);
+  }
+
+  // ---- tabs (Quienes somos) ----
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`.tab-panel[data-panel="${btn.dataset.tab}"]`).classList.add('active');
+    });
+  });
+
+  // ---- accordion (Servicios) ----
+  document.querySelectorAll('.acc-item').forEach(item => {
+    const head = item.querySelector('.acc-head');
+    const body = item.querySelector('.acc-body');
+    head.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.acc-body').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+  // init first accordion item open height
+  window.addEventListener('load', () => {
+    const first = document.querySelector('.acc-item.open .acc-body');
+    if (first) first.style.maxHeight = first.scrollHeight + 'px';
+  });
+
+  // ---- constellation ----
+  const pillars = [
+    {
+      title: 'Hiperautomatización y Rediseño de Procesos',
+      text: 'Diseñamos arquitecturas digitales que erradican las tareas manuales, optimizando tus flujos de trabajo de punta a punta.'
+    },
+    {
+      title: 'Analítica Avanzada y Arquitectura de Datos',
+      text: 'Estructuramos tus datos desde la raíz para entregar tableros dinámicos que permiten un control total e indicadores clave en tiempo real.'
+    },
+    {
+      title: 'Gestión del Cambio y Adopción Digital',
+      text: 'Garantizamos que tu equipo adopte las nuevas tecnologías de IA, mitigando la resistencia cultural y asegurando la continuidad operativa.'
+    },
+    {
+      title: 'Gobernanza y Escalabilidad Operativa',
+      text: 'Blindamos la estructura de tu negocio con modelos modernos, diseñados para crecer de manera sostenible y sin fricciones.'
+    }
+  ];
+  const constNodes = document.querySelectorAll('.const-node');
+  const constLines = document.querySelectorAll('.const-line');
+  const constPanel = document.getElementById('constPanel');
+
+  function setActive(i) {
+    constNodes.forEach(n => n.classList.toggle('active', n.dataset.node == i));
+    constLines.forEach(l => l.classList.toggle('active', l.dataset.line == i));
+    constPanel.innerHTML = `
+      <span class="num">0${parseInt(i) + 1} / 04</span>
+      <h3>${pillars[i].title}</h3>
+      <p>${pillars[i].text}</p>
+    `;
+  }
+  constNodes.forEach(node => {
+    node.addEventListener('mouseenter', () => setActive(node.dataset.node));
+    node.addEventListener('click', () => setActive(node.dataset.node));
+  });
+  setActive(0);
+
+  // ---- reveal on scroll ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
