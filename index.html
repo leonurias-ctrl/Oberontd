@@ -79,14 +79,13 @@
     padding:14px 32px;
     border-bottom:1px solid rgba(212,175,106,.18);
   }
-  .brand{display:flex; align-items:center; gap:12px; color:var(--star);}
+  .brand{display:flex; align-items:center; gap:12px; color:var(--star); max-width: 70%;}
   .brand svg{width:34px;height:34px;flex:none;}
-  .brand-text{font-family:'Fraunces',serif; font-size:1.05rem; letter-spacing:.03em; line-height:1.1;}
+  .brand-text{font-family:'Fraunces',serif; font-size:1.05rem; letter-spacing:.03em; line-height:1.1; overflow:hidden;}
   
-  /* Single line styling for company name */
   .brand-text span{
     display:block; font-family:'IBM Plex Mono',monospace; font-size:.56rem; 
-    letter-spacing:.12em; color:var(--gold); margin-top:2px;
+    letter-spacing:0.08em; color:var(--gold); margin-top:2px;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
   .nav-links{display:flex; gap:28px; align-items:center;}
@@ -300,6 +299,12 @@
     .acc-body-inner{padding-left:0;}
     .hero-crescent{width:260px; height:260px; right:-40px; top:-20px; opacity:.5;}
     .contacto-grid{align-items:start;}
+    
+    /* Responsive precission constraints for single line label box */
+    .brand-text span {
+      font-size: .46rem !important;
+      max-width: 175px !important;
+    }
   }
   @media (max-width:560px){
     .wrap{padding:0 22px;}
@@ -374,7 +379,7 @@
       <span class="label" id="hero-eyebrow">Consultores en Transformación Digital e IA</span>
     </div>
     <h1 class="hero-title" id="hero-title">Evolución operativa a través de la <em>Inteligencia&nbsp;Artificial</em> y la arquitectura de procesos.</h1>
-    <p class="hero-sub" id="hero-sub">Diseñamos, optimizamos y automatizamos modelos operativos globales para que tu organización estandarice, mida y controle operaciones complejas con total gobernanza.</p>
+    <p class="hero-sub" id="hero-sub">Diseñamos, optimizamos y automatizamos modelos operativos globales para que tu organización estandarice, mida y controle operaciones complexes con total gobernanza.</p>
     <div class="hero-actions">
       <a href="#servicios" class="btn btn-gold" id="hero-btn-services">Ver servicios →</a>
       <a href="#contacto" class="btn btn-ghost" id="hero-btn-talk">Agendar conversación</a>
@@ -521,7 +526,7 @@
         </button>
         <div class="acc-body">
           <div class="acc-body-inner">
-            <p class="enfoque" id="srv-p-4">Blindamos la estructura de tu negocio fusionando el rigor de la metodología Lean 6 Sigma con sistemas modernos de monitoreo inteligente. Diseñamos models de gobernanza automatizados pensados para soportar el crecimiento acelerado, la expansion internacional y la delegación con total control, consistencia y transparencia.</p>
+            <p class="enfoque" id="srv-p-4">Blindamos la estructura de tu negocio fusionando el rigor de la metodología Lean 6 Sigma con sistemas modernos de monitoreo inteligente. Diseñamos modelos de gobernanza automatizados pensados para soportar el crecimiento acelerado, la expansion internacional y la delegación con total control, consistencia y transparencia.</p>
             <span class="sol-label" id="srv-sol-lbl-4">Soluciones clave</span>
             <ul id="srv-ul-4">
               </ul>
@@ -585,7 +590,7 @@
       heroBtnServices: 'Ver servicios →', heroBtnTalk: 'Agendar conversación', heroScroll: 'Desplázate',
       nosotrosLabel: '01 — Identidad', nosotrosTitle: 'Quiénes somos',
       tabSobre: 'Sobre nosotros', tabMision: 'Misión', tabVision: 'Visión',
-      panelTxtSobre: 'Somos una firma de alta consultoría especializada en la arquitectura, optimización y automatización de modelos operativos globales. Diseñamos e implementamos soluciones de alta eficiencia que permiten a organizaciones de alto impacto estandarizar, medir y controlar sus operaciones complejas, impulsando su gobernanza y escalabilidad en un entorno empresarial interconectado.',
+      panelTxtSobre: 'Somos una firma de alta consultoría especializada en la arquitectura, optimización y automatización de modelos operativos globales. Diseñamos e implementamos soluciones de alta eficiencia que permiten a organizaciones de alto impacto estandarizar, medir y conocer sus operaciones complejas, impulsando su gobernanza y escalabilidad en un entorno empresarial interconectado.',
       panelTxtMision: 'Acelerar la evolución digital de las organizaciones a través del rediseño estratégico de procesos y la hiperautomatización, eliminando la fricción operativa para maximizar la rentabilidad, el control y la agilidad de los negocios.',
       panelTxtVision: 'Consolidar a Oberon como una firma consultora de referencia global en Transformación Digital y Project Management, reconocida por conectar la tecnología con el talento humano para crear modelos operativos transfronterizos, resilientes y preparados para el futuro.',
       metLabel: '02 — Excelencia Operativa',
@@ -617,7 +622,7 @@
       ],
       srvUl3: [
         'Programas ejecutivos de cultura digital, alfabetización en datos e Inteligencia Artificial.',
-        'Estrategias de gestión del cambio para la transición hacia flujos de trabajo autónomos.',
+        'Estrategias de gestión del cambio para la transición hacia flujos de trabalho autónomos.',
         'Talleres prácticos de adopción y uso estratégico de herramientas de IA aplicadas al negocio.',
         'Desarrollo de células de innovación interna (No-Code/Low-Code) y autonomía operativa dinámica.'
       ],
@@ -628,7 +633,7 @@
       ],
       ctLabel: '04 — Empecemos', ctTitle: 'Diseñemos tu próximo modelo operativo avanzado.',
       ctDesc: 'Transforma la complejidad en autonomía. Permite que nuestros arquitectos de procesos e IA diseñen la infraestructura digital que llevará a tu empresa al siguiente nivel de competitividad global.',
-      ctCall: 'Llamar ahora →', ctLink: 'Ver LinkedIn', ctPhone: 'Teléfono', ctWeb: 'Sitio web',
+      ctCall: 'Liar ahora →', ctLink: 'Ver LinkedIn', ctPhone: 'Teléfono', ctWeb: 'Sitio web',
       ctLinkName: 'Oberon Consultores en Transformación Digital e IA',
       footCopy: 'Oberon | Consultores en Transformación Digital e Inteligencia Artificial', footUp: 'Volver arriba ↑',
       pillars: [
@@ -709,12 +714,12 @@
       heroBtnServices: 'Ver Serviços →', heroBtnTalk: 'Agendar Conversa', heroScroll: 'Rolar Abaixo',
       nosotrosLabel: '01 — Identidade', nosotrosTitle: 'Quem Somos',
       tabSobre: 'Sobre Nós', tabMision: 'Missão', tabVision: 'Visão',
-      panelTxtSobre: 'Somos uma empresa de alta consultoría especializada em arquitetura, otimização e automação de modelos operacionais globais. Projetamos e implementamos soluções de alta eficiência que permitem a organizações de grande impacto padronizar, medir e controlar suas operações complexas, impulsionando sua governança e escalabilidade em ecossistemas interconectados.',
+      panelTxtSobre: 'Somos uma empresa de alta consultoria especializada em arquitetura, otimização e automação de modelos operacionais globais. Projetamos e implementamos soluções de alta eficiência que permitem a organizações de grande impacto padronizar, medir e controlar suas operações complexas, impulsionando sua governança e escalabilidade em ecossistemas interconectados.',
       panelTxtMision: 'Acelerar a evolução digital das organizações por meio do desenho estratégico de processos e da hiperautomação, eliminando fricções operacionais para maximizar a lucratividade, o controle e a agilidade dos negócios.',
-      panelTxtVision: 'Consolidar a Oberon como uma consultoria de referência global em Transformação Digital e Project Management, reconhecida por conectar tecnologia com talento humano para criar modelos operacionais transfronteiriços, resilientes e preparados para o futuro.',
-      metLabel: '02 — Excelência Operacional',
+      panelTxtVision: 'Consolidar a Oberon como uma consultoria de referência global em Transformação Digital e Project Management, reconhecida por conectar tecnologia com talento humano para criar modelos operacionais transfronterizos, resilientes e preparados para o futuro.',
+      metLabel: '02 — Excelência Operativa',
       metTitle: 'A evolução de un negócio não acontece com o tempo; é projetada.',
-      metSub: 'Fundimos o rigor metodológico de Lean 6 Sigma com a flexibilidade do desenvolvimento Low-Code/No-Code e o poder preditivo da Inteligência Artificial. O resultado: uma infraestrutura empresarial blindada, mensurável e pronta para escalar.',
+      metSub: 'Fundimos o rigor metodológico de Lean 6 Sigma com a flexibilidade do desenvolvimento Low-Code/No-Code e o poder predictivo da Inteligência Artificial. O resultado: uma infraestrutura empresarial blindada, mensurável e pronta para escalar.',
       node0: '01 · PROCESSOS', node1: '02 · DADOS', node2: '03 · ADOÇÃO', node3: '04 · GOVERNANÇA',
       srvLabel: '03 — Portfólio', srvTitle: 'Nossos Serviços Estratégicos',
       srvH1: 'Hiperautomação e Inteligência Artificial Operacional',
@@ -746,7 +751,7 @@
         'Desenvolvimento de células de inovação interna (No-Code/Low-Code) e autonomia operacional dinâmica.'
       ],
       srvUl4: [
-        'Padronização estrutural e otimização de processos sob metodologias de melhoria contínua.',
+        'Padronização estrutural e otimização de processos baixo metodologias de melhoria contínua.',
         'Modelos de governo corporativo impulsionados por auditorias operacionais e mitigação de riscos automatizados.',
         'Otimização avançada de Onboarding Operacional, gestão de PMO, SLAs e indicadores de serviço de ponta a ponta (End-to-End).'
       ],
@@ -758,7 +763,7 @@
       pillars: [
         { title: 'Hiperautomação e Redesenho de Processos', text: 'Projetamos arquiteturas digitais que erradicam tarefas manuais, otimizando seus fluxos de trabalho de ponta a ponta.' },
         { title: 'Análise Avançada e Arquitetura de Dados', text: 'Estruturamos seus dados desde a raiz para entregar painéis dinâmicos que permitem controle total em tempo real.' },
-        { title: 'Gestão de Mudança e Adoção Digital', text: 'Garantimos que sua equipe adote as novas tecnologias de IA, mitigando a resistência cultural e assegurando a continuidade operacional.' },
+        { title: 'Gestão de Mudança e Adoção Digital', text: 'Garantizamos que sua equipe adote as novas tecnologias de IA, mitigando a resistência cultural e assegurando a continuidade operacional.' },
         { title: 'Governança e Escalonabilidade Operacional', text: 'Fortalecemos a estrutura do seu negócio com modelos modernos, desenhados para crescer de forma sustentável e sem atritos.' }
       ]
     }
