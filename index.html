@@ -79,14 +79,15 @@
     padding:14px 32px;
     border-bottom:1px solid rgba(212,175,106,.18);
   }
-  .brand{display:flex; align-items:center; gap:12px; color:var(--star); max-width: 70%;}
+  .brand{display:flex; align-items:center; gap:12px; color:var(--star); flex:1;}
   .brand svg{width:34px;height:34px;flex:none;}
-  .brand-text{font-family:'Fraunces',serif; font-size:1.05rem; letter-spacing:.03em; line-height:1.1; overflow:hidden;}
+  .brand-text{font-family:'Fraunces',serif; font-size:1.05rem; letter-spacing:.03em; line-height:1.1;}
   
+  /* ESTILO WEB DEFAULT: Todo de corrido en una sola línea horizontal */
   .brand-text span{
     display:block; font-family:'IBM Plex Mono',monospace; font-size:.56rem; 
-    letter-spacing:0.08em; color:var(--gold); margin-top:2px;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    letter-spacing:.12em; color:var(--gold); margin-top:2px;
+    white-space:nowrap;
   }
   .nav-links{display:flex; gap:28px; align-items:center;}
   .nav-links a{
@@ -117,6 +118,8 @@
   }
   .nav-cta:hover{background:var(--gold); color:var(--midnight) !important;}
   .nav-cta::after{display:none;}
+  
+  .nav-right-actions { display:flex; align-items:center; gap:16px; flex:none; }
   .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; z-index:110;}
   .burger span{width:22px; height:2px; background:var(--star); display:block; transition:.3s;}
   .mobile-panel{
@@ -291,7 +294,9 @@
   footer a{color:var(--dim);}
   footer a:hover{color:var(--gold-bright);}
 
+  /* REINGENIERÍA RESPONSIVA DE ALTA PRECISIÓN PARA MÓVILES */
   @media (max-width:940px){
+    .nav{ padding: 14px 24px; background:rgba(11,17,48,.92); backdrop-filter:blur(12px); }
     .nav-links{display:none;}
     .burger{display:flex;}
     .nosotros-grid, .constellation-wrap, .contacto-grid{grid-template-columns:1fr; gap:40px;}
@@ -300,15 +305,19 @@
     .hero-crescent{width:260px; height:260px; right:-40px; top:-20px; opacity:.5;}
     .contacto-grid{align-items:start;}
     
-    /* Responsive precission constraints for single line label box */
+    /* EN MÓVIL: Habilitamos el brinco de línea natural y ajustamos tipografía */
     .brand-text span {
-      font-size: .46rem !important;
-      max-width: 175px !important;
+      white-space: normal !important;
+      font-size: .48rem !important;
+      line-height: 1.25 !important;
+      max-width: 190px !important;
+      margin-top: 4px;
     }
   }
   @media (max-width:560px){
     .wrap{padding:0 22px;}
     .hero{padding-top:120px;}
+    .brand-text span { max-width: 160px !important; }
   }
 </style>
 </head>
@@ -326,22 +335,25 @@
     </svg>
     <div class="brand-text">OBERON<span id="txt-brand-sub">CONSULTORES EN TRANSFORMACIÓN DIGITAL E INTELIGENCIA ARTIFICIAL</span></div>
   </a>
-  <div class="nav-links">
-    <a href="#nosotros" id="nav-nosotros">Nosotros</a>
-    <a href="#metodologia" id="nav-metodologia">Metodología</a>
-    <a href="#servicios" id="nav-servicios">Servicios</a>
-    
+  
+  <div class="nav-right-actions">
     <div class="lang-selector">
       <button class="lang-btn" onclick="changeLanguage('es')">ES</button>
       <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
       <button class="lang-btn" onclick="changeLanguage('pt')">PT</button>
     </div>
+    
+    <div class="nav-links" style="display:contents;">
+      <a href="#nosotros" id="nav-nosotros" style="display:none;">Nosotros</a>
+      <a href="#metodologia" id="nav-metodologia" style="display:none;">Metodología</a>
+      <a href="#servicios" id="nav-servicios" style="display:none;">Servicios</a>
+      <a href="#contacto" class="nav-cta" id="nav-contacto">Contáctanos</a>
+    </div>
 
-    <a href="#contacto" class="nav-cta" id="nav-contacto">Contáctanos</a>
+    <button class="burger" id="burger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <button class="burger" id="burger" aria-label="Abrir menú">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
 <div class="mobile-panel" id="mobilePanel">
@@ -349,12 +361,6 @@
   <a href="#metodologia" id="m-nav-metodologia">Metodología</a>
   <a href="#servicios" id="m-nav-servicios">Servicios</a>
   <a href="#contacto" id="m-nav-contacto">Contáctanos</a>
-  
-  <div class="lang-selector mobile-lang">
-    <button class="lang-btn" onclick="changeLanguage('es')">ES</button>
-    <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
-    <button class="lang-btn" onclick="changeLanguage('pt')">PT</button>
-  </div>
 </div>
 
 <section class="hero" id="inicio">
@@ -379,7 +385,7 @@
       <span class="label" id="hero-eyebrow">Consultores en Transformación Digital e IA</span>
     </div>
     <h1 class="hero-title" id="hero-title">Evolución operativa a través de la <em>Inteligencia&nbsp;Artificial</em> y la arquitectura de procesos.</h1>
-    <p class="hero-sub" id="hero-sub">Diseñamos, optimizamos y automatizamos modelos operativos globales para que tu organización estandarice, mida y controle operaciones complexes con total gobernanza.</p>
+    <p class="hero-sub" id="hero-sub">Diseñamos, optimizamos y automatizamos modelos operativos globales para que tu organización estandarice, mida y controle operaciones complejas con total gobernanza.</p>
     <div class="hero-actions">
       <a href="#servicios" class="btn btn-gold" id="hero-btn-services">Ver servicios →</a>
       <a href="#contacto" class="btn btn-ghost" id="hero-btn-talk">Agendar conversación</a>
@@ -622,7 +628,7 @@
       ],
       srvUl3: [
         'Programas ejecutivos de cultura digital, alfabetización en datos e Inteligencia Artificial.',
-        'Estrategias de gestión del cambio para la transición hacia flujos de trabalho autónomos.',
+        'Estrategias de gestión del cambio para la transición hacia flujos de trabajo autónomos.',
         'Talleres prácticos de adopción y uso estratégico de herramientas de IA aplicadas al negocio.',
         'Desarrollo de células de innovación interna (No-Code/Low-Code) y autonomía operativa dinámica.'
       ],
@@ -633,13 +639,13 @@
       ],
       ctLabel: '04 — Empecemos', ctTitle: 'Diseñemos tu próximo modelo operativo avanzado.',
       ctDesc: 'Transforma la complejidad en autonomía. Permite que nuestros arquitectos de procesos e IA diseñen la infraestructura digital que llevará a tu empresa al siguiente nivel de competitividad global.',
-      ctCall: 'Liar ahora →', ctLink: 'Ver LinkedIn', ctPhone: 'Teléfono', ctWeb: 'Sitio web',
+      ctCall: 'Llamar ahora →', ctLink: 'Ver LinkedIn', ctPhone: 'Teléfono', ctWeb: 'Sitio web',
       ctLinkName: 'Oberon Consultores en Transformación Digital e IA',
       footCopy: 'Oberon | Consultores en Transformación Digital e Inteligencia Artificial', footUp: 'Volver arriba ↑',
       pillars: [
         { title: 'Hiperautomatización y Rediseño de Procesos', text: 'Diseñamos arquitecturas digitales que erradican las tareas manuales, optimizando tus flujos de trabajo de punta a punta.' },
         { title: 'Analítica Avanzada y Arquitectura de Datos', text: 'Estructuramos tus datos desde la raíz para entregar tableros dinámicos que permiten un control total e indicadores clave en tiempo real.' },
-        { title: 'Gestión del Cambio y Adopción Digital', text: 'Garantizamos que tu equipo adopte las nuevas tecnologías de IA, mitigando la resistencia cultural y asegurando la continuidad operativa.' },
+        { title: 'Gestión del Cambo y Adopción Digital', text: 'Garantizamos que tu equipo adopte las nuevas tecnologías de IA, mitigando la resistencia cultural y asegurando la continuidad operativa.' },
         { title: 'Gobernanza y Escalabilidad Operativa', text: 'Blindamos la estructura de tu negocio con modelos modernos, diseñados para crecer de manera sostenible y sin fricciones.' }
       ]
     },
@@ -721,7 +727,7 @@
       metTitle: 'A evolução de un negócio não acontece com o tempo; é projetada.',
       metSub: 'Fundimos o rigor metodológico de Lean 6 Sigma com a flexibilidade do desenvolvimento Low-Code/No-Code e o poder predictivo da Inteligência Artificial. O resultado: uma infraestrutura empresarial blindada, mensurável e pronta para escalar.',
       node0: '01 · PROCESSOS', node1: '02 · DADOS', node2: '03 · ADOÇÃO', node3: '04 · GOVERNANÇA',
-      srvLabel: '03 — Portfólio', srvTitle: 'Nossos Serviços Estratégicos',
+      srvLabel: '03 — Portafolio', srvTitle: 'Nossos Serviços Estratégicos',
       srvH1: 'Hiperautomação e Inteligência Artificial Operacional',
       srvP1: 'Projetamos e implementamos ecossistemas digitais autônomos de ponta a ponta. Conectamos ferramentas de última geração, desenvolvimento low-code e agentes de Inteligência Artificial para erradicar totalmente as cargas operacionais manuais, transformando tarefas tradicionais em fluxos de trabalho inteligentes, ágeis e auto-otimizáveis.',
       srvH2: 'Engenharia de Dados e Análise Preditiva com IA',
@@ -729,7 +735,7 @@
       srvH3: 'Transformación Cultural e Adoção de IA',
       srvP3: 'Garantimos o verdadeiro retorno sobre o investimento tecnológico mitigando a resistência cultural à automação. Acompanhamos sua organização na transição digital, capacitando e alinhando o talento humano para adotar a Inteligência Artificial como copiloto diário, assegurando uma evolução operacional sustentável e acelerada.',
       srvH4: 'Governança Institucional e Modelos Escalonáveis',
-      srvP4: 'Blindamos a estrutura do seu negócio fundindo o rigor da metodologia Lean 6 Sigma com sistemas modernos de monitoramento inteligente. Projetamos modelos de governanza automatizados estruturados para suportar o crescimento acelerado, a expansão internacional e a delegação com total controle, consistência e transparência.',
+      srvP4: 'Blindamos a estrutura do seu negócio fundindo o rigor da metodologia Lean 6 Sigma com sistemas modernos de monitoring inteligente. Projetamos modelos de governanza automatizados estruturados para suportar o crescimento acelerado, a expansão internacional e a delegação com total controle, consistência e transparência.',
       solLbl: 'Principais Soluções',
       ctLblBrand: 'Empresa',
       ctBtnBookings: 'Agende sua sessão de avaliação',
@@ -746,12 +752,12 @@
       ],
       srvUl3: [
         'Programas executivos de cultura digital, alfabetização de dados e Inteligência Artificial.',
-        'Estratégias de gestão de mudança para a transição rumo a fluxos de trabalho autônomos.',
+        'Estrategias de gestão de mudança para a transição rumo a fluxos de trabalho autônomos.',
         'Workshops práticos de adoção e uso estratégico de ferramentas de IA aplicadas ao negócio.',
         'Desenvolvimento de células de inovação interna (No-Code/Low-Code) e autonomia operacional dinâmica.'
       ],
       srvUl4: [
-        'Padronização estrutural e otimização de processos baixo metodologias de melhoria contínua.',
+        'Padronização estrutural e otimização de processos sob metodologias de melhoria contínua.',
         'Modelos de governo corporativo impulsionados por auditorias operacionais e mitigação de riscos automatizados.',
         'Otimização avançada de Onboarding Operacional, gestão de PMO, SLAs e indicadores de serviço de ponta a ponta (End-to-End).'
       ],
@@ -759,7 +765,7 @@
       ctDesc: 'Transforme a complexidade em autonomia. Permita que nossos arquitetos de processos e IA projetem a infraestrutura digital que levará sua empresa ao próximo nível de competitividade global.',
       ctCall: 'Ligar agora →', ctLink: 'Ver LinkedIn', ctPhone: 'Telefone', ctWeb: 'Sítio web',
       ctLinkName: 'Oberon Consultores em Transformação Digital e IA',
-      footCopy: 'Oberon | Consultores em Transformação Digital e Inteligência Artificial', footUp: 'Voltar ao topo ↑',
+      footCopy: 'Oberon | Consultores em Transformación Digital e Inteligência Artificial', footUp: 'Voltar ao topo ↑',
       pillars: [
         { title: 'Hiperautomação e Redesenho de Processos', text: 'Projetamos arquiteturas digitais que erradicam tarefas manuais, otimizando seus fluxos de trabalho de ponta a ponta.' },
         { title: 'Análise Avançada e Arquitetura de Dados', text: 'Estruturamos seus dados desde a raiz para entregar painéis dinâmicos que permitem controle total em tempo real.' },
