@@ -74,8 +74,8 @@
     border-bottom:1px solid transparent;
   }
   .nav.scrolled{
-    background:rgba(11,17,48,.94);
-    backdrop-filter:blur(12px);
+    background:rgba(11,17,48,.86);
+    backdrop-filter:blur(10px);
     padding:14px 32px;
     border-bottom:1px solid rgba(212,175,106,.18);
   }
@@ -83,6 +83,7 @@
   .brand svg{width:34px;height:34px;flex:none;}
   .brand-text{font-family:'Fraunces',serif; font-size:1.05rem; letter-spacing:.03em; line-height:1.1;}
   
+  /* ESTILO WEB DEFAULT: Todo de corrido en una sola línea horizontal */
   .brand-text span{
     display:block; font-family:'IBM Plex Mono',monospace; font-size:.56rem; 
     letter-spacing:.12em; color:var(--gold); margin-top:2px;
@@ -118,7 +119,7 @@
   .nav-cta:hover{background:var(--gold); color:var(--midnight) !important;}
   .nav-cta::after{display:none;}
   
-  .nav-right-actions { display:flex; align-items:center; gap:20px; flex:none; }
+  .nav-right-actions { display:flex; align-items:center; gap:16px; flex:none; }
   .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; z-index:110;}
   .burger span{width:22px; height:2px; background:var(--star); display:block; transition:.3s;}
   .mobile-panel{
@@ -293,9 +294,9 @@
   footer a{color:var(--dim);}
   footer a:hover{color:var(--gold-bright);}
 
-  /* CORRECCIÓN RESPONSIVA DEFINTIVA PARA DISPOSITIVOS MÓVILES */
+  /* REINGENIERÍA RESPONSIVA DE ALTA PRECISIÓN PARA MÓVILES */
   @media (max-width:940px){
-    .nav{ padding: 14px 24px; background:rgba(11,17,48,.96); backdrop-filter:blur(12px); }
+    .nav{ padding: 14px 24px; background:rgba(11,17,48,.92); backdrop-filter:blur(12px); }
     .nav-links{display:none;}
     .burger{display:flex;}
     .nosotros-grid, .constellation-wrap, .contacto-grid{grid-template-columns:1fr; gap:40px;}
@@ -304,28 +305,24 @@
     .hero-crescent{width:260px; height:260px; right:-40px; top:-20px; opacity:.5;}
     .contacto-grid{align-items:start;}
     
-    /* En móvil se remueve el botón duplicado de "Contáctanos" para limpiar el header */
-    .nav-right-actions .nav-cta { display:none !important; }
-
-    /* Habilitamos el brinco de línea elegante para móviles con el ancho correcto */
+    /* EN MÓVIL: Habilitamos el brinco de línea natural y ajustamos tipografía */
     .brand-text span {
       white-space: normal !important;
       font-size: .48rem !important;
-      line-height: 1.3 !important;
-      max-width: 200px !important;
+      line-height: 1.25 !important;
+      max-width: 190px !important;
       margin-top: 4px;
     }
   }
   @media (max-width:560px){
     .wrap{padding:0 22px;}
     .hero{padding-top:120px;}
-    .brand-text span { max-width: 155px !important; }
+    .brand-text span { max-width: 160px !important; }
   }
 </style>
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
   <a href="#inicio" class="brand">
     <svg viewBox="0 0 40 40" fill="none">
@@ -366,7 +363,6 @@
   <a href="#contacto" id="m-nav-contacto">Contáctanos</a>
 </div>
 
-<!-- ============ HERO ============ -->
 <section class="hero" id="inicio">
   <div class="stars" id="starField"></div>
   <svg class="hero-crescent" viewBox="0 0 200 200" fill="none">
@@ -398,7 +394,6 @@
   <div class="scroll-cue"><span class="dash"></span><span class="label" id="hero-scroll">Desplázate</span></div>
 </section>
 
-<!-- ============ QUIENES SOMOS ============ -->
 <section class="nosotros light" id="nosotros">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -431,7 +426,6 @@
   </div>
 </section>
 
-<!-- ============ METODOLOGIA / CONSTELACION ============ -->
 <section class="metodologia" id="metodologia">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -453,28 +447,26 @@
         </g>
         <g class="const-node" data-node="1">
           <circle class="dot" cx="380" cy="70" r="6"></circle>
-          <text x="380" y="48" text-anchor="middle" id="node-txt-1">02 · DATOS</text>
+          <text x="380" y="48" text-anchor="middle" id="node-txt-1">02 · DADOS</text>
         </g>
         <g class="const-node" data-node="2">
           <circle class="dot" cx="110" cy="290" r="6"></circle>
-          <text x="110" y="316" text-anchor="middle" id="node-txt-2">03 · ADOPCIÓN</text>
+          <text x="110" y="316" text-anchor="middle" id="node-txt-2">03 · ADOÇÃO</text>
         </g>
         <g class="const-node" data-node="3">
           <circle class="dot" cx="380" cy="290" r="6"></circle>
-          <text x="380" y="316" text-anchor="middle" id="node-txt-3">04 · GOVERNANZA</text>
+          <text x="380" y="316" text-anchor="middle" id="node-txt-3">04 · GOVERNANÇA</text>
         </g>
         <circle cx="250" cy="180" r="3" fill="var(--gold)"/>
         <text x="250" y="205" text-anchor="middle" fill="var(--gold-bright)" style="font-size:10px; letter-spacing:.1em;">OBERON</text>
       </svg>
 
       <div class="const-panel" id="constPanel">
-        <!-- filled by JS -->
-      </div>
+        </div>
     </div>
   </div>
 </section>
 
-<!-- ============ SERVICIOS ============ -->
 <section class="servicios light" id="servicios">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -495,8 +487,7 @@
             <p class="enfoque" id="srv-p-1">Diseñamos e implementamos ecosistemas digitales autónomos de punta a punta. Conectamos herramientas de última generación, desarrollo low-code y agentes de Inteligencia Artificial para erradicar por completo la carga operativa manual, transformando tareas tradicionales en flujos de trabajo inteligentes de alta velocidad y auto-optimizables.</p>
             <span class="sol-label" id="srv-sol-lbl-1">Soluciones clave</span>
             <ul id="srv-ul-1">
-              <!-- filled by JS -->
-            </ul>
+              </ul>
           </div>
         </div>
       </div>
@@ -512,8 +503,7 @@
             <p class="enfoque" id="srv-p-2">Estructuramos el gobierno de tus datos desde la raíz, diseñando arquitecturas limpias y centralizadas impulsadas por modelos de Inteligencia Artificial. Convertimos datos dispersos en un activo estratégico e interpretativo, entregando tableros de control predictivos que anticipan tendencias y respaldan decisiones críticas de alta dirección.</p>
             <span class="sol-label" id="srv-sol-lbl-2">Soluciones clave</span>
             <ul id="srv-ul-2">
-              <!-- filled by JS -->
-            </ul>
+              </ul>
           </div>
         </div>
       </div>
@@ -529,8 +519,7 @@
             <p class="enfoque" id="srv-p-3">Garantizamos el verdadero retorno de inversión tecnológica mitigando la resistencia cultural hacia la automatización. Acompañamos a tu organización en la transición digital, capacitando y alineando al talento humano para que adopte la Inteligencia Artificial como un co-piloto diario, asegurando una evolución operativa acelerada, natural y sostenible.</p>
             <span class="sol-label" id="srv-sol-lbl-3">Soluciones clave</span>
             <ul id="srv-ul-3">
-              <!-- filled by JS -->
-            </ul>
+              </ul>
           </div>
         </div>
       </div>
@@ -538,7 +527,7 @@
       <div class="acc-item">
         <button class="acc-head">
           <span class="num">04</span>
-          <span class="acc-head-text"><h3><span id="srv-h-4">Gobernanza Institucional y Modelos Escalables</span> <span style="opacity:.55; font-size:.7em;">(Lean 6 Sigma + IA)</span></h3></span>
+          <span class="acc-head-text"><h3><span id="srv-h-4">Gobernanza Institucional y PMO</span> <span style="opacity:.55; font-size:.7em;">(Lean 6 Sigma + IA)</span></h3></span>
           <span class="acc-plus"></span>
         </button>
         <div class="acc-body">
@@ -546,8 +535,7 @@
             <p class="enfoque" id="srv-p-4">Blindamos la estructura de tu negocio fusionando el rigor de la metodología Lean 6 Sigma con sistemas modernos de monitoreo inteligente. Diseñamos modelos de gobernanza automatizados pensados para soportar el crecimiento acelerado, la expansion internacional y la delegación con total control, consistencia y transparencia.</p>
             <span class="sol-label" id="srv-sol-lbl-4">Soluciones clave</span>
             <ul id="srv-ul-4">
-              <!-- filled by JS -->
-            </ul>
+              </ul>
           </div>
         </div>
       </div>
@@ -556,7 +544,6 @@
   </div>
 </section>
 
-<!-- ============ CONTACTO ============ -->
 <section class="contacto" id="contacto">
   <div class="wrap">
     <div class="contacto-grid reveal">
@@ -615,7 +602,7 @@
       metLabel: '02 — Excelencia Operativa',
       metTitle: 'La evolución de un negocio no ocurre con el tiempo; se diseña.',
       metSub: 'Fusionamos el rigor metodológico de Lean 6 Sigma con la flexibilidad del desarrollo Low-Code/No-Code y el poder predictivo de la Inteligencia Artificial. El resultado: una infraestructura empresarial blindada, medible y lista para escalar.',
-      node0: '01 · PROCESOS', node1: '02 · DATOS', node2: '03 · ADOPCIÓN', node3: '04 · GOVERNANZA',
+      node0: '01 · PROCESOS', node1: '02 · DATOS', node2: '03 · ADOPCIÓN', node3: '04 · GOBERNANZA',
       srvLabel: '03 — Portafolio', srvTitle: 'Nuestros servicios estratégicos',
       srvH1: 'Hiperautomatización e Inteligencia Artificial Operativa',
       srvP1: 'Diseñamos e implementamos ecosistemas digitales autónomos de punta a punta. Conectamos herramientas de última generación, desarrollo low-code y agentes de Inteligencia Artificial para erradicar por completo la carga operativa manual, transformando tareas tradicionales en flujos de trabajo inteligentes de alta velocidad y auto-optimizables.',
@@ -623,8 +610,8 @@
       srvP2: 'Estructuramos el gobierno de tus datos desde la raíz, diseñando arquitecturas limpias y centralizadas impulsadas por modelos de Inteligencia Artificial. Convertimos datos dispersos en un activo estratégico e interpretativo, entregando tableros de control predictivos que anticipan tendencias y respaldan decisiones críticas de alta dirección.',
       srvH3: 'Transformación Cultural y Adopción de IA',
       srvP3: 'Garantizamos el verdadero retorno de inversión tecnológica mitigando la resistencia cultural hacia la automatización. Acompañamos a tu organización en la transición digital, capacitando y alineando al talento humano para que adopte la Inteligencia Artificial como un co-piloto diario, asegurando una evolución operativa acelerada, natural y sostenible.',
-      srvH4: 'Gobernanza Institucional y Modelos Escalables',
-      srvP4: 'Blindamos la estructura de tu negocio fusionando el rigor de la metodología Lean 6 Sigma con sistemas modernos de monitoreo inteligente. Diseñamos modelos de gobernanza automatizados pensados para soportar el crecimiento acelerado, la expansion internacional y la delegación con total control, consistencia y transparencia.',
+      srvH4: 'Gobernanza Institucional y PMO',
+      srvP4: 'Blindamos la estructura de tu negocio fusionando el rigor de la metodología Lean 6 Sigma con sistemas modernos de monitoreo inteligente, respaldados por una Oficina de Gestión de Proyectos (PMO) propia. Diseñamos modelos de gobernanza automatizados pensados para soportar el crecimiento acelerado, la expansion internacional y la delegación con total control, consistencia y transparencia.',
       solLbl: 'Soluciones clave',
       ctLblBrand: 'Compañía',
       ctBtnBookings: 'Agenda tu sesión de assessment',
@@ -648,7 +635,8 @@
       srvUl4: [
         'Estandarización estructural y optimización de procesos bajo metodologías de mejora continua.',
         'Modelos de gobierno corporativo impulsados por auditorías operativas y mitigación de riesgos automatizados.',
-        'Optimización avanzada del Onboarding Operativo, gestión de PMO, SLAs e indicadores de servicio de extremo a extremo (End-to-End).'
+        'Optimización avanzada del Onboarding Operativo, SLAs e indicadores de servicio de extremo a extremo (End-to-End).',
+        'Oficina de Gestión de Proyectos (PMO) como servicio independiente: liderazgo, planeación y control de alcance, tiempo, costo y calidad para proyectos de cualquier naturaleza — tecnológicos o no.'
       ],
       ctLabel: '04 — Empecemos', ctTitle: 'Diseñemos tu próximo modelo operativo avanzado.',
       ctDesc: 'Transforma la complejidad en autonomía. Permite que nuestros arquitectos de procesos e IA diseñen la infraestructura digital que llevará a tu empresa al siguiente nivel de competitividad global.',
@@ -658,7 +646,7 @@
       pillars: [
         { title: 'Hiperautomatización y Rediseño de Procesos', text: 'Diseñamos arquitecturas digitales que erradican las tareas manuales, optimizando tus flujos de trabajo de punta a punta.' },
         { title: 'Analítica Avanzada y Arquitectura de Datos', text: 'Estructuramos tus datos desde la raíz para entregar tableros dinámicos que permiten un control total e indicadores clave en tiempo real.' },
-        { title: 'Gestión del Cambio y Adopción Digital', text: 'Garantizamos que tu equipo adopte las nuevas tecnologías de IA, mitigando la resistencia cultural y asegurando la continuidad operativa.' },
+        { title: 'Gestión del Cambo y Adopción Digital', text: 'Garantizamos que tu equipo adopte las nuevas tecnologías de IA, mitigando la resistencia cultural y asegurando la continuidad operativa.' },
         { title: 'Gobernanza y Escalabilidad Operativa', text: 'Blindamos la estructura de tu negocio con modelos modernos, diseñados para crecer de manera sostenible y sin fricciones.' }
       ]
     },
@@ -685,8 +673,8 @@
       srvP2: 'We build your data governance from the roots up, designing clean and centralized architectures driven by AI models. We turn scattered data into a strategic asset, delivering predictive executive dashboards that anticipate trends and back critical leadership decisions.',
       srvH3: 'Cultural Transformation & AI Adoption',
       srvP3: 'We guarantee genuine ROI on technology by mitigating cultural resistance to automation. We guide your organization through digital transition, training and aligning human talent to embrace AI as a daily co-pilot, ensuring sustainable, accelerated operational evolution.',
-      srvH4: 'Institutional Governance & Scalable Models',
-      srvP4: 'We safeguard your business structure by merging Lean 6 Sigma rigor with modern intelligent monitoring systems. We design automated governance models built to withstand rapid growth, international expansion, and delegation with absolute control and transparency.',
+      srvH4: 'Institutional Governance & PMO',
+      srvP4: 'We safeguard your business structure by merging Lean 6 Sigma rigor with modern intelligent monitoring systems, backed by our own Project Management Office (PMO). We design automated governance models built to withstand rapid growth, international expansion, and delegation with absolute control and transparency.',
       solLbl: 'Key Solutions',
       ctLblBrand: 'Company',
       ctBtnBookings: 'Schedule your assessment session',
@@ -710,7 +698,8 @@
       srvUl4: [
         'Structural standardization and process optimization under continuous improvement methodologies.',
         'Corporate governance models driven by automated operational audits and risk mitigation.',
-        'Advanced optimization of Operational Onboarding, PMO management, SLAs, and End-to-End service indicators.'
+        'Advanced optimization of Operational Onboarding, SLAs, and End-to-End service indicators.',
+        'Project Management Office (PMO) as a standalone service: leadership, planning, and control of scope, time, cost, and quality for projects of any nature — technology-related or not.'
       ],
       ctLabel: '04 — Get Started', ctTitle: 'Let\'s design your next advanced operating model.',
       ctDesc: 'Turn complexity into autonomy. Allow our process and AI architects to build the digital infrastructure that will propel your business to the next tier of global competitiveness.',
@@ -747,8 +736,8 @@
       srvP2: 'Estruturamos a governança dos seus dados desde a raiz, desenvolvendo arquiteturas limpas e centralizadas impulsionadas por modelos de Inteligência Artificial. Convertemos dados dispersos em um ativo estratégico e interpretativo, entregando painéis executivos preditivos que antecipam tendências e apoiam decisões críticas de alta liderança.',
       srvH3: 'Transformación Cultural e Adoção de IA',
       srvP3: 'Garantimos o verdadeiro retorno sobre o investimento tecnológico mitigando a resistência cultural à automação. Acompanhamos sua organização na transição digital, capacitando e alinhando o talento humano para adotar a Inteligência Artificial como copiloto diário, assegurando uma evolução operacional sustentável e acelerada.',
-      srvH4: 'Governança Institucional e Modelos Escalonáveis',
-      srvP4: 'Blindamos a estrutura do seu negócio fundindo o rigor da metodologia Lean 6 Sigma com sistemas modernos de monitoramento inteligente. Projetamos modelos de governanza automatizados estruturados para suportar o crescimento acelerado, a expansão internacional e a delegação com total controle, consistência e transparência.',
+      srvH4: 'Governança Institucional e PMO',
+      srvP4: 'Blindamos a estrutura do seu negócio fundindo o rigor da metodologia Lean 6 Sigma com sistemas modernos de monitoring inteligente, apoiados por um Escritório de Gerenciamento de Projetos (PMO) próprio. Projetamos modelos de governanza automatizados estruturados para suportar o crescimento acelerado, a expansão internacional e a delegação com total controle, consistência e transparência.',
       solLbl: 'Principais Soluções',
       ctLblBrand: 'Empresa',
       ctBtnBookings: 'Agende sua sessão de avaliação',
@@ -765,14 +754,15 @@
       ],
       srvUl3: [
         'Programas executivos de cultura digital, alfabetização de dados e Inteligência Artificial.',
-        'Estratégias de gestão de mudança para a transição rumo a fluxos de trabalho autônomos.',
+        'Estrategias de gestão de mudança para a transição rumo a fluxos de trabalho autônomos.',
         'Workshops práticos de adoção e uso estratégico de ferramentas de IA aplicadas ao negócio.',
         'Desenvolvimento de células de inovação interna (No-Code/Low-Code) e autonomia operacional dinâmica.'
       ],
       srvUl4: [
         'Padronização estrutural e otimização de processos sob metodologias de melhoria contínua.',
         'Modelos de governo corporativo impulsionados por auditorias operacionais e mitigação de riscos automatizados.',
-        'Otimização avançada de Onboarding Operacional, gestão de PMO, SLAs e indicadores de serviço de ponta a ponta (End-to-End).'
+        'Otimização avançada de Onboarding Operacional, SLAs e indicadores de serviço de ponta a ponta (End-to-End).',
+        'Escritório de Gerenciamento de Projetos (PMO) como serviço independente: liderança, planejamento e controle de escopo, prazo, custo e qualidade para projetos de qualquer natureza — tecnológicos ou não.'
       ],
       ctLabel: '04 — Comecemos', ctTitle: 'Projetemos seu próximo modelo operacional avançado.',
       ctDesc: 'Transforme a complexidade em autonomia. Permita que nossos arquitetos de processos e IA projetem a infraestrutura digital que levará sua empresa ao próximo nível de competitividade global.',
@@ -783,7 +773,7 @@
         { title: 'Hiperautomação e Redesenho de Processos', text: 'Projetamos arquiteturas digitais que erradicam tarefas manuais, otimizando seus fluxos de trabalho de ponta a ponta.' },
         { title: 'Análise Avançada e Arquitetura de Dados', text: 'Estruturamos seus dados desde a raiz para entregar painéis dinâmicos que permitem controle total em tempo real.' },
         { title: 'Gestão de Mudança e Adoção Digital', text: 'Garantizamos que sua equipe adote as novas tecnologias de IA, mitigando a resistência cultural e assegurando a continuidade operacional.' },
-        { title: 'Governança e Escalonabilidade Operacional', text: 'Fortalecemos a estrutura do seu negócio com models modernos, desenhados para crescer de forma sustentável e sem atritos.' }
+        { title: 'Governança e Escalonabilidade Operacional', text: 'Fortalecemos a estrutura do seu negócio com modelos modernos, desenhados para crescer de forma sustentável e sem atritos.' }
       ]
     }
   };
