@@ -190,6 +190,17 @@
   .sec-head h2{font-size:clamp(2rem, 3.6vw, 2.9rem); font-weight:400;}
   .light .sec-head .label{color:#9C7A34;}
 
+  /* ---------- credenciales ---------- */
+  .credenciales{
+    background:radial-gradient(ellipse 90% 70% at 50% 0%, #17204F 0%, var(--midnight) 60%);
+    color:var(--star); padding:130px 0;
+  }
+  .cred-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:36px;}
+  .cred-item{padding-top:20px; border-top:1px solid rgba(247,245,239,.14);}
+  .cred-item h3{color:var(--star); font-size:1.2rem; font-weight:500; margin-bottom:10px;}
+  .cred-item p{color:var(--dim); font-size:.92rem; line-height:1.65;}
+  @media (max-width:760px){ .cred-grid{grid-template-columns:1fr;} }
+
   /* ---------- quienes somos ---------- */
   .nosotros{padding:130px 0; background:var(--paper);}
   .nosotros-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:70px; align-items:start;}
@@ -544,6 +555,25 @@
   </div>
 </section>
 
+<section class="credenciales" id="credenciales">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label" id="cred-label">04 — Respaldo</span>
+      <h2 id="cred-title">Trayectoria comprobada</h2>
+    </div>
+    <div class="cred-grid reveal">
+      <div class="cred-item">
+        <h3 id="cred-name-1">Hershey México</h3>
+        <p id="cred-tag-1">Transformación de negocio · PMO con alcance global (México, EE. UU., Brasil) · Proyectos tecnológicos y automatización de procesos</p>
+      </div>
+      <div class="cred-item">
+        <h3 id="cred-name-2">Ópticas Desnubla</h3>
+        <p id="cred-tag-2">Primer cliente formal de Oberón · Plataforma ERP (OptiSync) en producción</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="contacto" id="contacto">
   <div class="wrap">
     <div class="contacto-grid reveal">
@@ -595,6 +625,12 @@
       heroSub: 'Diseñamos, optimizamos y automatizamos modelos operativos globales para que tu organización estandarice, mida y controle operaciones complejas con total gobernanza.',
       heroBtnServices: 'Ver servicios →', heroBtnTalk: 'Agendar conversación', heroScroll: 'Desplázate',
       nosotrosLabel: '01 — Identidad', nosotrosTitle: 'Quiénes somos',
+      credLabel: '04 — Respaldo',
+      credTitle: 'Trayectoria comprobada',
+      credName1: 'Hershey México',
+      credTag1: 'Transformación de negocio · PMO con alcance global (México, EE. UU., Brasil) · Proyectos tecnológicos de optimización de procesos bajo metodología Lean Six Sigma · Automatización y digitalización de procesos backoffice mediante herramientas low-code, con alcance global',
+      credName2: 'Ópticas Desnubla',
+      credTag2: 'Cliente formal de Oberón · Transformación integral de procesos mediante optimización y automatización · Migración a OptiSync, ERP modular propio que automatiza de punta a punta la conciliación de pagos, facturación, punto de venta (POS) y gastos, con módulos de CRM, proveedores y nóminas',
       tabSobre: 'Sobre nosotros', tabMision: 'Misión', tabVision: 'Visión',
       panelTxtSobre: 'Somos una firma de alta consultoría con dos frentes complementarios: la arquitectura, optimización y automatización de modelos operativos globales impulsados por Inteligencia Artificial, y una Oficina de Gestión de Proyectos (PMO) que lidera y controla proyectos de cualquier naturaleza, sean o no de transformación digital. Diseñamos e implementamos soluciones de alta eficiencia que permiten a organizaciones de alto impacto estandarizar, medir y conocer sus operaciones complejas, impulsando su gobernanza y escalabilidad en un entorno empresarial interconectado, con el mismo rigor metodológico —Lean 6 Sigma— detrás de cada iniciativa.',
       panelTxtMision: 'Acelerar la evolución digital de las organizaciones a través del rediseño estratégico de procesos y la hiperautomatización, eliminando la fricción operativa para maximizar la rentabilidad, el control y la agilidad de los negocios.',
@@ -638,7 +674,7 @@
         'Optimización avanzada del Onboarding Operativo, SLAs e indicadores de servicio de extremo a extremo (End-to-End).',
         'Oficina de Gestión de Proyectos (PMO) como servicio independiente: liderazgo, planeación y control de alcance, tiempo, costo y calidad para proyectos de cualquier naturaleza — tecnológicos o no.'
       ],
-      ctLabel: '04 — Empecemos', ctTitle: 'Diseñemos tu próximo modelo operativo avanzado.',
+      ctLabel: '05 — Empecemos', ctTitle: 'Diseñemos tu próximo modelo operativo avanzado.',
       ctDesc: 'Transforma la complejidad en autonomía. Permite que nuestros arquitectos de procesos e IA diseñen la infraestructura digital que llevará a tu empresa al siguiente nivel de competitividad global.',
       ctCall: 'Llamar ahora →', ctLink: 'Ver LinkedIn', ctPhone: 'Teléfono', ctWeb: 'Sitio web',
       ctLinkName: 'Oberon Consultores en Transformación Digital e IA',
@@ -658,6 +694,12 @@
       heroSub: 'We design, optimize, and automate global operating models, enabling high-impact organizations to standardize, measure, and control complex operations with total governance.',
       heroBtnServices: 'View Services →', heroBtnTalk: 'Schedule a Call', heroScroll: 'Scroll Down',
       nosotrosLabel: '01 — Identity', nosotrosTitle: 'Who We Are',
+      credLabel: '04 — Track Record',
+      credTitle: 'Proven Track Record',
+      credName1: 'Hershey Mexico',
+      credTag1: 'Business transformation · Global-scope PMO (Mexico, US, Brazil) · Technology projects for process optimization under Lean Six Sigma methodology · Backoffice process automation and digitization through low-code tools, with global reach',
+      credName2: 'Ópticas Desnubla',
+      credTag2: "Formal Oberon client · End-to-end process transformation through optimization and automation · Migration to OptiSync, our own modular ERP that automates payment reconciliation, invoicing, point-of-sale (POS), and expenses end to end, with CRM, vendor, and payroll modules",
       tabSobre: 'About Us', tabMision: 'Mission', tabVision: 'Vision',
       panelTxtSobre: 'We are a premier consulting firm built on two complementary fronts: the architecture, optimization, and automation of AI-driven global operating models, and a Project Management Office (PMO) that leads and controls projects of any nature, technology-related or not. We design and implement highly efficient solutions that allow organizations to standardize, measure, and control complex operations, driving governance and scalability across interconnected ecosystems — all guided by the same methodological rigor, Lean 6 Sigma, behind every initiative.',
       panelTxtMision: 'To accelerate organizations\' digital evolution through strategic process redesign and hyper-automation, eliminating operational friction to maximize profitability, control, and business agility.',
@@ -701,7 +743,7 @@
         'Advanced optimization of Operational Onboarding, SLAs, and End-to-End service indicators.',
         'Project Management Office (PMO) as a standalone service: leadership, planning, and control of scope, time, cost, and quality for projects of any nature — technology-related or not.'
       ],
-      ctLabel: '04 — Get Started', ctTitle: 'Let\'s design your next advanced operating model.',
+      ctLabel: '05 — Get Started', ctTitle: 'Let\'s design your next advanced operating model.',
       ctDesc: 'Turn complexity into autonomy. Allow our process and AI architects to build the digital infrastructure that will propel your business to the next tier of global competitiveness.',
       ctCall: 'Call Now →', ctLink: 'View LinkedIn', ctPhone: 'Phone', ctWeb: 'Website',
       ctLinkName: 'Oberon Digital Transformation & AI Consultants',
@@ -721,6 +763,12 @@
       heroSub: 'Projetamos, otimizamos e automatizamos modelos operacionais globais para que sua organização padronize, meça e controle operações complexas com governança total.',
       heroBtnServices: 'Ver Serviços →', heroBtnTalk: 'Agendar Conversa', heroScroll: 'Rolar Abaixo',
       nosotrosLabel: '01 — Identidade', nosotrosTitle: 'Quem Somos',
+      credLabel: '04 — Histórico',
+      credTitle: 'Trajetória comprovada',
+      credName1: 'Hershey México',
+      credTag1: 'Transformação de negócios · PMO com alcance global (México, EUA, Brasil) · Projetos tecnológicos de otimização de processos sob metodologia Lean Six Sigma · Automação e digitalização de processos de backoffice por meio de ferramentas low-code, com alcance global',
+      credName2: 'Ópticas Desnubla',
+      credTag2: 'Cliente formal da Oberon · Transformação integral de processos por meio de otimização e automação · Migração para o OptiSync, ERP modular próprio que automatiza de ponta a ponta a conciliação de pagamentos, faturamento, ponto de venda (POS) e despesas, com módulos de CRM, fornecedores e folha de pagamento',
       tabSobre: 'Sobre Nós', tabMision: 'Missão', tabVision: 'Visão',
       panelTxtSobre: 'Somos uma empresa de alta consultoria construída sobre duas frentes complementares: a arquitetura, otimização e automação de modelos operacionais globais impulsionados por Inteligência Artificial, e um Escritório de Gerenciamento de Projetos (PMO) que lidera e controla projetos de qualquer natureza, tecnológicos ou não. Projetamos e implementamos soluções de alta eficiência que permitem a organizações de grande impacto padronizar, medir e controlar suas operações complexas, impulsionando sua governança e escalabilidade em ecossistemas interconectados, com o mesmo rigor metodológico —Lean 6 Sigma— por trás de cada iniciativa.',
       panelTxtMision: 'Acelerar a evolução digital das organizações por meio do desenho estratégico de processos e da hiperautomação, eliminando fricções operacionais para maximizar a lucratividade, o controle e a agilidade dos negócios.',
@@ -764,7 +812,7 @@
         'Otimização avançada de Onboarding Operacional, SLAs e indicadores de serviço de ponta a ponta (End-to-End).',
         'Escritório de Gerenciamento de Projetos (PMO) como serviço independente: liderança, planejamento e controle de escopo, prazo, custo e qualidade para projetos de qualquer natureza — tecnológicos ou não.'
       ],
-      ctLabel: '04 — Comecemos', ctTitle: 'Projetemos seu próximo modelo operacional avançado.',
+      ctLabel: '05 — Comecemos', ctTitle: 'Projetemos seu próximo modelo operacional avançado.',
       ctDesc: 'Transforme a complexidade em autonomia. Permita que nossos arquitetos de processos e IA projetem a infraestrutura digital que levará sua empresa ao próximo nível de competitividade global.',
       ctCall: 'Ligar agora →', ctLink: 'Ver LinkedIn', ctPhone: 'Telefone', ctWeb: 'Sítio web',
       ctLinkName: 'Oberon Consultores em Transformação Digital e IA',
@@ -812,6 +860,12 @@
 
     document.getElementById('nosotros-label').textContent = translations[lang].nosotrosLabel;
     document.getElementById('nosotros-title').textContent = translations[lang].nosotrosTitle;
+    document.getElementById('cred-label').textContent = translations[lang].credLabel;
+    document.getElementById('cred-title').textContent = translations[lang].credTitle;
+    document.getElementById('cred-name-1').textContent = translations[lang].credName1;
+    document.getElementById('cred-tag-1').textContent = translations[lang].credTag1;
+    document.getElementById('cred-name-2').textContent = translations[lang].credName2;
+    document.getElementById('cred-tag-2').textContent = translations[lang].credTag2;
     document.getElementById('tab-lbl-sobre').textContent = translations[lang].tabSobre;
     document.getElementById('tab-lbl-mision').textContent = translations[lang].tabMision;
     document.getElementById('tab-lbl-vision').textContent = translations[lang].tabVision;
