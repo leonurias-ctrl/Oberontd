@@ -216,6 +216,15 @@
   .cred-list ul li::before{content:'·'; position:absolute; left:2px; color:var(--gold-bright);}
   @media (max-width:760px){ .cred-grid{grid-template-columns:1fr;} }
 
+  /* ---------- datos corporativos / procurement ---------- */
+  .legal{background:var(--paper); padding:110px 0;}
+  .legal-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:32px; margin-top:10px;}
+  .legal-item{padding-top:20px; border-top:1px solid rgba(27,35,80,.14);}
+  .legal-item h3{color:var(--ink); font-size:1.05rem; font-weight:600; margin-bottom:12px; font-family:'Fraunces',serif;}
+  .legal-item p{color:var(--ink-dim); font-size:.88rem; line-height:1.6; margin-bottom:6px;}
+  .legal-item .legal-note{font-size:.78rem; color:var(--ink-dim-2); margin-top:10px; font-style:italic;}
+  @media (max-width:900px){ .legal-grid{grid-template-columns:1fr;} }
+
   /* ---------- quienes somos ---------- */
   .nosotros{padding:130px 0; background:var(--paper);}
   .nosotros-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:70px; align-items:start;}
@@ -591,11 +600,38 @@
   </div>
 </section>
 
+<section class="legal light" id="legal">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label" id="legal-label">05 — Datos Corporativos</span>
+      <h2 id="legal-title">Información para equipo de compras</h2>
+    </div>
+    <div class="legal-grid reveal">
+      <div class="legal-item">
+        <h3 id="legal-h1">Datos legales</h3>
+        <p id="legal-razon">Razón social: Oberon Consultores en Transformación Digital e IA S.A.S.</p>
+        <p id="legal-rfc">RFC: OTD250101AB1</p>
+        <p id="legal-dom">Domicilio fiscal: José Luis Alcalá 3650, Col. Paseos del Sol, C.P. 45079, Zapopan, Jalisco, México</p>
+        <p id="legal-mail">Correo: lurias@oberontd.com</p>
+      </div>
+      <div class="legal-item">
+        <h3 id="legal-h2">Responsable de informes</h3>
+        <p id="legal-resp">León Urías, Lean Six Sigma Black Belt, es el responsable de la validación y entrega de los informes generados por el equipo.</p>
+        <p class="legal-note" id="legal-note">Todo el equipo de Oberón está capacitado en metodología Lean Six Sigma para la generación de estos informes.</p>
+      </div>
+      <div class="legal-item">
+        <h3 id="legal-h3">Relación comercial</h3>
+        <p id="legal-desnubla">Cliente formal desde abril de 2026 — 4 meses de colaboración activa en la implementación del ERP OptiSync.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="contacto" id="contacto">
   <div class="wrap">
     <div class="contacto-grid reveal">
       <div>
-        <span class="label" style="color:var(--gold);" id="ct-label">05 — Empecemos</span>
+        <span class="label" style="color:var(--gold);" id="ct-label">06 — Empecemos</span>
         <h2 style="margin-top:16px;" id="ct-title">Diseñemos tu próximo modelo operativo avanzado.</h2>
         <p class="desc" id="ct-desc">Transforma la complejidad en autonomía. Permite que nuestros arquitectos de procesos e IA diseñen la infraestructura digital que llevará a tu empresa al siguiente nivel de competitividad global.</p>
         
@@ -700,7 +736,19 @@
         'Optimización avanzada del Onboarding Operativo, SLAs e indicadores de servicio de extremo a extremo (End-to-End).',
         'Oficina de Gestión de Proyectos (PMO) como servicio independiente: liderazgo, planeación y control de alcance, tiempo, costo y calidad para proyectos de cualquier naturaleza — tecnológicos o no.'
       ],
-      ctLabel: '05 — Empecemos', ctTitle: 'Diseñemos tu próximo modelo operativo avanzado.',
+      legalLabel: '05 — Datos Corporativos',
+      legalTitle: 'Información para equipo de compras',
+      legalH1: 'Datos legales',
+      legalRazon: 'Razón social: Oberon Consultores en Transformación Digital e IA S.A.S.',
+      legalRfc: 'RFC: OTD250101AB1',
+      legalDom: 'Domicilio fiscal: José Luis Alcalá 3650, Col. Paseos del Sol, C.P. 45079, Zapopan, Jalisco, México',
+      legalMail: 'Correo: lurias@oberontd.com',
+      legalH2: 'Responsable de informes',
+      legalResp: 'León Urías, Lean Six Sigma Black Belt, es el responsable de la validación y entrega de los informes generados por el equipo.',
+      legalNote: 'Todo el equipo de Oberón está capacitado en metodología Lean Six Sigma para la generación de estos informes.',
+      legalH3: 'Relación comercial',
+      legalDesnubla: 'Cliente formal desde abril de 2026 — 4 meses de colaboración activa en la implementación del ERP OptiSync.',
+      ctLabel: '06 — Empecemos', ctTitle: 'Diseñemos tu próximo modelo operativo avanzado.',
       ctDesc: 'Transforma la complejidad en autonomía. Permite que nuestros arquitectos de procesos e IA diseñen la infraestructura digital que llevará a tu empresa al siguiente nivel de competitividad global.',
       ctCall: 'Llamar ahora →', ctLink: 'Ver LinkedIn', ctPhone: 'Teléfono', ctWeb: 'Sitio web',
       ctLinkName: 'Oberon Consultores en Transformación Digital e IA',
@@ -778,7 +826,19 @@
         'Advanced optimization of Operational Onboarding, SLAs, and End-to-End service indicators.',
         'Project Management Office (PMO) as a standalone service: leadership, planning, and control of scope, time, cost, and quality for projects of any nature — technology-related or not.'
       ],
-      ctLabel: '05 — Get Started', ctTitle: 'Let\'s design your next advanced operating model.',
+      legalLabel: '05 — Corporate Data',
+      legalTitle: 'Procurement Information',
+      legalH1: 'Legal Information',
+      legalRazon: 'Legal Name: Oberon Consultores en Transformación Digital e IA S.A.S.',
+      legalRfc: 'Tax ID (RFC): OTD250101AB1',
+      legalDom: 'Registered Address: José Luis Alcalá 3650, Col. Paseos del Sol, C.P. 45079, Zapopan, Jalisco, Mexico',
+      legalMail: 'Email: lurias@oberontd.com',
+      legalH2: 'Reports Lead',
+      legalResp: 'León Urías, Lean Six Sigma Black Belt, is responsible for validating and delivering the reports generated by the team.',
+      legalNote: "The entire Oberon team is trained in Lean Six Sigma methodology to produce these reports.",
+      legalH3: 'Business Relationship',
+      legalDesnubla: 'Formal client since April 2026 — 4 months of active collaboration implementing the OptiSync ERP.',
+      ctLabel: '06 — Get Started', ctTitle: 'Let\'s design your next advanced operating model.',
       ctDesc: 'Turn complexity into autonomy. Allow our process and AI architects to build the digital infrastructure that will propel your business to the next tier of global competitiveness.',
       ctCall: 'Call Now →', ctLink: 'View LinkedIn', ctPhone: 'Phone', ctWeb: 'Website',
       ctLinkName: 'Oberon Digital Transformation & AI Consultants',
@@ -856,7 +916,19 @@
         'Otimização avançada de Onboarding Operacional, SLAs e indicadores de serviço de ponta a ponta (End-to-End).',
         'Escritório de Gerenciamento de Projetos (PMO) como serviço independente: liderança, planejamento e controle de escopo, prazo, custo e qualidade para projetos de qualquer natureza — tecnológicos ou não.'
       ],
-      ctLabel: '05 — Comecemos', ctTitle: 'Projetemos seu próximo modelo operacional avançado.',
+      legalLabel: '05 — Dados Corporativos',
+      legalTitle: 'Informações para procurement',
+      legalH1: 'Dados legais',
+      legalRazon: 'Razão social: Oberon Consultores en Transformación Digital e IA S.A.S.',
+      legalRfc: 'RFC: OTD250101AB1',
+      legalDom: 'Endereço fiscal: José Luis Alcalá 3650, Col. Paseos del Sol, C.P. 45079, Zapopan, Jalisco, México',
+      legalMail: 'E-mail: lurias@oberontd.com',
+      legalH2: 'Responsável pelos relatórios',
+      legalResp: 'León Urías, Lean Six Sigma Black Belt, é o responsável pela validação e entrega dos relatórios gerados pela equipe.',
+      legalNote: 'Toda a equipe da Oberon é capacitada em metodologia Lean Six Sigma para a elaboração desses relatórios.',
+      legalH3: 'Relação comercial',
+      legalDesnubla: 'Cliente formal desde abril de 2026 — 4 meses de colaboração ativa na implementação do ERP OptiSync.',
+      ctLabel: '06 — Comecemos', ctTitle: 'Projetemos seu próximo modelo operacional avançado.',
       ctDesc: 'Transforme a complexidade em autonomia. Permita que nossos arquitetos de processos e IA projetem a infraestrutura digital que levará sua empresa ao próximo nível de competitividade global.',
       ctCall: 'Ligar agora →', ctLink: 'Ver LinkedIn', ctPhone: 'Telefone', ctWeb: 'Sítio web',
       ctLinkName: 'Oberon Consultores em Transformação Digital e IA',
@@ -912,6 +984,18 @@
     document.getElementById('cred-name-2').textContent = translations[lang].credName2;
     document.getElementById('cred-role-2').textContent = translations[lang].credRole2;
     fillNestedList('cred-list-2', translations[lang].credList2);
+    document.getElementById('legal-label').textContent = translations[lang].legalLabel;
+    document.getElementById('legal-title').textContent = translations[lang].legalTitle;
+    document.getElementById('legal-h1').textContent = translations[lang].legalH1;
+    document.getElementById('legal-razon').textContent = translations[lang].legalRazon;
+    document.getElementById('legal-rfc').textContent = translations[lang].legalRfc;
+    document.getElementById('legal-dom').textContent = translations[lang].legalDom;
+    document.getElementById('legal-mail').textContent = translations[lang].legalMail;
+    document.getElementById('legal-h2').textContent = translations[lang].legalH2;
+    document.getElementById('legal-resp').textContent = translations[lang].legalResp;
+    document.getElementById('legal-note').textContent = translations[lang].legalNote;
+    document.getElementById('legal-h3').textContent = translations[lang].legalH3;
+    document.getElementById('legal-desnubla').textContent = translations[lang].legalDesnubla;
     document.getElementById('tab-lbl-sobre').textContent = translations[lang].tabSobre;
     document.getElementById('tab-lbl-mision').textContent = translations[lang].tabMision;
     document.getElementById('tab-lbl-vision').textContent = translations[lang].tabVision;
