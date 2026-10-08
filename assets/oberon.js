@@ -109,11 +109,17 @@
     const ctx = canvas.getContext('2d');
     let w = 0, h = 0, dpr = 1, pts = [], visible = true;
     const mouse = { x: -9999, y: -9999 };
+    // Ajusta la resolución interna del lienzo a su tamaño real en pantalla.
+    // Si no coinciden, el navegador estira el dibujo y se ve pixeleado y deformado.
     function resize() {
+      const cw = Math.round(canvas.clientWidth || window.innerWidth);
+      const ch = Math.round(canvas.clientHeight || window.innerHeight);
+      if (!cw || !ch) return;
       const prevW = w;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = canvas.clientWidth; h = canvas.clientHeight;
-      canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      w = cw; h = ch;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       if (prevW === w && pts.length) { pts.forEach(p => { if (p.y > h) p.y = Math.random() * h; }); if (reduce) draw(); return; }
       const n = Math.min(90, Math.round((w * h) / 16000));
       pts = Array.from({ length: n }, () => ({
@@ -148,8 +154,17 @@
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
       }
     }
-    function loop() { if (visible) draw(); requestAnimationFrame(loop); }
-    window.addEventListener('resize', () => { clearTimeout(resize._t); resize._t = setTimeout(resize, 150); });
+    function inSync() {
+      return w && canvas.width === Math.round(canvas.clientWidth * dpr) && canvas.height === Math.round(canvas.clientHeight * dpr);
+    }
+    function loop() {
+      if (visible) { if (!inSync()) resize(); draw(); }
+      requestAnimationFrame(loop);
+    }
+    const schedule = () => { clearTimeout(resize._t); resize._t = setTimeout(resize, 120); };
+    window.addEventListener('resize', schedule);
+    if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(canvas);
+    window.addEventListener('load', resize);
     window.addEventListener('pointermove', e => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
     document.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
     document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
