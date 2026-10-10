@@ -103,6 +103,29 @@
   /* ---------- año ---------- */
   $$('.year').forEach(y => { y.textContent = new Date().getFullYear(); });
 
+  /* ---------- cielo que amanece al desplazarse ---------- */
+  const sky = document.createElement('div');
+  sky.className = 'sky'; sky.setAttribute('aria-hidden', 'true');
+  sky.innerHTML = '<i class="night"></i><i class="dawn"></i><i class="day"></i>';
+  document.body.prepend(sky);
+  const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  let skyRaf = 0;
+  function updateSky() {
+    skyRaf = 0;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? window.scrollY / max : 0;
+    const root = document.documentElement.style;
+    root.setProperty('--dawn', smooth(.15, .6, p).toFixed(3));
+    root.setProperty('--day', smooth(.55, 1, p).toFixed(3));
+    const net = document.getElementById('net');
+    if (net) net.style.opacity = (1 - .7 * smooth(.4, 1, p)).toFixed(3);
+  }
+  const queueSky = () => { if (!skyRaf) skyRaf = requestAnimationFrame(updateSky); };
+  window.addEventListener('scroll', queueSky, { passive: true });
+  window.addEventListener('resize', queueSky);
+  window.addEventListener('load', updateSky);
+  updateSky();
+
   /* ---------- constelación de fondo (fija, toda la página) ---------- */
   const canvas = $('#net');
   if (canvas) {
