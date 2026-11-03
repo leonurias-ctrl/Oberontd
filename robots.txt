@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /diagnostico-revision
 
 Sitemap: https://www.oberontd.com/sitemap.xml

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diagnóstico de Capacidad Operativa · Herramienta gratuita | Oberon</title>
+<meta name="description" content="Herramienta gratuita de Oberon: calcula la capacidad instalada de tu equipo, su nivel de saturación y la oportunidad de automatización de tus procesos administrativos.">
+<meta name="theme-color" content="#0A0F2C">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://www.oberontd.com/diagnostico">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Oberon">
+<meta property="og:title" content="Diagnóstico de Capacidad Operativa · Herramienta gratuita | Oberon">
+<meta property="og:description" content="Descubre en minutos si tu equipo está sobresaturado o tiene capacidad para crecer, y qué parte de su carga se puede automatizar.">
+<meta property="og:url" content="https://www.oberontd.com/diagnostico">
+<meta property="og:locale" content="es_MX">
+<meta property="og:image" content="https://www.oberontd.com/img/og-oberon.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/img/icon/favicon-48.png">
+<link rel="apple-touch-icon" href="/img/icon/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/oberon.css">
+<style>
+/* ===== Diagnóstico de Capacidad Operativa (prototipo) ===== */
+.dx-lang{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line-2);border-radius:999px;background:rgba(255,255,255,.03);margin-top:28px;}
+.dx-lang button{border:0;background:transparent;color:var(--text-2);font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;padding:7px 14px;border-radius:999px;cursor:pointer;}
+.dx-lang button[aria-pressed="true"]{background:var(--gold);color:var(--bg);font-weight:500;}
+.dx-conf{display:flex;gap:14px;align-items:flex-start;margin-top:26px;max-width:760px;padding:16px 18px;border-radius:16px;border:1px solid rgba(191,224,245,.22);background:rgba(191,224,245,.05);color:var(--text-2);font-size:.9rem;}
+.dx-conf svg{width:22px;height:22px;flex:none;color:var(--ice);margin-top:2px;}
+.dx-conf b{color:var(--text);}
+
+.dx{display:grid;gap:22px;padding-bottom:var(--section);}
+.dx-card{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:clamp(20px,3.2vw,36px);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);min-width:0;}
+.dx-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:22px;}
+.dx-n{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:.82rem;color:var(--bg);background:var(--gold);}
+.dx-head h2{font-size:clamp(1.35rem,2.6vw,1.9rem);}
+.dx-head p{color:var(--text-2);font-size:.92rem;margin-top:6px;}
+
+.dx-mode{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.dx-opt{text-align:left;padding:18px 20px;border-radius:16px;border:1px solid var(--line-2);background:rgba(7,10,30,.4);cursor:pointer;transition:border-color .25s,background .25s;display:flex;gap:14px;align-items:flex-start;}
+.dx-opt svg{width:26px;height:26px;flex:none;color:var(--text-3);margin-top:2px;}
+.dx-opt b{display:block;font-family:var(--serif);font-weight:400;font-size:1.15rem;}
+.dx-opt span{display:block;color:var(--text-3);font-size:.84rem;margin-top:4px;line-height:1.5;}
+.dx-opt[aria-pressed="true"]{border-color:var(--gold);background:rgba(212,175,106,.1);}
+.dx-opt[aria-pressed="true"] svg{color:var(--gold-2);}
+
+.dx-two{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(18px,3vw,32px);align-items:start;}
+.dx-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px;}
+.dx-f{min-width:0;}
+.dx-f.full{grid-column:1/-1;}
+.dx-f label,.dx-lbl{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:7px;}
+.dx-in{width:100%;min-height:44px;padding:10px 13px;background:rgba(7,10,30,.55);border:1px solid var(--line-2);border-radius:12px;color:var(--text);font:inherit;font-size:.95rem;transition:border-color .2s,box-shadow .2s;}
+.dx-in:focus{outline:none;border-color:rgba(212,175,106,.75);box-shadow:0 0 0 4px rgba(212,175,106,.13);}
+select.dx-in{appearance:none;-webkit-appearance:none;padding-right:34px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F0D5A0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:16px;}
+select.dx-in option{background:#0A0F2C;color:var(--text);}
+.dx-pair{display:flex;gap:8px;}
+.dx-pair .dx-in:first-child{flex:1;min-width:0;}
+.dx-pair select.dx-in{width:auto;flex:none;}
+.dx-hint{font-size:.76rem;color:var(--text-3);margin-top:6px;line-height:1.45;}
+
+.dx-cap{border:1px solid rgba(212,175,106,.28);border-radius:18px;padding:20px 20px 18px;background:linear-gradient(160deg,rgba(212,175,106,.08),rgba(191,224,245,.03));}
+.dx-cap h3{font-size:1.15rem;margin-bottom:12px;}
+.dx-row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:.9rem;color:var(--text-2);border-bottom:1px dashed var(--line);}
+.dx-row b{font-weight:600;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.dx-row.sub{color:var(--text-3);}
+.dx-row.sub b{color:var(--text-3);font-weight:500;}
+.dx-row.eq{border-bottom:1px solid var(--line-2);}
+.dx-row.eq span,.dx-row.eq b{color:var(--gold-2);}
+.dx-row.big{border:0;padding-top:12px;font-size:1rem;}
+.dx-row.big b{font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--gold-2);}
+.dx-cap p{font-size:.8rem;color:var(--text-3);margin-top:12px;line-height:1.55;}
+
+.dx-procs{display:grid;gap:14px;}
+.dx-proc{border:1px solid var(--line-2);border-radius:18px;padding:18px;background:rgba(7,10,30,.35);}
+.dx-proc-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.dx-code{font-family:var(--mono);font-size:.78rem;padding:5px 10px;border-radius:8px;background:rgba(212,175,106,.14);color:var(--gold-2);flex:none;}
+.dx-proc-top .dx-in{flex:1;}
+.dx-del{flex:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line-2);background:transparent;color:var(--text-3);cursor:pointer;display:grid;place-items:center;}
+.dx-del:hover{color:#ffb4a6;border-color:rgba(255,180,166,.5);}
+.dx-del svg{width:16px;height:16px;}
+.dx-pf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+.dx-tools{display:flex;flex-wrap:wrap;gap:7px;}
+.dx-chip{border:1px solid var(--line-2);background:rgba(255,255,255,.02);color:var(--text-2);font-size:.8rem;padding:6px 12px;border-radius:999px;cursor:pointer;transition:all .2s;}
+.dx-chip:hover{border-color:rgba(212,175,106,.6);}
+.dx-chip[aria-pressed="true"]{background:rgba(212,175,106,.16);border-color:var(--gold);color:var(--gold-2);}
+.dx-proc-res{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.84rem;color:var(--text-3);}
+.dx-proc-res b{color:var(--text);font-weight:600;}
+.dx-proc.is-ed{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,106,.1);}
+.dx-ed-tag{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.dx-ed-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);}
+.dx-ed-foot .dx-proc-res{margin:0;padding:0;border:0;}
+.dx-ed-btns{display:flex;gap:8px;margin-left:auto;}
+.dx-proc .dx-err{margin-top:8px;min-height:0;}
+.dx-tempty{margin-top:16px;padding:18px;border:1px dashed var(--line-2);border-radius:14px;color:var(--text-3);font-size:.88rem;text-align:center;}
+.dx-thead{margin-top:22px;margin-bottom:10px;}
+.dx-twrap{max-height:330px;overflow:auto;border:1px solid var(--line-2);border-radius:14px;background:rgba(7,10,30,.35);}
+.dx-table{width:100%;border-collapse:collapse;font-size:.86rem;}
+.dx-table th{position:sticky;top:0;z-index:1;background:#0E1438;text-align:left;font-family:var(--mono);font-weight:400;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);padding:11px 12px;border-bottom:1px solid var(--line-2);white-space:nowrap;}
+.dx-table td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--text-2);white-space:nowrap;}
+.dx-table td.nm{color:var(--text);white-space:normal;min-width:150px;}
+.dx-table .n{text-align:right;font-variant-numeric:tabular-nums;}
+.dx-table td.n{color:var(--text);font-weight:600;}
+.dx-table tbody tr:hover{background:rgba(191,224,245,.04);}
+.dx-table tr.is-ed{background:rgba(212,175,106,.1);}
+.dx-table tfoot td{position:sticky;bottom:0;background:#0E1438;border-top:1px solid var(--line-2);border-bottom:0;color:var(--gold-2);font-weight:600;}
+.dx-dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:8px;vertical-align:middle;}
+.dx-table td.ac{text-align:right;padding:4px 8px;}
+.dx-ib{width:32px;height:32px;display:inline-grid;place-items:center;border:0;border-radius:8px;background:transparent;color:var(--text-3);cursor:pointer;}
+.dx-ib:hover{color:var(--gold-2);background:rgba(191,224,245,.06);}
+.dx-ib.del:hover{color:#ffb4a6;}
+.dx-ib svg{width:15px;height:15px;}
+@keyframes dxflash{from{background:rgba(212,175,106,.32);}to{background:transparent;}}
+.dx-flash{animation:dxflash 1.6s ease-out;}
+@media (max-width:640px){.dx-table .hm{display:none;}.dx-ed-btns{width:100%;}.dx-ed-btns .btn{flex:1;}}
+.dx-when{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px 28px;padding:14px 16px;border-radius:14px;background:rgba(191,224,245,.035);border:1px solid var(--line);}
+.dx-when:has(> .dx-hint:only-child){padding:10px 16px;}
+.dx-fg{min-width:0;}
+.dx-day{min-width:52px;text-transform:capitalize;}
+.dx-heat{display:grid;gap:5px;margin-top:14px;font-size:.78rem;}
+.dx-heat .hd{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--text-3);text-align:center;align-self:center;text-transform:capitalize;}
+.dx-heat .cell{border-radius:8px;padding:10px 2px;text-align:center;color:var(--text);font-weight:600;font-variant-numeric:tabular-nums;}
+.dx-insight{margin-top:12px !important;font-size:.84rem !important;color:var(--text-2) !important;line-height:1.5;}
+.dx-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+.dx-btn-s{min-height:42px;padding:9px 18px;font-size:.86rem;}
+
+.dx-status{display:grid;grid-template-columns:300px 1fr;gap:clamp(18px,3vw,36px);align-items:center;}
+.dx-gauge svg{width:100%;height:auto;}
+.dx-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1px solid currentColor;}
+.dx-badge i{width:8px;height:8px;border-radius:50%;background:currentColor;}
+.dx-msg{font-family:var(--serif);font-size:clamp(1.25rem,2.4vw,1.7rem);line-height:1.3;margin-top:14px;}
+.dx-msg2{color:var(--text-2);margin-top:12px;font-size:.95rem;}
+.s-libre{color:#7FB8E6;} .s-sano{color:#8FD9B6;} .s-limite{color:#F0C46A;} .s-sobre{color:#FF8A7A;}
+
+.dx-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px;}
+.dx-kpi{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:rgba(7,10,30,.35);}
+.dx-kpi small{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);}
+.dx-kpi b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3vw,2.2rem);margin-top:6px;line-height:1.1;}
+.dx-kpi span{display:block;font-size:.8rem;color:var(--text-3);margin-top:4px;}
+
+.dx-charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+.dx-chart{border:1px solid var(--line);border-radius:18px;padding:18px;background:rgba(7,10,30,.35);min-width:0;}
+.dx-chart.wide{grid-column:1/-1;}
+.dx-chart h3{font-size:1.08rem;}
+.dx-chart p{font-size:.78rem;color:var(--text-3);margin-top:4px;}
+.dx-chart svg{width:100%;height:auto;margin-top:12px;overflow:visible;}
+.dx-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:.76rem;color:var(--text-2);}
+.dx-legend span{display:inline-flex;align-items:center;gap:6px;}
+.dx-legend i{width:10px;height:10px;border-radius:3px;}
+.dx-legend i.line{height:0;border-top:2px dashed #FF8A7A;border-radius:0;width:16px;}
+.ax{fill:rgba(244,242,236,.5);font-family:'IBM Plex Mono',monospace;font-size:10px;}
+.grid{stroke:rgba(191,224,245,.09);}
+.val{fill:rgba(244,242,236,.85);font-family:'Manrope',sans-serif;font-size:10.5px;font-weight:600;}
+
+.dx-hbars{display:grid;gap:12px;margin-top:16px;}
+.dx-hbar{display:grid;grid-template-columns:160px 1fr 90px;gap:12px;align-items:center;font-size:.86rem;color:var(--text-2);}
+.dx-hbar div{height:24px;border-radius:6px;background:rgba(191,224,245,.05);overflow:hidden;}
+.dx-hbar i{display:block;height:100%;border-radius:6px;}
+.dx-hbar b{font-variant-numeric:tabular-nums;font-weight:600;color:var(--text);}
+@media (max-width:640px){.dx-hbar{grid-template-columns:1fr auto;}.dx-hbar div{grid-column:1/-1;grid-row:2;}}
+.dx-locks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;}
+.dx-lock{position:relative;border:1px dashed rgba(212,175,106,.4);border-radius:16px;padding:18px;background:rgba(212,175,106,.04);}
+.dx-lock svg{width:20px;height:20px;color:var(--gold);}
+.dx-lock b{display:block;font-weight:600;font-size:.92rem;margin-top:10px;}
+.dx-lock span{display:block;font-size:.78rem;color:var(--text-3);margin-top:4px;}
+.dx-lockhead{margin-top:30px;}
+
+.dx-form{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px;}
+.dx-check{display:flex;gap:10px;align-items:flex-start;font-size:.84rem;color:var(--text-2);grid-column:1/-1;cursor:pointer;}
+.dx-check a{color:var(--gold-2);border-bottom:1px solid rgba(240,213,160,.4);}
+.dx-check input{width:18px;height:18px;margin-top:2px;accent-color:var(--gold);flex:none;}
+.dx-sla{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:14px;background:rgba(191,224,245,.06);border:1px solid rgba(191,224,245,.18);font-size:.88rem;color:var(--text-2);margin-bottom:20px;}
+.dx-sla b{color:var(--ice);font-family:var(--serif);font-weight:400;font-size:1.6rem;flex:none;}
+.dx-err{grid-column:1/-1;color:#ffc9bd;font-size:.84rem;min-height:1em;}
+.dx-ok{text-align:center;padding:10px 0;}
+.dx-ok h3{font-size:clamp(1.5rem,3vw,2.1rem);margin-top:14px;}
+.dx-ok .fol{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:1.1rem;letter-spacing:.08em;padding:10px 18px;border-radius:12px;border:1px solid var(--gold);color:var(--gold-2);}
+.dx-ok p{color:var(--text-2);margin:14px auto 0;max-width:560px;}
+.dx-json{margin-top:24px;text-align:left;border:1px dashed rgba(191,224,245,.3);border-radius:14px;padding:12px 16px;}
+.dx-json summary{cursor:pointer;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ice);}
+.dx-json pre{font-family:var(--mono);font-size:.72rem;color:var(--text-2);white-space:pre-wrap;word-break:break-word;max-height:420px;overflow:auto;margin:12px 0 0;}
+
+@media (max-width:980px){
+  .dx-two,.dx-status{grid-template-columns:1fr;}
+  .dx-gauge{max-width:320px;margin:0 auto;}
+  .dx-kpis,.dx-locks{grid-template-columns:1fr 1fr;}
+  .dx-pf{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:640px){
+  .dx-mode,.dx-charts,.dx-form,.dx-fields{grid-template-columns:1fr;}
+  .dx-kpis,.dx-locks{grid-template-columns:1fr;}
+  .dx-pf{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<canvas id="net" aria-hidden="true"></canvas>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="/" class="brand" aria-label="Oberon">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M25 6C17 6 11 13 11 21c0 8.5 6.7 15.4 15.2 15.9C22.7 39 18 38 15 33.8c-3.6-5-3.4-12.4.6-17.2C19.4 12.4 24.6 10 30 10.8 28.6 8 26.9 6.7 25 6Z" fill="#D4AF6A"/><circle cx="8" cy="24" r="1.6" fill="#F4F2EC"/><circle cx="14" cy="15" r="1.1" fill="#F4F2EC"/><circle cx="6" cy="16" r="1" fill="#F4F2EC"/><circle cx="18" cy="9" r="1.3" fill="#F4F2EC"/><circle cx="10" cy="30" r="1.2" fill="#F4F2EC"/></svg>
+      <span class="brand-name">OBERON<span class="brand-sub" data-i="brandSub"></span></span>
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="/" data-i="navHome"></a>
+      <a href="/soluciones" data-i="navSol"></a>
+      <a href="/#metodo" data-i="navMet"></a>
+      <a href="/diagnostico" aria-current="page" data-i="navDx"></a>
+      <a href="/contacto" data-i="navContact"></a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled" target="_blank" rel="noopener" data-i="navCta"></a>
+    <button class="burger" id="burger" type="button" aria-controls="mPanel" aria-expanded="false" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="m-panel" id="mPanel" aria-hidden="true">
+  <a class="m-link" href="/"><b data-i="navHome" style="font-weight:400"></b><span>01</span></a>
+  <a class="m-link" href="/soluciones"><b data-i="navSol" style="font-weight:400"></b><span>02</span></a>
+  <a class="m-link" href="/#metodo"><b data-i="navMet" style="font-weight:400"></b><span>03</span></a>
+  <a class="m-link" href="/diagnostico" aria-current="page"><b data-i="navDx" style="font-weight:400"></b><span>04</span></a>
+  <a class="m-link" href="/contacto"><b data-i="navContact" style="font-weight:400"></b><span>05</span></a>
+  <a class="btn btn-primary" href="https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled" target="_blank" rel="noopener" data-i="navCta"></a>
+</div>
+
+<main id="main">
+<section class="page-hero">
+  <div class="wrap">
+    <span class="label" data-i="heroLabel"></span>
+    <h1 data-i="heroTitle" data-html></h1>
+    <p data-i="heroSub"></p>
+    <div class="dx-lang" role="group" aria-label="Idioma">
+      <button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="pt">PT</button>
+    </div>
+    <div class="dx-conf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+      <div data-i="conf" data-html></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap dx" id="dx"></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom" style="margin-top:0">
+      <span>© <span class="year"></span> Oberon Consultores en Transformación Digital e IA S.A.S.</span>
+      <span><a href="/privacidad" data-i="privLink" id="privFoot"></a> · <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/diagnostico-config.js"></script>
+<script src="assets/diagnostico-textos.js"></script>
+<script src="assets/diagnostico-motor.js"></script>
+<script>
+(() => {
+'use strict';
+const AGENDA = 'https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled';
+const T = window.DX_TEXT;
+const ENDPOINT = (window.DX_CONFIG && window.DX_CONFIG.endpoint) || '';
+
+/* ---------------- Estado ---------------- */
+const KEY = 'oberon-dx-proto-v1';
+const blankProc = () => ({ name:'', time:'', unit:'min', qty:1, freq:'d', days:[0], weeks:[1,2,3,4], week:4, steps:'', tools:[], doc:'partial', rules:'rFixed', input:'iStruct', rework:'' });
+const defaults = () => ({ lang:'es', mode:'dept', country:'MX', hoursDay:9, lunch:60, breaks:30, daysWeek:5, holidays:7, vacation:12, people:3, dedication:100, procs:[], draft:blankProc(), editing:null });
+let S = defaults();
+try { const saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved && saved.procs) S = Object.assign(defaults(), saved); } catch (e) {}
+const qLang = new URLSearchParams(location.search).get('lang');
+if (T[qLang]) S.lang = qLang;
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+let sent = null, flash = null;
+
+const t = (k) => T[S.lang][k] ?? T.es[k] ?? k;
+const E = createDxEngine({ state:() => S, t, chartW:() => Math.round(Math.min(640, Math.max(300, ($dx.clientWidth || 640) / (window.innerWidth > 640 ? 2 : 1) - 70))) });
+const { COUNTRIES, LOCALE, FREQS, TOOLW, COLORS, fill, esc, num, nf, pct, fte, code, dayName, procHours, calc, status, stackChart, annualChart, heatmap, balanceMsg, gauge } = E;
+/* Normaliza procesos guardados con el formato anterior ("varias veces por semana") */
+const normProc = (p) => {
+  const b = blankProc();
+  if (p.freq === 'nw') { p.freq = 'w'; p.days = [0, 1, 2, 3, 4].slice(0, num(p.nWeek) || 3); }
+  if (!Array.isArray(p.days) || !p.days.length) p.days = p.freq === 'd' ? b.days : [0];
+  if (!Array.isArray(p.weeks) || !p.weeks.length) p.weeks = b.weeks;
+  delete p.nWeek; return p;
+};
+S.procs = (S.procs || []).filter((p) => num(p.time) > 0).map(normProc);
+S.draft = normProc(S.draft || blankProc());
+if (S.editing != null && !S.procs[S.editing]) S.editing = null;
+
+/* ---------------- Render ---------------- */
+const $dx = document.getElementById('dx');
+const ico = {
+  proc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="12" r="2.5"/><path d="M7.5 12h9M13 8.5l3.5 3.5-3.5 3.5"/></svg>',
+  dept:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.3"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M15 14.2c2.5-.4 4.8 1 5.5 4.3"/></svg>',
+  edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></svg>',
+  del:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  dl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 19h14"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="#D4AF6A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:54px;height:54px;margin:0 auto"><circle cx="12" cy="12" r="9.5"/><path d="m7.5 12.5 3 3 6-6.5"/></svg>',
+};
+const field = (k, label, opts = {}) => `<div class="dx-f${opts.full ? ' full' : ''}"><label for="f-${k}">${esc(label)}</label>${opts.html || `<input class="dx-in" id="f-${k}" type="number" inputmode="decimal" min="0" step="any" data-k="${k}" value="${esc(S[k])}">`}${opts.hint ? `<div class="dx-hint">${esc(opts.hint)}</div>` : ''}</div>`;
+const sel = (attrs, options, cur) => `<select class="dx-in" ${attrs}>${options.map(([v, l]) => `<option value="${v}"${String(v) === String(cur) ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
+
+
+function procCard(p) {
+  const i = 'd', ed = S.editing != null, proc = S.mode === 'proc';
+  const pa = (f) => `data-p="${i}" data-f="${f}"`;
+  const nd = num(S.daysWeek) >= 6 ? 6 : 5;
+  const dayChips = `<div class="dx-fg"><span class="dx-lbl">${esc(t('pDays'))}</span><div class="dx-tools">${[...Array(nd).keys()].map((d) => `<button type="button" class="dx-chip dx-day" data-day="${d}" aria-pressed="${p.days.includes(d)}">${esc(dayName(d))}</button>`).join('')}</div><div class="dx-hint">${esc(p.freq === 'w' ? t('pDaysW') : t('pDaysM'))}</div></div>`;
+  const weekChips = (multi) => `<div class="dx-fg"><span class="dx-lbl">${esc(multi ? t('pWeeks') : t('pWeek'))}</span><div class="dx-tools">${[1,2,3,4].map((w) => `<button type="button" class="dx-chip" ${multi ? `data-wks="${w}" aria-pressed="${p.weeks.includes(w)}"` : `data-wk1="${w}" aria-pressed="${num(p.week) === w}"`}>${esc(t('wk'))} ${w}</button>`).join('')}</div>${multi ? `<div class="dx-hint">${esc(t('pWeeksH'))}</div>` : ''}</div>`;
+  const extra = p.freq === 'd' ? `<div class="dx-hint" style="margin:0">${esc(t('pDailyH'))}</div>`
+    : p.freq === 'w' ? dayChips + weekChips(true)
+    : p.freq === 'q' ? dayChips + `<div class="dx-fg"><div class="dx-hint" style="margin-top:26px">${esc(t('pQH'))}</div></div>`
+    : p.freq === 'm' ? weekChips(false) + dayChips
+    : `<div class="dx-hint" style="margin:0">${esc(t('pLongH'))}</div>`;
+  return `<div class="dx-proc${ed ? ' is-ed' : ''}" id="editor">
+    <div class="dx-ed-tag">${esc(ed ? t('editing') : (proc ? t('newProc') : t('newDept')))}</div>
+    <div class="dx-proc-top"><span class="dx-code">${code(ed ? S.editing : S.procs.length)}</span>
+      <input class="dx-in" ${pa('name')} placeholder="${esc(t('pNamePh'))}" aria-label="${esc(t('pName'))}" value="${esc(p.name)}" maxlength="80">
+    </div>
+    <div class="dx-pf">
+      <div class="dx-f"><label>${esc(t('pTime'))}</label><div class="dx-pair"><input class="dx-in" type="number" min="0" step="any" inputmode="decimal" ${pa('time')} value="${esc(p.time)}">${sel(pa('unit'), [['min','min'],['h','h']], p.unit)}</div></div>
+      <div class="dx-f"><label>${esc(t('pQty'))}</label><input class="dx-in" type="number" min="1" step="1" inputmode="numeric" ${pa('qty')} value="${esc(p.qty)}"><div class="dx-hint">${esc(t('pQtyH'))}</div></div>
+      <div class="dx-f"><label>${esc(t('pFreq'))}</label>${sel(pa('freq') + ' data-rerender', FREQS.map((f) => [f, t('f' + f)]), p.freq)}</div>
+      <div class="dx-f"><label>${esc(t('pSteps'))}</label><input class="dx-in" type="number" min="0" step="1" inputmode="numeric" ${pa('steps')} value="${esc(p.steps)}"><div class="dx-hint">${esc(t('pStepsH'))}</div></div>
+      <div class="dx-f dx-when">${extra}</div>
+      <div class="dx-f"><label>${esc(t('pDoc'))}</label>${sel(pa('doc'), [['yes', t('yes')], ['partial', t('partial')], ['no', t('no')]], p.doc)}</div>
+      <div class="dx-f"><label>${esc(t('pRules'))}</label>${sel(pa('rules'), ['rFixed','rMixed','rJudg'].map((k) => [k, t(k)]), p.rules)}</div>
+      <div class="dx-f"><label>${esc(t('pInput'))}</label>${sel(pa('input'), ['iStruct','iUnstr','iPaper'].map((k) => [k, t(k)]), p.input)}</div>
+      <div class="dx-f" style="grid-column:1/-2"><span class="dx-lbl">${esc(t('pTools'))}</span><div class="dx-tools">${Object.keys(TOOLW).map((k) => `<button type="button" class="dx-chip" data-tool="${k}" data-p="${i}" aria-pressed="${p.tools.includes(k)}">${esc(t('tools')[k])}</button>`).join('')}</div></div>
+      <div class="dx-f"><label>${esc(t('pRework'))}</label><input class="dx-in" type="number" min="0" max="200" step="any" inputmode="decimal" ${pa('rework')} value="${esc(p.rework)}"><div class="dx-hint">${esc(t('pReworkH'))}</div></div>
+    </div>
+    <div class="dx-ed-foot">
+      <div class="dx-proc-res" id="draftRes"></div>
+      <div class="dx-ed-btns">
+        ${ed ? `<button type="button" class="btn btn-ghost dx-btn-s" data-act="cancel">${esc(t('cancel'))}</button>` : ''}
+        <button type="button" class="btn btn-primary dx-btn-s" data-act="save">${ed ? '' : ico.plus}${esc(ed ? t('updateP') : t('saveP'))}</button>
+      </div>
+    </div>
+    <div class="dx-err" id="edErr" role="alert"></div>
+  </div>`;
+}
+
+function renderEditor() { const el = document.getElementById('editor'); if (el) el.outerHTML = procCard(S.draft); }
+
+function render() {
+  document.documentElement.lang = S.lang === 'pt' ? 'pt-BR' : S.lang;
+  document.querySelectorAll('[data-i]').forEach((el) => { const v = t(el.dataset.i); if (el.hasAttribute('data-html')) el.innerHTML = v; else el.textContent = v; });
+  document.querySelectorAll('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lang === S.lang));
+  document.getElementById('privFoot').href = '/privacidad?lang=' + S.lang;
+  const proc = S.mode === 'proc';
+  const ctry = Object.keys(COUNTRIES).map((c) => [c, t('countries')[c]]);
+  $dx.innerHTML = `
+  <div class="dx-card">
+    <div class="dx-head"><span class="dx-n">1</span><div><h2>${esc(t('s1'))}</h2><p>${esc(t('s1p'))}</p></div></div>
+    <div class="dx-mode">
+      <button type="button" class="dx-opt" data-mode="proc" aria-pressed="${proc}">${ico.proc}<div><b>${esc(t('mProc'))}</b><span>${esc(t('mProcD'))}</span></div></button>
+      <button type="button" class="dx-opt" data-mode="dept" aria-pressed="${!proc}">${ico.dept}<div><b>${esc(t('mDept'))}</b><span>${esc(t('mDeptD'))}</span></div></button>
+    </div>
+  </div>
+
+  <div class="dx-card">
+    <div class="dx-head"><span class="dx-n">2</span><div><h2>${esc(t('s2'))}</h2><p>${esc(t('s2p'))}</p></div></div>
+    <div class="dx-two">
+      <div class="dx-fields">
+        ${field('country', t('country'), { full:true, hint:t('countryH'), html:sel('id="f-country" data-k="country"', ctry, S.country) })}
+        ${field('hoursDay', t('hoursDay'))}
+        ${field('daysWeek', t('daysWeek'), { html:sel('id="f-daysWeek" data-k="daysWeek"', [[5,5],[6,6]], S.daysWeek) })}
+        ${field('lunch', t('lunch'))}
+        ${field('breaks', t('breaks'), { hint:t('breaksH') })}
+        ${field('holidays', t('holidays'))}
+        ${field('vacation', t('vacation'), { hint:t('vacationH') })}
+        ${field('people', proc ? t('peopleProc') : t('peopleDept'))}
+        ${proc ? field('dedication', t('dedication'), { hint:t('dedicationH') }) : ''}
+      </div>
+      <div class="dx-cap" id="cap"></div>
+    </div>
+  </div>
+
+  <div class="dx-card">
+    <div class="dx-head"><span class="dx-n">3</span><div><h2>${esc(proc ? t('s3Proc') : t('s3Dept'))}</h2><p>${esc(t('s3p'))}</p></div></div>
+    ${procCard(S.draft)}
+    <div id="ptab"></div>
+    <div class="dx-actions">
+      <button type="button" class="btn btn-ghost dx-btn-s" data-act="decoder">${ico.dl}${esc(t('decoder'))}</button>
+      <button type="button" class="btn btn-ghost dx-btn-s" data-act="example">${esc(t('example'))}</button>
+      <button type="button" class="btn btn-ghost dx-btn-s" data-act="clear">${esc(t('clear'))}</button>
+    </div>
+  </div>
+
+  <div class="dx-card">
+    <div class="dx-head"><span class="dx-n">4</span><div><h2>${esc(t('s4'))}</h2><p>${esc(t('s4p'))}</p></div></div>
+    <div id="res"></div>
+  </div>
+
+  <div class="dx-card" id="req">
+    <div class="dx-head"><span class="dx-n">5</span><div><h2>${esc(t('s5'))}</h2><p>${esc(t('s5p'))}</p></div></div>
+    <div id="reqBody"></div>
+  </div>`;
+  update();
+  renderReq();
+}
+
+function update() {
+  const r = calc();
+  const proc = S.mode === 'proc';
+  // Capacidad instalada
+  document.getElementById('cap').innerHTML = `
+    <h3>${esc(t('capTitle'))}</h3>
+    <div class="dx-row"><span>${esc(t('cJornada'))}</span><b>${nf(num(S.hoursDay), 1)} h</b></div>
+    <div class="dx-row"><span>${esc(t('cLunch'))}</span><b>${nf(num(S.lunch) / 60, 2)} h</b></div>
+    <div class="dx-row"><span>${esc(t('cBreaks'))}</span><b>${nf(num(S.breaks) / 60, 2)} h</b></div>
+    <div class="dx-row eq"><span>${esc(t('cEff'))}</span><b>${nf(r.hEff, 2)} h</b></div>
+    <div class="dx-row"><span>${esc(t('cDays'))} (52 × ${nf(num(S.daysWeek))})</span><b>${nf(r.daysBase)}</b></div>
+    <div class="dx-row"><span>${esc(t('cHol'))}</span><b>${nf(num(S.holidays))}</b></div>
+    <div class="dx-row"><span>${esc(t('cVac'))}</span><b>${nf(num(S.vacation))}</b></div>
+    <div class="dx-row eq"><span>${esc(t('cAvail'))}</span><b>${nf(r.daysAvail)}</b></div>
+    <div class="dx-row"><span>${esc(t('cPerson'))}</span><b>${nf(r.capPerson, 1)} h</b></div>
+    <div class="dx-row sub"><span>${esc(t('cPerMonth'))} · ${esc(t('cPerWeek'))}</span><b>${nf(r.capPerson / 12, 1)} h · ${nf(r.capPerson / 52, 1)} h</b></div>
+    <div class="dx-row"><span>${esc(t('cTimes'))}</span><b>${nf(num(S.people))}</b></div>
+    ${proc ? `<div class="dx-row"><span>${esc(t('cDed'))}</span><b>${nf(r.ded * 100)}%</b></div>` : ''}
+    <div class="dx-row big"><span>${esc(t('cTeam'))}</span><b>${nf(r.capTeam)} h</b></div>
+    <p>${esc(t('capNote'))}</p>`;
+  // Vista previa del proceso en captura
+  const dr = procHours(S.draft), dEl = document.getElementById('draftRes');
+  if (dEl) dEl.innerHTML = dr.annual > 0 ? `<span><b>${nf(dr.occ)}</b> ${esc(t('occYear'))}</span><span><b>${nf(dr.annual, 1)}</b> ${esc(t('perYear'))}</span><span><b>${nf(r.capPerson ? dr.annual / r.capPerson : 0, 2)}</b> ${esc(t('fteShort'))}</span>` : '';
+  // Tabla de procesos guardados
+  const dl = (p) => p.days.slice().sort().map((d) => dayName(d)).join(', ');
+  const freqTxt = (p) => t('f' + p.freq) + (p.freq === 'w' ? ` · ${dl(p)}${p.weeks.length < 4 ? ` · ${t('weekS')} ${p.weeks.slice().sort().join(', ')}` : ''}`
+    : p.freq === 'q' ? ` · ${dl(p)}` : p.freq === 'm' ? ` · ${t('weekS')} ${num(p.week) || 4} · ${dl(p)}` : '');
+  const tb = document.getElementById('ptab');
+  tb.innerHTML = !S.procs.length ? `<div class="dx-tempty">${esc(t('tEmpty'))}</div>` : `
+    <div class="dx-thead"><span class="label">${esc(t('savedTitle'))} · ${S.procs.length}</span></div>
+    <div class="dx-twrap"><table class="dx-table">
+      <thead><tr><th>${esc(t('thCode'))}</th><th>${esc(t('thName'))}</th><th>${esc(t('thFreq'))}</th><th class="hm">${esc(t('thTime'))}</th><th class="hm">${esc(t('thTools'))}</th><th class="n">${esc(t('thHours'))}</th><th class="n">FTE</th><th></th></tr></thead>
+      <tbody>${r.procs.map((x) => `<tr class="${S.editing === x.i ? 'is-ed' : ''}${flash === x.i ? ' dx-flash' : ''}">
+        <td><span class="dx-dot" style="background:${x.color}"></span>${esc(x.code)}</td>
+        <td class="nm">${esc(x.name || '—')}</td>
+        <td>${esc(freqTxt(x.p))}</td>
+        <td class="hm">${nf(num(x.p.time), num(x.p.time) % 1 ? 1 : 0)} ${esc(x.p.unit)} × ${nf(Math.max(1, num(x.p.qty)))}</td>
+        <td class="hm">${x.p.tools.length ? esc(x.p.tools.map((k) => t('tools')[k].split(' ')[0]).join(', ')) : '—'}</td>
+        <td class="n">${nf(x.annual, 1)}</td><td class="n">${nf(x.fte, 2)}</td>
+        <td class="ac"><button type="button" class="dx-ib" data-edit="${x.i}" title="${esc(t('edit'))}" aria-label="${esc(t('edit'))} ${esc(x.code)}">${ico.edit}</button><button type="button" class="dx-ib del" data-del="${x.i}" title="${esc(t('del'))}" aria-label="${esc(t('del'))} ${esc(x.code)}">${ico.del}</button></td>
+      </tr>`).join('')}</tbody>
+      <tfoot><tr><td colspan="2">${esc(t('total'))}</td><td></td><td class="hm"></td><td class="hm"></td><td class="n">${nf(r.total, 1)}</td><td class="n">${nf(r.fteReq, 2)}</td><td></td></tr></tfoot>
+    </table></div>`;
+  flash = null;
+  // Diagnóstico
+  const res = document.getElementById('res');
+  if (!(r.total > 0) || !(r.capTeam > 0)) { res.innerHTML = `<p class="dx-msg2">${esc(t('empty'))}</p>`; return; }
+  const st = status(r.util);
+  const who = proc ? t('who_proc') : t('who_dept');
+  const key = st[0].toUpperCase() + st.slice(1);
+  const margin = Math.abs(r.capTeam - r.total), mFte = r.capPerson ? margin / r.capPerson : 0;
+  const msg = fill(t('msg' + key), { who, u:pct(r.util), o:pct(r.util - 1) });
+  let msg2 = fill(t('msg2' + key), { h:nf(margin), f:fte(mFte) });
+  if (r.peakUtil > r.util + .08) msg2 += ' ' + fill(t('peak'), { p:pct(r.peakUtil) });
+  const shown = r.procs.filter((x) => x.annual > 0);
+  const legend = shown.map((x) => `<span><i style="background:${x.color}"></i>${esc(x.code)}${x.name ? ' · ' + esc(x.name) : ''}</span>`).join('') + `<span><i class="line"></i>${esc(t('capLine'))}</span>`;
+  const months = Array.from({ length:12 }, (_, i) => new Intl.DateTimeFormat(LOCALE[S.lang], { month:'short' }).format(new Date(2026, i, 1)).replace('.', ''));
+  const wt = r.weeks.map((w) => w.reduce((a, b) => a + b, 0)), pkW = wt.indexOf(Math.max(...wt));
+  res.innerHTML = `
+    <div class="dx-status">
+      <div class="dx-gauge">${gauge(r.util, st)}</div>
+      <div>
+        <span class="dx-badge s-${st}"><i></i>${esc(t('st' + key))}</span>
+        <p class="dx-msg">${esc(msg)}</p>
+        <p class="dx-msg2">${esc(msg2)}</p>
+      </div>
+    </div>
+    <div class="dx-kpis">
+      <div class="dx-kpi"><small>${esc(t('kFte'))}</small><b class="s-${st}">${nf(r.fteReq, 2)}</b><span>${esc(fill(t('kFteS'), { a:nf(r.fteAvail, r.fteAvail % 1 ? 2 : 0) }))}</span></div>
+      <div class="dx-kpi"><small>${esc(t('kLoad'))}</small><b>${nf(r.total)} h</b><span>${esc(fill(t('kLoadS'), { c:nf(r.capTeam) }))}</span></div>
+      <div class="dx-kpi"><small>${esc(t('kAuto'))}</small><b style="color:var(--gold-2)">${pct(r.auto)}</b><span>${esc(t('kAutoS'))}</span></div>
+      <div class="dx-kpi"><small>${esc(t('kFree'))}</small><b style="color:#8FD9B6">${nf(r.lib)} h</b><span>${esc(fill(t('kFreeS'), { f:nf(r.capPerson ? r.lib / r.capPerson : 0, 2) }))}</span></div>
+    </div>
+    <div class="dx-charts">
+      <div class="dx-chart wide"><h3>${esc(t('chA'))}</h3><p>${esc(t('chAp'))}</p>${annualChart(r)}</div>
+      <div class="dx-chart"><h3>${esc(t('chM'))}</h3><p>${esc(t('chMp'))}</p>${stackChart(months, r.months, r.procs, r.capMonth)}<div class="dx-legend">${legend}</div></div>
+      <div class="dx-chart"><h3>${esc(t('chW'))}</h3><p>${esc(t('chWp'))}</p>${stackChart([1,2,3,4].map((n) => `${t('weekS')} ${n}`), r.weeks, r.procs, r.capWeek)}<div class="dx-legend">${legend}</div></div>
+      <div class="dx-chart"><h3>${esc(t('chD'))}</h3><p>${esc(t('chDp'))}</p>${heatmap(r)}<p class="dx-insight">${esc(balanceMsg(r))}</p></div>
+      <div class="dx-chart"><h3>${esc(t('chPk'))}</h3><p>${esc(fill(t('chPkp'), { w:pkW + 1 }))}</p>${stackChart([...Array(r.nd).keys()].map((d) => dayName(d)), r.cells[pkW], r.procs, r.capDay)}<div class="dx-legend">${legend}</div></div>
+    </div>
+    <span class="label dx-lockhead" style="display:flex">${esc(t('locked'))}</span>
+    <div class="dx-locks">
+      ${[1,2,3,4].map((n) => `<div class="dx-lock">${ico.lock}<b>${esc(t('l' + n))}</b><span>${esc(t('l' + n + 'd'))}</span></div>`).join('')}
+    </div>`;
+}
+
+function renderReq() {
+  const body = document.getElementById('reqBody');
+  if (sent) {
+    body.innerHTML = `<div class="dx-ok">${ico.check}<h3>${esc(t('okTitle'))}</h3><div class="fol">${esc(sent.folio)}</div>
+      <p>${esc(fill(t('okText'), { e:sent.contacto.correo }))}</p>
+      <div class="dx-actions" style="justify-content:center"><button type="button" class="btn btn-ghost dx-btn-s" data-act="decoder">${ico.dl}${esc(t('decoder'))}</button><a class="btn btn-primary dx-btn-s" href="${AGENDA}" target="_blank" rel="noopener">${esc(t('orBook'))}${ico.arrow}</a><button type="button" class="btn btn-ghost dx-btn-s" data-act="again">${esc(t('again'))}</button></div>
+      ${ENDPOINT ? '' : `<details class="dx-json"><summary>${esc(t('okJson'))}</summary><pre>${esc(JSON.stringify(sent, null, 2))}</pre></details>`}</div>`;
+    return;
+  }
+  body.innerHTML = `
+    <div class="dx-sla"><b>24 h</b><span>${esc(t('sla'))}</span></div>
+    <form class="dx-form" id="frm" novalidate>
+      <div class="dx-f"><label for="c-name">${esc(t('fName'))}</label><input class="dx-in" id="c-name" autocomplete="name" required></div>
+      <div class="dx-f"><label for="c-company">${esc(t('fCompany'))}</label><input class="dx-in" id="c-company" autocomplete="organization" required></div>
+      <div class="dx-f"><label for="c-role">${esc(t('fRole'))}</label><input class="dx-in" id="c-role" autocomplete="organization-title"></div>
+      <div class="dx-f"><label for="c-email">${esc(t('fEmail'))}</label><input class="dx-in" id="c-email" type="email" autocomplete="email" required></div>
+      <div class="dx-f"><label for="c-phone">${esc(t('fPhone'))}</label><input class="dx-in" id="c-phone" type="tel" autocomplete="tel"></div>
+      <div class="dx-f"></div>
+      <label class="dx-check"><input type="checkbox" id="c-priv"> <span>${t('fPriv')}</span></label>
+      <label class="dx-check"><input type="checkbox" id="c-contact" checked> ${esc(t('fContact'))}</label>
+      <input type="text" id="c-web" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <div class="dx-err" id="c-err" role="alert"></div>
+      <div class="dx-actions" style="grid-column:1/-1;margin-top:0">
+        <button class="btn btn-primary" type="submit">${esc(t('send'))}${ico.arrow}</button>
+        <a class="btn btn-ghost" href="${AGENDA}" target="_blank" rel="noopener">${esc(t('orBook'))}</a>
+      </div>
+    </form>`;
+}
+
+/* Lo que recibiría Oberon: solo códigos, nunca los nombres */
+function payload(contact) {
+  const r = calc();
+  const st = status(r.util);
+  const folio = `OB-${new Date().getFullYear()}-${String(Math.floor(1000 + Math.random() * 9000))}`;
+  return {
+    folio, fecha:new Date().toISOString(), idioma:S.lang,
+    version:1,
+    // Captura completa sin nombres: con esto la página interna recalcula todo el reporte
+    entrada:{ mode:S.mode, country:S.country, hoursDay:S.hoursDay, lunch:S.lunch, breaks:S.breaks, daysWeek:S.daysWeek, holidays:S.holidays, vacation:S.vacation, people:S.people, dedication:S.dedication, procs:S.procs.map(({ name, ...rest }) => rest) },
+    contacto:contact,
+    evaluacion:{ tipo:S.mode === 'proc' ? 'proceso' : 'departamento', pais:S.country },
+    jornada:{ horasDia:num(S.hoursDay), comidaMin:num(S.lunch), descansosMin:num(S.breaks), diasSemana:num(S.daysWeek), feriados:num(S.holidays), vacaciones:num(S.vacation), personas:num(S.people), dedicacionPct:S.mode === 'proc' ? num(S.dedication) : 100 },
+    capacidad:{ horasEfectivasDia:+r.hEff.toFixed(2), diasDisponibles:r.daysAvail, horasPorPersonaAnio:+r.capPerson.toFixed(1), fteDisponibles:+r.fteAvail.toFixed(2), capacidadAnual:+r.capTeam.toFixed(1) },
+    resultado:{ estado:st, utilizacionPct:+(r.util * 100).toFixed(1), utilizacionPicoSemanalPct:+(r.peakUtil * 100).toFixed(1), cargaAnual:+r.total.toFixed(1), fteRequeridos:+r.fteReq.toFixed(2), automatizacionPct:+(r.auto * 100).toFixed(1), horasLiberables:+r.lib.toFixed(1) },
+    procesos:r.procs.map((x) => ({ codigo:x.code, tiempo:num(x.p.time), unidad:x.p.unit, volumen:Math.max(1, num(x.p.qty)), frecuencia:x.p.freq, dias:x.p.freq === 'd' ? 'todos' : x.p.days.map((d) => ['lun','mar','mie','jue','vie','sab'][d]), semanasDelMes:x.p.freq === 'w' ? x.p.weeks : x.p.freq === 'q' ? [2,4] : x.p.freq === 'm' ? [num(x.p.week)] : null, pasos:num(x.p.steps), herramientas:x.p.tools, documentado:x.p.doc, decisiones:x.p.rules, entrada:x.p.input, retrabajoPct:num(x.p.rework), ejecucionesAnio:x.occ, horasAnio:+x.annual.toFixed(1), fte:+x.fte.toFixed(2), automatizacionPct:+(x.auto * 100).toFixed(1) })),
+  };
+}
+
+function downloadDecoder() {
+  const rows = [t('decHead')].concat(S.procs.map((p, i) => `${code(i)},"${String(p.name || '').replace(/"/g, '""')}"`));
+  const blob = new Blob(['﻿' + rows.join('\n')], { type:'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'decodificador-oberon.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function loadExample() {
+  const n = t('exNames');
+  S.mode = 'dept'; S.country = 'MX'; Object.assign(S, { hoursDay:9, lunch:60, breaks:30, daysWeek:5, holidays:7, vacation:12, people:2 });
+  S.procs = [
+    { ...blankProc(), name:n[0], time:45, unit:'min', qty:1, freq:'d', steps:18, tools:['excel','portal','erp'], doc:'partial', rules:'rFixed', input:'iStruct', rework:10 },
+    { ...blankProc(), name:n[1], time:6, unit:'min', qty:65, freq:'d', steps:12, tools:['outlook','pdf','erp'], doc:'yes', rules:'rFixed', input:'iUnstr', rework:5 },
+    { ...blankProc(), name:n[2], time:24, unit:'h', qty:1, freq:'m', week:4, days:[0,1,2], steps:40, tools:['excel','erp'], doc:'partial', rules:'rMixed', input:'iStruct', rework:'' },
+    { ...blankProc(), name:n[3], time:2, unit:'h', qty:1, freq:'w', days:[0,2,4], weeks:[1,2,3], steps:10, tools:['excel','outlook','bi'], doc:'yes', rules:'rFixed', input:'iStruct', rework:'' },
+    { ...blankProc(), name:n[4], time:20, unit:'min', qty:12, freq:'d', steps:8, tools:['outlook','phone','whatsapp'], doc:'no', rules:'rJudg', input:'iUnstr', rework:15 },
+    { ...blankProc(), name:n[5], time:24, unit:'h', qty:1, freq:'t', steps:30, tools:['excel','word','paper'], doc:'no', rules:'rMixed', input:'iPaper', rework:'' },
+  ];
+}
+
+/* ---------------- Eventos ---------------- */
+document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => { S.lang = b.dataset.lang; save(); render(); }));
+
+let rz; let lastW = innerWidth; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (innerWidth !== lastW) { lastW = innerWidth; update(); } }, 200); });
+
+$dx.addEventListener('input', (e) => {
+  const el = e.target;
+  if (el.dataset.k) {
+    S[el.dataset.k] = el.value;
+    if (el.dataset.k === 'daysWeek') renderEditor();
+    if (el.dataset.k === 'country') { const c = COUNTRIES[el.value]; S.holidays = c.h; S.vacation = c.v; document.getElementById('f-holidays').value = c.h; document.getElementById('f-vacation').value = c.v; }
+  } else if (el.dataset.p != null && el.dataset.f) {
+    S.draft[el.dataset.f] = el.value;
+    if (el.hasAttribute('data-rerender')) renderEditor();
+  } else return;
+  save(); update();
+});
+
+$dx.addEventListener('click', (e) => {
+  const m = e.target.closest('[data-mode]');
+  if (m) { S.mode = m.dataset.mode; save(); render(); return; }
+  const chip = e.target.closest('[data-tool]');
+  if (chip) {
+    const p = S.draft, k = chip.dataset.tool;
+    p.tools = p.tools.includes(k) ? p.tools.filter((x) => x !== k) : p.tools.concat(k);
+    chip.setAttribute('aria-pressed', p.tools.includes(k)); save(); update(); return;
+  }
+  const dc = e.target.closest('[data-day],[data-wks],[data-wk1]');
+  if (dc) {
+    const p = S.draft;
+    const tog = (arr, v) => (arr.includes(v) ? (arr.length > 1 ? arr.filter((x) => x !== v) : arr) : arr.concat(v).sort());
+    if (dc.dataset.day != null) p.days = tog(p.days, +dc.dataset.day);
+    else if (dc.dataset.wks != null) p.weeks = tog(p.weeks, +dc.dataset.wks);
+    else p.week = +dc.dataset.wk1;
+    save(); renderEditor(); update(); return;
+  }
+  const d = e.target.closest('[data-del]');
+  if (d) {
+    const i = +d.dataset.del; S.procs.splice(i, 1);
+    if (S.editing === i) { S.editing = null; S.draft = blankProc(); } else if (S.editing > i) S.editing--;
+    save(); renderEditor(); update(); return;
+  }
+  const ed = e.target.closest('[data-edit]');
+  if (ed) {
+    S.editing = +ed.dataset.edit; S.draft = JSON.parse(JSON.stringify(S.procs[S.editing]));
+    save(); renderEditor(); update();
+    document.getElementById('editor').scrollIntoView({ behavior:'smooth', block:'start' }); return;
+  }
+  const a = e.target.closest('[data-act]');
+  if (!a) return;
+  const act = a.dataset.act;
+  if (act === 'save') {
+    if (!(procHours(S.draft).annual > 0)) { document.getElementById('edErr').textContent = t('errTime'); return; }
+    if (S.editing != null) { S.procs[S.editing] = S.draft; flash = S.editing; } else { S.procs.push(S.draft); flash = S.procs.length - 1; }
+    S.draft = blankProc(); S.editing = null; save(); renderEditor(); update();
+    const row = document.querySelector('.dx-flash'); if (row) row.scrollIntoView({ block:'nearest' });
+  }
+  else if (act === 'cancel') { S.draft = blankProc(); S.editing = null; save(); renderEditor(); update(); }
+  else if (act === 'decoder') downloadDecoder();
+  else if (act === 'example') { loadExample(); S.draft = blankProc(); S.editing = null; save(); render(); }
+  else if (act === 'clear') { const l = S.lang; S = defaults(); S.lang = l; sent = null; save(); render(); }
+  else if (act === 'again') { sent = null; renderReq(); }
+});
+
+$dx.addEventListener('submit', (e) => {
+  if (e.target.id !== 'frm') return;
+  e.preventDefault();
+  const v = (id) => document.getElementById(id).value.trim();
+  const err = document.getElementById('c-err');
+  if (!(calc().total > 0)) { err.textContent = t('errProc'); return; }
+  if (!v('c-name') || !v('c-company') || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('c-email')) || !document.getElementById('c-priv').checked) { err.textContent = t('errReq'); return; }
+  const data = payload({ nombre:v('c-name'), empresa:v('c-company'), puesto:v('c-role'), correo:v('c-email'), telefono:v('c-phone'), quiereContacto:document.getElementById('c-contact').checked });
+  data.web = document.getElementById('c-web').value; // campo trampa para bots
+  const done = (folio) => {
+    if (folio) data.folio = folio;
+    delete data.web;
+    sent = data;
+    try { localStorage.setItem('oberon-dx-ultimo-envio', JSON.stringify(sent)); } catch (er) {}
+    renderReq();
+    document.getElementById('req').scrollIntoView({ behavior:'smooth', block:'start' });
+  };
+  if (!ENDPOINT) { done(); return; } // prototipo: no se envía nada
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true; btn.textContent = t('sending'); err.textContent = '';
+  // text/plain evita la verificación previa de CORS; Apps Script responde con JSON
+  fetch(ENDPOINT, { method:'POST', body:JSON.stringify(data) })
+    .then((res) => res.json())
+    .then((j) => { if (!j.ok) throw new Error(j.error); done(j.folio); })
+    .catch(() => { btn.disabled = false; btn.innerHTML = esc(t('send')) + ico.arrow; err.textContent = t('errSend'); });
+});
+
+render();
+})();
+</script>
+<script src="assets/oberon.js" defer></script>
+</body>
+</html>

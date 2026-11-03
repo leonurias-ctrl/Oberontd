@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aviso de Privacidad | Oberon</title>
+<meta name="description" content="Aviso de privacidad de Oberon Consultores en Transformación Digital e IA: qué datos personales tratamos, para qué y cómo ejercer tus derechos ARCO.">
+<meta name="theme-color" content="#0A0F2C">
+<link rel="canonical" href="https://www.oberontd.com/privacidad">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/img/icon/favicon-48.png">
+<link rel="apple-touch-icon" href="/img/icon/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/oberon.css">
+<style>
+.pv-lang{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line-2);border-radius:999px;background:rgba(255,255,255,.03);margin-top:28px;}
+.pv-lang button{border:0;background:transparent;color:var(--text-2);font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;padding:7px 14px;border-radius:999px;cursor:pointer;}
+.pv-lang button[aria-pressed="true"]{background:var(--gold);color:var(--bg);}
+.pv{max-width:860px;padding-bottom:var(--section);}
+.pv [data-l]{display:none;}
+.pv [data-l].on{display:block;}
+.pv-card{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:clamp(22px,4vw,48px);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.pv-note{font-size:.84rem;color:var(--text-3);margin-bottom:26px;padding:12px 16px;border-radius:12px;border:1px dashed var(--line-2);}
+.pv h2{font-size:clamp(1.25rem,2.2vw,1.6rem);margin:34px 0 12px;color:var(--text);}
+.pv h2:first-of-type{margin-top:0;}
+.pv h2 span{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:var(--gold);margin-right:10px;vertical-align:middle;}
+.pv p,.pv li{color:var(--text-2);font-size:.98rem;line-height:1.7;}
+.pv p+p{margin-top:12px;}
+.pv ul{margin:10px 0 0;padding-left:0;display:grid;gap:8px;}
+.pv li{position:relative;padding-left:20px;}
+.pv li::before{content:'';position:absolute;left:2px;top:.72em;width:7px;height:7px;border-radius:2px;background:var(--gold);}
+.pv b{color:var(--text);font-weight:600;}
+.pv a{color:var(--gold-2);border-bottom:1px solid rgba(240,213,160,.35);}
+.pv-upd{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);}
+</style>
+</head>
+<body>
+<canvas id="net" aria-hidden="true"></canvas>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="/" class="brand" aria-label="Oberon">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M25 6C17 6 11 13 11 21c0 8.5 6.7 15.4 15.2 15.9C22.7 39 18 38 15 33.8c-3.6-5-3.4-12.4.6-17.2C19.4 12.4 24.6 10 30 10.8 28.6 8 26.9 6.7 25 6Z" fill="#D4AF6A"/><circle cx="8" cy="24" r="1.6" fill="#F4F2EC"/><circle cx="14" cy="15" r="1.1" fill="#F4F2EC"/><circle cx="6" cy="16" r="1" fill="#F4F2EC"/><circle cx="18" cy="9" r="1.3" fill="#F4F2EC"/><circle cx="10" cy="30" r="1.2" fill="#F4F2EC"/></svg>
+      <span class="brand-name">OBERON<span class="brand-sub">Consultores en Transformación Digital e Inteligencia Artificial</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="/">Inicio</a>
+      <a href="/soluciones">Soluciones</a>
+      <a href="/#metodo">Metodología</a>
+      <a href="/diagnostico">Diagnóstico</a>
+      <a href="/contacto">Contacto</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled" target="_blank" rel="noopener">Agenda una auditoría</a>
+    <button class="burger" id="burger" type="button" aria-controls="mPanel" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="m-panel" id="mPanel" aria-hidden="true">
+  <a class="m-link" href="/">Inicio<span>01</span></a>
+  <a class="m-link" href="/soluciones">Soluciones<span>02</span></a>
+  <a class="m-link" href="/#metodo">Metodología<span>03</span></a>
+  <a class="m-link" href="/diagnostico">Diagnóstico<span>04</span></a>
+  <a class="m-link" href="/contacto">Contacto<span>05</span></a>
+  <a class="btn btn-primary" href="https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled" target="_blank" rel="noopener">Agenda una Auditoría de Procesos</a>
+</div>
+
+<main id="main">
+<section class="page-hero">
+  <div class="wrap">
+    <span class="label" data-t="label">Legal</span>
+    <h1 data-t="h1">Aviso de <em>privacidad</em></h1>
+    <p data-t="sub">Qué datos personales tratamos, para qué los usamos y cómo puedes ejercer tus derechos.</p>
+    <div class="pv-lang" role="group" aria-label="Idioma">
+      <button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="pt">PT</button>
+    </div>
+  </div>
+</section>
+
+<section>
+<div class="wrap pv">
+
+<!-- ======================= ESPAÑOL (versión que rige) ======================= -->
+<div class="pv-card on" data-l="es">
+  <h2><span>01</span>Responsable</h2>
+  <p><b>Oberon Consultores en Transformación Digital e IA S.A.S.</b> (“Oberon”), con domicilio en Zapopan, Jalisco, México, C.P. 45079, es responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y demás normativa aplicable.</p>
+  <p>Contacto en materia de privacidad: <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a> · 33-3015-3089.</p>
+
+  <h2><span>02</span>Datos personales que recabamos</h2>
+  <p>Cuando nos contactas, agendas una sesión o solicitas el <b>Diagnóstico de Capacidad Operativa</b>, recabamos únicamente datos de identificación y contacto:</p>
+  <ul>
+    <li>Nombre, empresa y puesto.</li>
+    <li>Correo electrónico y, de forma opcional, teléfono.</li>
+  </ul>
+  <p>Para el diagnóstico también recibimos información operativa de tus procesos (tiempos, frecuencias, número de pasos, herramientas y tamaño del equipo). Esta información <b>no identifica a ninguna persona</b>: los procesos se registran solo con códigos (P-01, P-02…). Los nombres que escribas en la herramienta se quedan en tu navegador y nunca se envían a Oberon.</p>
+  <p><b>No solicitamos datos personales sensibles</b> ni datos financieros o patrimoniales.</p>
+
+  <h2><span>03</span>Para qué usamos tus datos</h2>
+  <p><b>Finalidades necesarias</b>, que dan origen a la relación contigo:</p>
+  <ul>
+    <li>Elaborar el diagnóstico solicitado y enviarte el reporte con su interpretación y recomendaciones.</li>
+    <li>Asignarte un folio, confirmar la recepción de tu solicitud y darle seguimiento.</li>
+    <li>Responder tus dudas y, si así lo indicas, contactarte para revisar los resultados o agendar una sesión.</li>
+  </ul>
+  <p><b>Finalidades adicionales</b>, que no son necesarias para el servicio:</p>
+  <ul>
+    <li>Enviarte información sobre servicios, contenidos o eventos de Oberon relacionados con transformación digital e inteligencia artificial.</li>
+  </ul>
+  <p>Si no deseas que usemos tus datos para las finalidades adicionales, escríbenos a <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a> en cualquier momento. Tu negativa no afectará el servicio que solicitaste.</p>
+
+  <h2><span>04</span>Con quién compartimos tus datos</h2>
+  <p>No vendemos ni cedemos tus datos personales. Para operar el servicio nos apoyamos en proveedores que los tratan únicamente por cuenta de Oberon y bajo sus instrucciones:</p>
+  <ul>
+    <li><b>Google</b> (Google Sheets / Apps Script): registro y resguardo de las solicitudes.</li>
+    <li><b>Resend</b>: envío de correos de confirmación.</li>
+    <li><b>Microsoft</b> (Microsoft 365): correo electrónico y agenda de citas.</li>
+    <li><b>GitHub</b>: alojamiento del sitio web.</li>
+  </ul>
+  <p>Algunos de estos proveedores almacenan información en servidores ubicados fuera de México, principalmente en Estados Unidos. Solo compartiríamos tus datos con terceros distintos cuando una autoridad competente lo requiera conforme a la ley.</p>
+
+  <h2><span>05</span>Cuánto tiempo los conservamos</h2>
+  <p>Conservamos tus datos durante el tiempo necesario para cumplir las finalidades descritas y, como máximo, <b>24 meses</b> a partir de tu última interacción con Oberon, salvo que exista una relación comercial vigente o una obligación legal que requiera conservarlos por más tiempo. Después se eliminan.</p>
+
+  <h2><span>06</span>Tus derechos (ARCO) y revocación del consentimiento</h2>
+  <p>Tienes derecho a <b>acceder</b> a tus datos, <b>rectificarlos</b>, <b>cancelarlos</b> u <b>oponerte</b> a su uso, así como a <b>revocar</b> el consentimiento que nos hayas otorgado y a limitar su uso o divulgación.</p>
+  <p>Para ejercerlos, envía un correo a <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a> con: tu nombre y correo de contacto; una copia de una identificación oficial (o, en su caso, de la representación legal); la descripción clara del derecho que deseas ejercer y de los datos involucrados; y, si tienes, el folio de tu solicitud.</p>
+  <p>Te responderemos dentro de los plazos que establece la ley. Si consideras que tu derecho no fue atendido, puedes acudir a la autoridad competente en materia de protección de datos personales.</p>
+
+  <h2><span>07</span>Cookies y tecnologías similares</h2>
+  <p>Este sitio <b>no utiliza cookies de rastreo ni publicidad</b>. La herramienta de diagnóstico guarda tu captura en el almacenamiento local de tu propio navegador para que no pierdas tu avance; puedes borrarla con el botón “Limpiar” o desde la configuración de tu navegador. El sitio carga tipografías desde Google Fonts, lo que implica que tu navegador se conecte a servidores de Google.</p>
+
+  <h2><span>08</span>Cambios a este aviso</h2>
+  <p>Podemos actualizar este aviso por cambios legales o en nuestros servicios. La versión vigente siempre estará publicada en <a href="https://www.oberontd.com/privacidad">oberontd.com/privacidad</a>, con su fecha de actualización.</p>
+
+  <div class="pv-upd">Última actualización: 3 de noviembre de 2026</div>
+</div>
+
+<!-- ======================= ENGLISH ======================= -->
+<div class="pv-card" data-l="en">
+  <p class="pv-note">This is a courtesy translation. In case of any discrepancy, the Spanish version prevails.</p>
+  <h2><span>01</span>Data controller</h2>
+  <p><b>Oberon Consultores en Transformación Digital e IA S.A.S.</b> (“Oberon”), located in Zapopan, Jalisco, Mexico, ZIP 45079, is responsible for processing your personal data under Mexico’s Federal Law on the Protection of Personal Data Held by Private Parties and other applicable regulations.</p>
+  <p>Privacy contact: <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a> · +52 33 3015 3089.</p>
+
+  <h2><span>02</span>Personal data we collect</h2>
+  <p>When you contact us, book a session or request the <b>Operational Capacity Assessment</b>, we only collect identification and contact data:</p>
+  <ul>
+    <li>Name, company and job title.</li>
+    <li>Email and, optionally, phone number.</li>
+  </ul>
+  <p>For the assessment we also receive operational information about your processes (times, frequencies, number of steps, tools and team size). This information <b>does not identify any person</b>: processes are recorded only as codes (P-01, P-02…). Any names you type in the tool stay in your browser and are never sent to Oberon.</p>
+  <p><b>We do not request sensitive personal data</b> or financial data.</p>
+
+  <h2><span>03</span>How we use your data</h2>
+  <p><b>Necessary purposes</b>, which give rise to our relationship with you:</p>
+  <ul>
+    <li>Preparing the requested assessment and sending you the report with its interpretation and recommendations.</li>
+    <li>Assigning a reference number, confirming receipt of your request and following up on it.</li>
+    <li>Answering your questions and, if you indicate so, contacting you to review the results or book a session.</li>
+  </ul>
+  <p><b>Additional purposes</b>, not necessary for the service:</p>
+  <ul>
+    <li>Sending you information about Oberon services, content or events related to digital transformation and artificial intelligence.</li>
+  </ul>
+  <p>If you do not want your data used for additional purposes, email <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a> at any time. Declining will not affect the service you requested.</p>
+
+  <h2><span>04</span>Who we share your data with</h2>
+  <p>We do not sell or assign your personal data. To run the service we rely on providers that process it only on Oberon’s behalf and under its instructions:</p>
+  <ul>
+    <li><b>Google</b> (Google Sheets / Apps Script): recording and storing requests.</li>
+    <li><b>Resend</b>: sending confirmation emails.</li>
+    <li><b>Microsoft</b> (Microsoft 365): email and appointment booking.</li>
+    <li><b>GitHub</b>: website hosting.</li>
+  </ul>
+  <p>Some of these providers store information on servers outside Mexico, mainly in the United States. We would only share your data with other third parties when required by a competent authority under the law.</p>
+
+  <h2><span>05</span>How long we keep it</h2>
+  <p>We keep your data for as long as needed to fulfil the purposes above and for a maximum of <b>24 months</b> from your last interaction with Oberon, unless there is an ongoing business relationship or a legal obligation to keep it longer. After that it is deleted.</p>
+
+  <h2><span>06</span>Your rights and withdrawal of consent</h2>
+  <p>You have the right to <b>access</b>, <b>rectify</b> and <b>cancel</b> your data or <b>object</b> to its use, as well as to <b>withdraw</b> your consent and limit its use or disclosure.</p>
+  <p>To exercise them, email <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a> with: your name and contact email; a copy of an official ID (or proof of legal representation, if applicable); a clear description of the right you wish to exercise and the data involved; and, if available, your request reference number.</p>
+  <p>We will respond within the time limits set by law. If you believe your request was not properly handled, you may contact the competent personal data protection authority in Mexico.</p>
+
+  <h2><span>07</span>Cookies and similar technologies</h2>
+  <p>This site <b>does not use tracking or advertising cookies</b>. The assessment tool saves your entries in your own browser’s local storage so you don’t lose your progress; you can delete them with the “Clear” button or in your browser settings. The site loads fonts from Google Fonts, which means your browser connects to Google servers.</p>
+
+  <h2><span>08</span>Changes to this notice</h2>
+  <p>We may update this notice due to legal changes or changes in our services. The current version will always be available at <a href="https://www.oberontd.com/privacidad">oberontd.com/privacidad</a>, with its update date.</p>
+
+  <div class="pv-upd">Last updated: November 3, 2026</div>
+</div>
+
+<!-- ======================= PORTUGUÊS ======================= -->
+<div class="pv-card" data-l="pt">
+  <p class="pv-note">Esta é uma tradução de cortesia. Em caso de divergência, prevalece a versão em espanhol.</p>
+  <h2><span>01</span>Responsável</h2>
+  <p><b>Oberon Consultores en Transformación Digital e IA S.A.S.</b> (“Oberon”), com domicílio em Zapopan, Jalisco, México, CEP 45079, é responsável pelo tratamento dos seus dados pessoais conforme a Lei Federal de Proteção de Dados Pessoais em Posse de Particulares do México e demais normas aplicáveis.</p>
+  <p>Contato sobre privacidade: <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a> · +52 33 3015 3089.</p>
+
+  <h2><span>02</span>Dados pessoais que coletamos</h2>
+  <p>Quando você entra em contato, agenda uma sessão ou solicita o <b>Diagnóstico de Capacidade Operacional</b>, coletamos apenas dados de identificação e contato:</p>
+  <ul>
+    <li>Nome, empresa e cargo.</li>
+    <li>E-mail e, opcionalmente, telefone.</li>
+  </ul>
+  <p>Para o diagnóstico também recebemos informações operacionais dos seus processos (tempos, frequências, número de etapas, ferramentas e tamanho da equipe). Essas informações <b>não identificam nenhuma pessoa</b>: os processos são registrados apenas com códigos (P-01, P-02…). Os nomes digitados na ferramenta ficam no seu navegador e nunca são enviados à Oberon.</p>
+  <p><b>Não solicitamos dados pessoais sensíveis</b> nem dados financeiros.</p>
+
+  <h2><span>03</span>Para que usamos seus dados</h2>
+  <p><b>Finalidades necessárias</b>, que dão origem à relação com você:</p>
+  <ul>
+    <li>Elaborar o diagnóstico solicitado e enviar o relatório com interpretação e recomendações.</li>
+    <li>Atribuir um protocolo, confirmar o recebimento da sua solicitação e acompanhá-la.</li>
+    <li>Responder às suas dúvidas e, se você indicar, entrar em contato para revisar os resultados ou agendar uma sessão.</li>
+  </ul>
+  <p><b>Finalidades adicionais</b>, não necessárias para o serviço:</p>
+  <ul>
+    <li>Enviar informações sobre serviços, conteúdos ou eventos da Oberon relacionados à transformação digital e à inteligência artificial.</li>
+  </ul>
+  <p>Se não desejar que seus dados sejam usados para as finalidades adicionais, escreva para <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a> a qualquer momento. Sua recusa não afetará o serviço solicitado.</p>
+
+  <h2><span>04</span>Com quem compartilhamos seus dados</h2>
+  <p>Não vendemos nem cedemos seus dados pessoais. Para operar o serviço contamos com fornecedores que os tratam apenas em nome da Oberon e sob suas instruções:</p>
+  <ul>
+    <li><b>Google</b> (Google Sheets / Apps Script): registro e armazenamento das solicitações.</li>
+    <li><b>Resend</b>: envio de e-mails de confirmação.</li>
+    <li><b>Microsoft</b> (Microsoft 365): e-mail e agendamento.</li>
+    <li><b>GitHub</b>: hospedagem do site.</li>
+  </ul>
+  <p>Alguns desses fornecedores armazenam informações em servidores fora do México, principalmente nos Estados Unidos. Só compartilharíamos seus dados com outros terceiros quando exigido por autoridade competente nos termos da lei.</p>
+
+  <h2><span>05</span>Por quanto tempo os guardamos</h2>
+  <p>Guardamos seus dados pelo tempo necessário para cumprir as finalidades descritas e, no máximo, por <b>24 meses</b> a partir da sua última interação com a Oberon, salvo relação comercial vigente ou obrigação legal que exija mantê-los por mais tempo. Depois disso, são excluídos.</p>
+
+  <h2><span>06</span>Seus direitos e revogação do consentimento</h2>
+  <p>Você tem direito de <b>acessar</b>, <b>retificar</b> e <b>cancelar</b> seus dados ou <b>se opor</b> ao seu uso, bem como de <b>revogar</b> o consentimento concedido e limitar seu uso ou divulgação.</p>
+  <p>Para exercê-los, envie um e-mail para <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a> com: seu nome e e-mail de contato; cópia de um documento oficial de identidade (ou da representação legal, se for o caso); descrição clara do direito que deseja exercer e dos dados envolvidos; e, se tiver, o protocolo da sua solicitação.</p>
+  <p>Responderemos dentro dos prazos estabelecidos pela lei. Se considerar que seu pedido não foi atendido, você pode recorrer à autoridade competente em proteção de dados pessoais no México.</p>
+
+  <h2><span>07</span>Cookies e tecnologias semelhantes</h2>
+  <p>Este site <b>não utiliza cookies de rastreamento nem de publicidade</b>. A ferramenta de diagnóstico salva seu preenchimento no armazenamento local do seu próprio navegador para que você não perca o progresso; você pode apagá-lo com o botão “Limpar” ou nas configurações do navegador. O site carrega fontes do Google Fonts, o que faz seu navegador se conectar a servidores do Google.</p>
+
+  <h2><span>08</span>Alterações neste aviso</h2>
+  <p>Podemos atualizar este aviso por mudanças legais ou nos nossos serviços. A versão vigente estará sempre publicada em <a href="https://www.oberontd.com/privacidad">oberontd.com/privacidad</a>, com a data de atualização.</p>
+
+  <div class="pv-upd">Última atualização: 3 de novembro de 2026</div>
+</div>
+
+</div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom" style="margin-top:0">
+      <span>© <span class="year"></span> Oberon Consultores en Transformación Digital e IA S.A.S.</span>
+      <a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const T = {
+    es:{ label:'Legal', h1:'Aviso de <em>privacidad</em>', sub:'Qué datos personales tratamos, para qué los usamos y cómo puedes ejercer tus derechos.' },
+    en:{ label:'Legal', h1:'Privacy <em>notice</em>', sub:'What personal data we process, what we use it for and how you can exercise your rights.' },
+    pt:{ label:'Legal', h1:'Aviso de <em>privacidade</em>', sub:'Quais dados pessoais tratamos, para que os usamos e como você pode exercer seus direitos.' },
+  };
+  const set = (l) => {
+    if (!T[l]) l = 'es';
+    document.documentElement.lang = l === 'pt' ? 'pt-BR' : l;
+    document.querySelectorAll('[data-t]').forEach((el) => { el.innerHTML = T[l][el.dataset.t]; });
+    document.querySelectorAll('[data-l]').forEach((el) => el.classList.toggle('on', el.dataset.l === l));
+    document.querySelectorAll('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lang === l));
+  };
+  document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => set(b.dataset.lang)));
+  set(new URLSearchParams(location.search).get('lang') || 'es');
+})();
+</script>
+<script src="assets/oberon.js" defer></script>
+</body>
+</html>
