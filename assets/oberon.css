@@ -408,6 +408,12 @@ footer{border-top:1px solid var(--line);background:rgba(7,10,30,.78);padding:cla
 }
 
 /* ---------- responsive ---------- */
+/* Con 5 opciones en el menú, el botón de agenda ya no cabe en una línea abajo de ~1180px: ahí pasa a la hamburguesa */
+.nav-links a,.nav-cta{white-space:nowrap;}
+@media (max-width:1180px){
+  .nav-links,.nav .nav-cta{display:none;}
+  .burger{display:block;}
+}
 @media (max-width:1060px){
   .nav-links,.nav .nav-cta{display:none;}
   .burger{display:block;}
