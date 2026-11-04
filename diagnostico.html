@@ -193,6 +193,32 @@ select.dx-in option{background:#0A0F2C;color:var(--text);}
   .dx-kpis,.dx-locks{grid-template-columns:1fr;}
   .dx-pf{grid-template-columns:1fr;}
 }
+/* Pop-up: cómo medir el tiempo + calculadora de promedio */
+.dx-f label .dx-how{border:0;background:none;padding:0;margin-left:6px;font:inherit;font-family:var(--sans);font-size:.72rem;letter-spacing:0;text-transform:none;color:var(--gold-2);border-bottom:1px dashed rgba(240,213,160,.55);cursor:pointer;}
+.dx-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(4,6,18,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+.dx-modal.on{display:flex;}
+.dx-mbox{width:100%;max-width:680px;max-height:calc(100vh - 32px);overflow:auto;background:#0E1438;border:1px solid var(--line-2);border-radius:20px;padding:clamp(20px,3vw,32px);box-shadow:0 30px 80px -20px rgba(0,0,0,.7);}
+.dx-mhead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;}
+.dx-mhead h2{font-size:clamp(1.3rem,2.6vw,1.7rem);}
+.dx-x{flex:none;width:38px;height:38px;border-radius:10px;border:1px solid var(--line-2);background:transparent;color:var(--text-2);cursor:pointer;font-size:1.1rem;}
+.dx-x:hover{color:var(--gold-2);border-color:var(--gold);}
+.dx-mbox p,.dx-mbox li{color:var(--text-2);font-size:.92rem;line-height:1.6;}
+.dx-mbox b{color:var(--text);font-weight:600;}
+.dx-mbox ol{margin:14px 0 0;padding-left:22px;list-style:decimal;display:grid;gap:8px;}
+.dx-mbox ol li::marker{color:var(--gold);font-family:var(--mono);font-size:.8rem;}
+.dx-rr{margin-top:16px;padding:12px 14px;border-radius:12px;border-left:3px solid var(--gold);background:rgba(212,175,106,.08);}
+.dx-exm{margin-top:12px;padding:12px 14px;border-radius:12px;background:rgba(191,224,245,.05);border:1px solid var(--line);}
+.dx-calc{margin-top:20px;padding-top:18px;border-top:1px dashed var(--line-2);}
+.dx-calc h3{font-size:1.1rem;margin-bottom:10px;}
+.dx-calc textarea{min-height:76px;resize:vertical;line-height:1.5;}
+.dx-cres{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;}
+.dx-cres div{border:1px solid var(--line);border-radius:12px;padding:10px 12px;}
+.dx-cres small{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);}
+.dx-cres b{display:block;font-family:var(--serif);font-weight:400;font-size:1.25rem;margin-top:4px;}
+.dx-cmsg{margin-top:10px;font-size:.84rem;color:var(--text-2);min-height:1.2em;}
+.dx-cmsg.warn{color:#F0C46A;}
+.dx-cmsg.ok{color:#8FD9B6;}
+@media (max-width:640px){.dx-cres{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
@@ -210,6 +236,7 @@ select.dx-in option{background:#0A0F2C;color:var(--text);}
       <a href="/soluciones" data-i="navSol"></a>
       <a href="/#metodo" data-i="navMet"></a>
       <a href="/diagnostico" aria-current="page" data-i="navDx"></a>
+      <a href="/blog" data-i="navBlog"></a>
       <a href="/contacto" data-i="navContact"></a>
     </nav>
     <a class="btn btn-primary nav-cta" href="https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled" target="_blank" rel="noopener" data-i="navCta"></a>
@@ -221,7 +248,8 @@ select.dx-in option{background:#0A0F2C;color:var(--text);}
   <a class="m-link" href="/soluciones"><b data-i="navSol" style="font-weight:400"></b><span>02</span></a>
   <a class="m-link" href="/#metodo"><b data-i="navMet" style="font-weight:400"></b><span>03</span></a>
   <a class="m-link" href="/diagnostico" aria-current="page"><b data-i="navDx" style="font-weight:400"></b><span>04</span></a>
-  <a class="m-link" href="/contacto"><b data-i="navContact" style="font-weight:400"></b><span>05</span></a>
+  <a class="m-link" href="/blog"><b data-i="navBlog" style="font-weight:400"></b><span>05</span></a>
+  <a class="m-link" href="/contacto"><b data-i="navContact" style="font-weight:400"></b><span>06</span></a>
   <a class="btn btn-primary" href="https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled" target="_blank" rel="noopener" data-i="navCta"></a>
 </div>
 
@@ -245,6 +273,7 @@ select.dx-in option{background:#0A0F2C;color:var(--text);}
   <div class="wrap dx" id="dx"></div>
 </section>
 </main>
+<div class="dx-modal" id="howModal" role="dialog" aria-modal="true" aria-labelledby="howTitle"><div class="dx-mbox" id="howBox"></div></div>
 
 <footer>
   <div class="wrap">
@@ -325,7 +354,7 @@ function procCard(p) {
       <input class="dx-in" ${pa('name')} placeholder="${esc(t('pNamePh'))}" aria-label="${esc(t('pName'))}" value="${esc(p.name)}" maxlength="80">
     </div>
     <div class="dx-pf">
-      <div class="dx-f"><label>${esc(t('pTime'))}</label><div class="dx-pair"><input class="dx-in" type="number" min="0" step="any" inputmode="decimal" ${pa('time')} value="${esc(p.time)}">${sel(pa('unit'), [['min','min'],['h','h']], p.unit)}</div></div>
+      <div class="dx-f"><label>${esc(t('pTime'))} <button type="button" class="dx-how" data-act="howto">${esc(t('howLink'))}</button></label><div class="dx-pair"><input class="dx-in" type="number" min="0" step="any" inputmode="decimal" ${pa('time')} value="${esc(p.time)}">${sel(pa('unit'), [['min','min'],['h','h']], p.unit)}</div></div>
       <div class="dx-f"><label>${esc(t('pQty'))}</label><input class="dx-in" type="number" min="1" step="1" inputmode="numeric" ${pa('qty')} value="${esc(p.qty)}"><div class="dx-hint">${esc(t('pQtyH'))}</div></div>
       <div class="dx-f"><label>${esc(t('pFreq'))}</label>${sel(pa('freq') + ' data-rerender', FREQS.map((f) => [f, t('f' + f)]), p.freq)}</div>
       <div class="dx-f"><label>${esc(t('pSteps'))}</label><input class="dx-in" type="number" min="0" step="1" inputmode="numeric" ${pa('steps')} value="${esc(p.steps)}"><div class="dx-hint">${esc(t('pStepsH'))}</div></div>
@@ -563,6 +592,52 @@ function loadExample() {
   ];
 }
 
+/* ---------------- Pop-up: cómo medir el tiempo ---------------- */
+const $how = document.getElementById('howModal'), $howBox = document.getElementById('howBox');
+let howReturn = null;
+// Acepta minutos (6.5 o 6,5) o mm:ss (6:30); devuelve minutos o null
+const parseTime = (x) => { x = x.trim(); if (!x) return null; const m = x.match(/^(\d+):(\d{1,2})$/); if (m) return +m[1] + +m[2] / 60; const n = parseFloat(x.replace(',', '.')); return isFinite(n) && n > 0 ? n : null; };
+const mmss = (min) => { const s = Math.round(min * 60); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+function calcHow() {
+  const raw = document.getElementById('calcIn').value.split(/[\n;]+|,\s+|\s+|,(?=\d+:)/); // "6,5" sin espacio = decimal; "6, 7" o "5:40,6:10" = dos mediciones
+  const v = raw.map(parseTime).filter((x) => x != null);
+  const out = document.getElementById('calcOut'), msg = document.getElementById('calcMsg'), use = document.getElementById('calcUse');
+  if (!v.length) { out.innerHTML = ''; msg.textContent = ''; msg.className = 'dx-cmsg'; use.disabled = true; return; }
+  const avg = v.reduce((a, b) => a + b, 0) / v.length;
+  const sd = Math.sqrt(v.reduce((a, b) => a + (b - avg) ** 2, 0) / (v.length > 1 ? v.length - 1 : 1));
+  const cv = avg ? sd / avg : 0;
+  out.innerHTML = `<div><small>${esc(t('calcN'))}</small><b>${v.length}</b></div><div><small>${esc(t('calcAvg'))}</small><b>${mmss(avg)}</b></div><div><small>${esc(t('calcRange'))}</small><b>${mmss(Math.min(...v))} · ${mmss(Math.max(...v))}</b></div><div><small>${esc(t('calcVar'))}</small><b>${v.length > 1 ? pct(cv) : '—'}</b></div>`;
+  const few = v.length < 5, high = v.length > 1 && cv > 0.25;
+  msg.textContent = few ? t('calcFew') : high ? t('calcHigh') : t('calcOk');
+  msg.className = 'dx-cmsg ' + (few || high ? 'warn' : 'ok');
+  use.disabled = false; use.dataset.min = (Math.round(avg * 10) / 10).toString();
+}
+function openHow() {
+  howReturn = document.activeElement;
+  $howBox.innerHTML = `
+    <div class="dx-mhead"><h2 id="howTitle">${esc(t('howTitle'))}</h2><button type="button" class="dx-x" data-how="close" aria-label="${esc(t('howClose'))}">✕</button></div>
+    <p style="margin-top:10px">${esc(t('howIntro'))}</p>
+    <ol>${t('howSteps').map((x) => `<li>${x}</li>`).join('')}</ol>
+    <div class="dx-rr"><p>${t('howRR')}</p></div>
+    <div class="dx-exm"><p>${t('howEx')}</p></div>
+    <div class="dx-calc"><h3>${esc(t('calcTitle'))}</h3>
+      <textarea class="dx-in" id="calcIn" placeholder="${esc(t('calcPh'))}" aria-label="${esc(t('calcTitle'))}"></textarea>
+      <div class="dx-cres" id="calcOut"></div><div class="dx-cmsg" id="calcMsg" role="status"></div>
+      <div class="dx-actions"><button type="button" class="btn btn-primary dx-btn-s" id="calcUse" data-how="use" disabled>${esc(t('calcUse'))}</button><button type="button" class="btn btn-ghost dx-btn-s" data-how="close">${esc(t('howClose'))}</button></div>
+    </div>`;
+  $how.classList.add('on'); document.body.style.overflow = 'hidden';
+  document.getElementById('calcIn').addEventListener('input', calcHow);
+  $howBox.querySelector('.dx-x').focus();
+}
+function closeHow() { $how.classList.remove('on'); document.body.style.overflow = ''; if (howReturn && howReturn.isConnected) howReturn.focus(); }
+$how.addEventListener('click', (e) => {
+  if (e.target === $how) return closeHow();
+  const b = e.target.closest('[data-how]'); if (!b) return;
+  if (b.dataset.how === 'use') { S.draft.time = b.dataset.min; S.draft.unit = 'min'; save(); renderEditor(); update(); closeHow(); const f = document.querySelector('#editor [data-f="time"]'); if (f) f.focus(); return; }
+  closeHow();
+});
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && $how.classList.contains('on')) closeHow(); });
+
 /* ---------------- Eventos ---------------- */
 document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => { S.lang = b.dataset.lang; save(); render(); }));
 
@@ -623,6 +698,7 @@ $dx.addEventListener('click', (e) => {
   else if (act === 'cancel') { S.draft = blankProc(); S.editing = null; save(); renderEditor(); update(); }
   else if (act === 'decoder') downloadDecoder();
   else if (act === 'example') { loadExample(); S.draft = blankProc(); S.editing = null; save(); render(); }
+  else if (act === 'howto') openHow();
   else if (act === 'clear') { const l = S.lang; S = defaults(); S.lang = l; sent = null; save(); render(); }
   else if (act === 'again') { sent = null; renderReq(); }
 });
