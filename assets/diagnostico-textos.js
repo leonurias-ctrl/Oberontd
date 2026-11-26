@@ -2,7 +2,7 @@
 window.DX_TEXT = {
 es: {
   brandSub:'Consultores en Transformación Digital e Inteligencia Artificial',
-  navHome:'Inicio', navSol:'Soluciones', navMet:'Metodología', navDx:'Diagnóstico', navBlog:'Blog', navContact:'Contacto', navCta:'Agenda una auditoría',
+  navHome:'Inicio', navSrv:'Servicios', navSol:'Soluciones', navMet:'Metodología', navDx:'Diagnóstico', navBlog:'Blog', navContact:'Contacto', navCta:'Agenda una auditoría',
   heroLabel:'Herramienta gratuita',
   heroTitle:'Diagnóstico de <em>Capacidad Operativa</em>',
   whatTitle:'¿Qué es el Diagnóstico de Capacidad Operativa?',
@@ -106,7 +106,7 @@ es: {
 },
 en: {
   brandSub:'Digital Transformation and Artificial Intelligence Consultants',
-  navHome:'Home', navSol:'Solutions', navMet:'Methodology', navDx:'Assessment', navBlog:'Blog', navContact:'Contact', navCta:'Book an audit',
+  navHome:'Home', navSrv:'Services', navSol:'Solutions', navMet:'Methodology', navDx:'Assessment', navBlog:'Blog', navContact:'Contact', navCta:'Book an audit',
   heroLabel:'Free tool',
   heroTitle:'Operational <em>Capacity Assessment</em>',
   whatTitle:'What is the Operational Capacity Assessment?',
@@ -210,7 +210,7 @@ en: {
 },
 pt: {
   brandSub:'Consultores em Transformação Digital e Inteligência Artificial',
-  navHome:'Início', navSol:'Soluções', navMet:'Metodologia', navDx:'Diagnóstico', navBlog:'Blog', navContact:'Contato', navCta:'Agende uma auditoria',
+  navHome:'Início', navSrv:'Serviços', navSol:'Soluções', navMet:'Metodologia', navDx:'Diagnóstico', navBlog:'Blog', navContact:'Contato', navCta:'Agende uma auditoria',
   heroLabel:'Ferramenta gratuita',
   heroTitle:'Diagnóstico de <em>Capacidade Operacional</em>',
   whatTitle:'O que é o Diagnóstico de Capacidade Operacional?',

@@ -283,6 +283,7 @@ main,footer{position:relative;z-index:1;}
 .client{display:flex;flex-direction:column;}
 .client-logo{width:100%;height:auto;max-width:220px;aspect-ratio:1/1;border-radius:18px;background:#fff;object-fit:contain;padding:10px;margin:8px 0 22px;}
 .client p{color:var(--text-2);font-size:.95rem;}
+.client p a{color:var(--gold-2);border-bottom:1px solid rgba(240,213,160,.35);}
 
 /* ---------- banda CTA ---------- */
 .cta-band{
@@ -317,6 +318,17 @@ main,footer{position:relative;z-index:1;}
 .check li{position:relative;padding-left:32px;color:var(--text-2);font-size:.97rem;}
 .check li::before{content:'';position:absolute;left:0;top:3px;width:20px;height:20px;border-radius:50%;background:rgba(212,175,106,.16);}
 .check li::after{content:'';position:absolute;left:7px;top:7px;width:6px;height:10px;border:solid var(--gold-2);border-width:0 1.6px 1.6px 0;transform:rotate(45deg);}
+.prod-name{display:flex;align-items:center;gap:14px;}
+.prod-name img{width:48px;height:48px;border-radius:12px;flex:none;}
+.prod-origin{margin-top:22px;color:var(--text-2);font-size:.95rem;}
+.prod-origin b{color:var(--text);}
+.prod-origin a{color:var(--gold-2);border-bottom:1px solid rgba(240,213,160,.35);}
+.prod-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;}
+a.art.photo{display:block;}
+.proj{margin-top:14px;display:grid;gap:10px;}
+.proj li{padding:12px 16px;border:1px solid var(--line);border-left:2px solid var(--gold);border-radius:12px;background:rgba(255,255,255,.03);color:var(--text-2);font-size:.95rem;line-height:1.55;}
+.proj b{color:var(--text);font-weight:600;}
+.proj a{color:var(--gold-2);border-bottom:1px solid rgba(240,213,160,.35);}
 .tag{display:inline-block;margin-left:8px;vertical-align:middle;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--ice);border:1px solid rgba(191,224,245,.3);padding:3px 9px;border-radius:999px;}
 
 /* ---------- contacto ---------- */
@@ -408,9 +420,9 @@ footer{border-top:1px solid var(--line);background:rgba(7,10,30,.78);padding:cla
 }
 
 /* ---------- responsive ---------- */
-/* Con 5 opciones en el menú, el botón de agenda ya no cabe en una línea abajo de ~1180px: ahí pasa a la hamburguesa */
+/* Con 7 opciones en el menú, el botón de agenda ya no cabe en una línea abajo de ~1300px: ahí pasa a la hamburguesa */
 .nav-links a,.nav-cta{white-space:nowrap;}
-@media (max-width:1180px){
+@media (max-width:1300px){
   .nav-links,.nav .nav-cta{display:none;}
   .burger{display:block;}
 }
