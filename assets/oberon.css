@@ -284,6 +284,9 @@ main,footer{position:relative;z-index:1;}
 .client-logo{width:100%;height:auto;max-width:220px;aspect-ratio:1/1;border-radius:18px;background:#fff;object-fit:contain;padding:10px;margin:8px 0 22px;}
 .client p{color:var(--text-2);font-size:.95rem;}
 .client p a{color:var(--gold-2);border-bottom:1px solid rgba(240,213,160,.35);}
+.client-site{display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--gold-2);font-weight:600;font-size:.92rem;}
+.client-site svg{width:16px;height:16px;}
+.client-site:hover{color:var(--text);}
 
 /* ---------- banda CTA ---------- */
 .cta-band{
