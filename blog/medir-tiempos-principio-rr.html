@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cómo medir el tiempo de una actividad: el principio R&amp;R | Oberon</title>
+<meta name="description" content="Una sola medición de tiempo engaña. Cómo usar la repetibilidad y la reproducibilidad (R&amp;R) para obtener tiempos confiables y descubrir procesos que no están estandarizados.">
+<meta name="theme-color" content="#0A0F2C">
+<link rel="canonical" href="https://www.oberontd.com/blog/medir-tiempos-principio-rr">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Oberon">
+<meta property="og:title" content="Cómo medir el tiempo de una actividad: el principio R&amp;R">
+<meta property="og:description" content="Si dos personas tardan muy distinto en lo mismo, el problema casi nunca es la persona: es el proceso.">
+<meta property="og:url" content="https://www.oberontd.com/blog/medir-tiempos-principio-rr">
+<meta property="og:locale" content="es_MX">
+<meta property="og:image" content="https://www.oberontd.com/img/blog/rr-og.jpg">
+<meta property="article:published_time" content="2026-11-25">
+<meta property="article:author" content="León Urías">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/img/icon/favicon-48.png">
+<link rel="apple-touch-icon" href="/img/icon/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/oberon.css">
+<link rel="stylesheet" href="/assets/blog.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BlogPosting",
+ "headline": "Cómo medir el tiempo de una actividad: el principio R&R",
+ "description": "Una sola medición de tiempo engaña. Cómo usar la repetibilidad y la reproducibilidad (R&R) para obtener tiempos confiables y descubrir procesos que no están estandarizados.",
+ "datePublished": "2026-11-25",
+ "dateModified": "2026-11-25",
+ "inLanguage": "es-MX",
+ "mainEntityOfPage": "https://www.oberontd.com/blog/medir-tiempos-principio-rr",
+ "image": "https://www.oberontd.com/img/blog/rr-og.jpg",
+ "author": {"@type": "Person", "name": "León Urías"},
+ "publisher": {"@type": "Organization", "@id": "https://www.oberontd.com/#organizacion", "name": "Oberon Consultores en Transformación Digital e IA", "logo": {"@type": "ImageObject", "url": "https://www.oberontd.com/img/icon/icon-512.png"}}
+}
+</script>
+</head>
+<body>
+<canvas id="net" aria-hidden="true"></canvas>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="/" class="brand" aria-label="Oberon — inicio">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M25 6C17 6 11 13 11 21c0 8.5 6.7 15.4 15.2 15.9C22.7 39 18 38 15 33.8c-3.6-5-3.4-12.4.6-17.2C19.4 12.4 24.6 10 30 10.8 28.6 8 26.9 6.7 25 6Z" fill="#D4AF6A"/><circle cx="8" cy="24" r="1.6" fill="#F4F2EC"/><circle cx="14" cy="15" r="1.1" fill="#F4F2EC"/><circle cx="6" cy="16" r="1" fill="#F4F2EC"/><circle cx="18" cy="9" r="1.3" fill="#F4F2EC"/><circle cx="10" cy="30" r="1.2" fill="#F4F2EC"/></svg>
+      <span class="brand-name">OBERON<span class="brand-sub">Consultores en Transformación Digital e Inteligencia Artificial</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="/">Inicio</a>
+      <a href="/soluciones">Soluciones</a>
+      <a href="/#metodo">Metodología</a>
+      <a href="/diagnostico">Diagnóstico</a>
+      <a href="/blog/" aria-current="page">Blog</a>
+      <a href="/contacto">Contacto</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled" target="_blank" rel="noopener">Agenda una auditoría</a>
+    <button class="burger" id="burger" type="button" aria-controls="mPanel" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="m-panel" id="mPanel" aria-hidden="true">
+  <a class="m-link" href="/">Inicio<span>01</span></a>
+  <a class="m-link" href="/soluciones">Soluciones<span>02</span></a>
+  <a class="m-link" href="/#metodo">Metodología<span>03</span></a>
+  <a class="m-link" href="/diagnostico">Diagnóstico<span>04</span></a>
+  <a class="m-link" href="/blog/" aria-current="page">Blog<span>05</span></a>
+  <a class="m-link" href="/contacto">Contacto<span>06</span></a>
+  <a class="btn btn-primary" href="https://outlook.office.com/book/OberonConsultoresenTransformacinDigital1@oberontd.com/?ismsaljsauthenabled" target="_blank" rel="noopener">Agenda una Auditoría de Procesos</a>
+</div>
+
+<main id="main">
+<header class="post-hero">
+  <div class="wrap">
+    <a class="label" href="/blog/">Blog · Mejora de procesos</a>
+    <h1>Cómo medir el tiempo de una actividad: el principio <em>R&amp;R</em></h1>
+    <div class="post-meta"><span>Por <b>León Urías</b></span><span>25 de noviembre de 2026</span><span>Lectura de 6 min</span></div>
+  </div>
+</header>
+
+<article class="post">
+<figure class="post-fig post-cover"><img src="/img/blog/rr-hero-1600.webp" srcset="/img/blog/rr-hero-960.webp 960w, /img/blog/rr-hero-1600.webp 1600w" sizes="(max-width:900px) 100vw, 860px" width="1600" height="900" alt="Ilustración: dos dianas. En la primera, las mediciones de una persona caen juntas en el centro; en la segunda, las mediciones de tres personas también caen juntas" fetchpriority="high" decoding="async"></figure>
+<div class="post-body">
+
+<p class="lead">Casi todas las decisiones sobre la capacidad de un equipo se apoyan en un dato: cuánto tarda una actividad. Si ese dato sale de una sola medición, o de «más o menos lo que tardamos», todo lo que se calcule después hereda el error. El principio R&amp;R es una forma sencilla de saber si un tiempo es confiable.</p>
+
+<h2>Un minuto de error no es un minuto</h2>
+<p>Supongamos que en tu equipo se registran 25 facturas de proveedor al día. Si el tiempo que usas para planear está equivocado por un solo minuto, el error es de 25 minutos al día y de <b>más de 9 horas al mes</b> (22 días hábiles). Es más de una jornada completa de una persona que aparece o desaparece del cálculo.</p>
+<p>Por eso, antes de decidir si hace falta contratar, automatizar o redistribuir la carga, conviene asegurarse de que los tiempos con los que se hizo la cuenta representan el trabajo real.</p>
+
+<h2>Qué es R&amp;R</h2>
+<p>R&amp;R viene del control de calidad en manufactura, donde se usa para saber si un instrumento de medición es confiable antes de tomar decisiones con él. Las dos «R» son:</p>
+<div class="vs">
+  <div class="yes"><h3>Repetibilidad</h3><ul><li>La <b>misma persona</b>, haciendo la misma actividad, obtiene tiempos parecidos cada vez.</li><li>Si no los obtiene, la actividad cambia de una vez a otra: interrupciones, casos distintos o pasos que no siempre se hacen.</li></ul></div>
+  <div class="no"><h3>Reproducibilidad</h3><ul><li><b>Personas distintas</b>, haciendo la misma actividad, obtienen tiempos parecidos entre sí.</li><li>Si no los obtienen, cada quien la hace a su manera: no hay un método estándar.</li></ul></div>
+</div>
+<p>En una oficina no medimos piezas con un calibrador: medimos actividades con un cronómetro. Pero la pregunta es la misma: <b>¿el número que obtuve describe el proceso o solo describe ese momento?</b></p>
+
+<h2>Cómo medir en 5 pasos</h2>
+<ol>
+  <li><b>Define dónde empieza y dónde termina.</b> Por ejemplo, de «abro el correo con la factura» a «la factura queda registrada en el ERP». Si cada medición empieza y termina en un punto distinto, la variación viene de la regla, no del proceso.</li>
+  <li><b>Mide el trabajo, no las esperas.</b> Si la actividad se detiene esperando una aprobación o una respuesta, pausa el cronómetro. Las esperas importan, pero se miden aparte.</li>
+  <li><b>Reparte las mediciones.</b> Mide con distintas personas que hagan la actividad, en distintos horarios (mañana y tarde) y en distintos días del mes (inicio, mitad y cierre). Si la actividad se repite mucho, procura al menos 10 mediciones; con menos de 5 el promedio todavía es frágil.</li>
+  <li><b>Separa lo atípico.</b> Una caída del sistema o una llamada a mitad de la captura no representa el trabajo normal. Anótala aparte: si se repite, puede ser retrabajo o un problema que vale la pena resolver.</li>
+  <li><b>Revisa la variación antes de usar el promedio.</b> Calcula el promedio y qué tanto se alejan las mediciones de él, primero por persona y luego en conjunto. Como referencia práctica, si la variación pasa de 25 %, mide más o revisa si todos hacen la actividad igual.</li>
+</ol>
+<p class="post-note">La variación que usamos es el coeficiente de variación: la desviación estándar de las mediciones dividida entre su promedio. Una hoja de cálculo lo obtiene con =DESVEST(rango)/PROMEDIO(rango).</p>
+
+<h2>Un ejemplo: registrar una factura</h2>
+<p>Un equipo de cuentas por pagar mide el registro de facturas de proveedor. Tres personas, cuatro mediciones cada una, en distintos días y horarios:</p>
+<div class="tbl-wrap">
+<table class="post-table">
+  <thead><tr><th>Persona</th><th>Mediciones (min:seg)</th><th>Promedio</th><th>Variación</th></tr></thead>
+  <tbody>
+    <tr><td>Ana</td><td>5:40 · 5:55 · 6:10 · 6:00</td><td>5:56</td><td>4 %</td></tr>
+    <tr><td>Luis</td><td>6:05 · 6:30 · 6:20 · 6:15</td><td>6:17</td><td>3 %</td></tr>
+    <tr class="now"><td>Marta</td><td>8:30 · 6:00 · 9:50 · 5:40</td><td>7:30</td><td>27 %</td></tr>
+    <tr><td>Todas</td><td>12 mediciones</td><td>6:35</td><td>19 %</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Si solo vemos la última fila, el resultado parece aceptable: 6 minutos 35 segundos con una variación de 19 %. Pero al separar por persona aparece otra historia.</p>
+<figure class="post-fig"><img src="/img/blog/rr-ejemplo-1600.webp" srcset="/img/blog/rr-ejemplo-960.webp 960w, /img/blog/rr-ejemplo-1600.webp 1600w" sizes="(max-width:900px) 100vw, 860px" width="1600" height="760" alt="Gráfica de puntos: las mediciones de Ana y Luis quedan juntas cerca de 6 minutos; las de Marta van de 5:40 a 9:50. La línea del promedio general queda en 6:35" loading="lazy" decoding="async"><figcaption>Ana y Luis son repetibles y reproducibles entre sí. Marta no es repetible: sus tiempos van de 5:40 a 9:50.</figcaption></figure>
+<ul>
+  <li><b>Ana y Luis</b> son repetibles (variación de 3 a 4 %) y reproducibles entre sí: sus promedios están a 21 segundos de distancia.</li>
+  <li><b>Marta</b> no es repetible. Al preguntarle, la razón salió en cinco minutos: a ella le llegan las facturas de los proveedores que todavía mandan PDF en lugar de XML, y las captura a mano. Cuando le toca una con XML, tarda lo mismo que sus compañeros.</li>
+</ul>
+<p>El hallazgo no era «Marta es lenta». Era que <b>no había una actividad, sino dos</b>: registrar una factura con XML (alrededor de 6 minutos) y capturar a mano una factura en PDF (cerca de 9). Cada una debe medirse y planearse por separado, y la segunda es candidata clara para automatizar con lectura de documentos.</p>
+<p>Si el equipo hubiera usado el promedio general para planear, habría subestimado la carga de las facturas en PDF y sobrestimado la de las facturas con XML, sin ver nunca la oportunidad de mejora.</p>
+
+<div class="callout"><p>Cuando dos personas tardan muy distinto en lo mismo, el problema casi nunca es la persona: casi siempre es el proceso, la información que recibe o la herramienta que usa.</p></div>
+
+<h2>Errores comunes al medir tiempos</h2>
+<ul>
+  <li><b>Medir solo a la persona más rápida.</b> El tiempo sale bonito, pero no representa al equipo, y la carga calculada queda corta.</li>
+  <li><b>Medir una sola vez.</b> Una medición es una anécdota. Con varias ya se puede hablar de un tiempo.</li>
+  <li><b>Medir solo en días tranquilos.</b> El cierre de mes, el lunes por la mañana y la temporada alta también son parte del trabajo.</li>
+  <li><b>Medir sin explicar para qué.</b> Si el equipo siente que lo están evaluando, acelera mientras lo miran y el tiempo deja de ser real. Explica que se mide el proceso, no a las personas, y comparte los resultados.</li>
+  <li><b>Esconder la variación.</b> Reportar solo el promedio borra justo la información que dice dónde está el problema.</li>
+</ul>
+
+<h2>Qué hacer cuando no hay R&amp;R</h2>
+<ul>
+  <li><b>Pregunta antes de concluir.</b> Casi siempre hay una razón concreta: casos distintos, información incompleta, una herramienta lenta o un paso que solo algunos hacen.</li>
+  <li><b>Separa actividades</b> cuando en realidad son dos, como en el ejemplo de las facturas.</li>
+  <li><b>Estandariza y documenta</b> el método de quien obtiene buenos resultados de forma consistente, y capacita al resto con él.</li>
+  <li><b>Vuelve a medir</b> después del cambio. Si la variación bajó, ya tienes un tiempo confiable y, de paso, un proceso más estable.</li>
+</ul>
+
+<div class="post-cta">
+  <h2>Mide tus tiempos y calcula tu capacidad</h2>
+  <p>El Diagnóstico de Capacidad Operativa de Oberon incluye una calculadora de tiempos: escribes tus mediciones y te da el promedio, el rango y la variación, y te avisa si conviene medir más. Con esos tiempos calcula la capacidad real de tu equipo, los picos por semana y por día, y qué parte de la carga se puede automatizar. Es gratis.</p>
+  <a class="btn btn-primary" href="/diagnostico">Hacer el diagnóstico gratis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+</div>
+
+<p class="post-related">Si todavía no lo lees, empieza por <a href="/blog/capacidad-equipos-jornada-40-horas">por qué medir la capacidad de tu equipo antes de la jornada de 40 horas</a>.</p>
+
+<div class="post-sources">
+  <h2>Fuentes</h2>
+  <ul>
+    <li><a href="https://www.itl.nist.gov/div898/handbook/mpc/section4/mpc4.htm" target="_blank" rel="noopener">NIST/SEMATECH e-Handbook of Statistical Methods: 2.4 Gauge R &amp; R studies</a></li>
+    <li><a href="https://www.aiag.org/quality/automotive-core-tools/msa" target="_blank" rel="noopener">AIAG: Measurement Systems Analysis (MSA), manual de referencia de análisis de sistemas de medición</a></li>
+    <li>Organización Internacional del Trabajo: <i>Introducción al estudio del trabajo</i>, G. Kanawaty (dir.), 4.ª edición.</li>
+  </ul>
+</div>
+
+</div>
+</article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img class="foot-logo" src="/img/oberon-logo.webp" alt="Oberon — Consultores en Transformación Digital e Inteligencia Artificial" width="1000" height="310" loading="lazy" decoding="async">
+        <p>Evolución operativa a través de la Inteligencia Artificial y la arquitectura de procesos.</p>
+      </div>
+      <div>
+        <h4>Sitio</h4>
+        <ul><li><a href="/">Inicio</a></li><li><a href="/soluciones">Soluciones</a></li><li><a href="/#metodo">Metodología</a></li><li><a href="/diagnostico">Diagnóstico</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contacto">Contacto</a></li></ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul><li><a href="mailto:lurias@oberontd.com">lurias@oberontd.com</a></li><li><a href="tel:+523330153089">33-3015-3089</a></li><li><a href="https://www.linkedin.com/company/oberontd/" target="_blank" rel="noopener">LinkedIn</a></li><li>Zapopan, Jalisco, México</li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span class="year"></span> Oberon Consultores en Transformación Digital e IA S.A.S.</span>
+      <span><a href="/privacidad">Aviso de privacidad</a> · <a href="#main">Volver arriba ↑</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/oberon.js" defer></script>
+</body>
+</html>
