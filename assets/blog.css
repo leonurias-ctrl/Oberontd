@@ -87,3 +87,17 @@
   .ex-row{grid-template-columns:1fr 64px;}
   .ex-row .ex-bar{grid-column:1/-1;grid-row:2;}
 }
+
+/* Portada del blog: fecha, temas y guía */
+.blog-card .meta{font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:var(--text-3);}
+.page-hero p+p{margin-top:14px;font-size:1rem;}
+.blog-extra{padding-bottom:var(--section);}
+.blog-extra h2{font-size:clamp(1.6rem,3vw,2.2rem);}
+.blog-temas{display:grid;grid-template-columns:1fr;gap:20px;margin-top:24px;}
+@media (min-width:700px){.blog-temas{grid-template-columns:repeat(2,1fr);}}
+.blog-temas div{border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 24px;background:var(--card);}
+.blog-temas h3{font-size:1.12rem;color:var(--gold-2);}
+.blog-temas p{margin-top:8px;color:var(--text-2);font-size:.94rem;}
+.blog-start{margin-top:clamp(40px,6vw,64px);max-width:760px;}
+.blog-start p{margin-top:14px;color:var(--text-2);}
+.blog-start a{color:var(--gold-2);text-decoration:underline;text-underline-offset:3px;}
