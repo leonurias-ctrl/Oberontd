@@ -1,0 +1,24 @@
+# Oberon Consultores en Transformación Digital e IA
+
+> Consultoría con sede en Zapopan, zona metropolitana de Guadalajara, México, que rediseña y automatiza la operación de las empresas con Inteligencia Artificial, low-code y Lean Six Sigma. Atiende a empresas de México y de otros países, en persona o a distancia. Fundador: León Urías. Creadora de Oberlens, sistema para ópticas.
+
+La primera llamada con el equipo de Oberon no tiene costo: sirve para conocer el proceso o negocio, aclarar el alcance y presentar la propuesta de valor. Contacto: lurias@oberontd.com · +52 33 3015 3089 · https://www.linkedin.com/company/oberontd/
+
+## Servicios
+- [Servicios de consultoría](https://www.oberontd.com/servicios): hiperautomatización y rediseño de procesos, analítica avanzada y datos (Power BI), gestión del cambio y adopción de IA, gobernanza institucional y PMO.
+- [Metodología DMAIC (Lean Six Sigma)](https://www.oberontd.com/#metodo)
+
+## Herramientas y productos
+- [Diagnóstico de Capacidad Operativa](https://www.oberontd.com/diagnostico): herramienta gratuita (unos 10 minutos, sin registro, en español, inglés y portugués) que calcula la capacidad real de un equipo, su saturación, picos por semana y día, y qué parte de la carga se puede automatizar.
+- [Oberlens](https://www.oberontd.com/soluciones): sistema para ópticas con consultas clínicas, receta en PDF, citas en línea, punto de venta, laboratorio, inventario y finanzas por sucursal. Sitio propio: https://oberlens.com
+
+## Artículos
+- [Medir la capacidad de tu equipo: bienestar, registro de jornada y las 40 horas](https://www.oberontd.com/blog/capacidad-equipos-jornada-40-horas)
+- [Cómo medir el tiempo de una actividad: el principio R&R](https://www.oberontd.com/blog/medir-tiempos-principio-rr)
+
+## Preguntas frecuentes
+- [Preguntas frecuentes sobre servicios, diagnóstico de capacidad, jornada de 40 horas, Oberlens y cómo trabajamos](https://www.oberontd.com/#preguntas-frecuentes)
+
+## Opcional
+- [Contacto](https://www.oberontd.com/contacto)
+- [Aviso de privacidad](https://www.oberontd.com/privacidad)
